@@ -1,0 +1,18 @@
+html {
+    text-align: center;
+    font-family: sans-serif;
+}
+
+html, body {
+    margin: 0;
+}
+
+h1 {
+    background-color: lightblue;
+    margin: 0;
+    padding: 0.5em;
+}
+
+#map {
+    height: 450px;
+}
