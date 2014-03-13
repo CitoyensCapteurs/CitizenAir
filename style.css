@@ -14,6 +14,14 @@ h1 {
     padding: 0.5em;
 }
 
+a:link, a:visited, a:hover, a:active {
+    color: #662c90;
+}
+
 #map {
     height: 450px;
+}
+
+.leaflet-control-attribution {
+    background-color: lightgrey !important;
 }
