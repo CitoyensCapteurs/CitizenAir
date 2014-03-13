@@ -8,7 +8,8 @@ html, body {
 }
 
 h1 {
-    background-color: lightblue;
+    background-color: #662c90;
+    color: white;
     margin: 0;
     padding: 0.5em;
 }
