@@ -61,7 +61,7 @@ L.tileLayer(tiles_provider, {
 
 // Add data
 // ========
-var circle1 = L.circle([48.84874, 2.34211], 50, {
+var circle1 = L.circle([48.84874, 2.34211], 5, {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.75
@@ -69,14 +69,14 @@ var circle1 = L.circle([48.84874, 2.34211], 50, {
 
 circle1.bindPopup("Mesurée effectuée il y a 30 mins.<br/>Niveau: mauvais");
 
-var circle2 = L.circle([48.84946, 2.34011], 50, {
+var circle2 = L.circle([48.84946, 2.34011], 5, {
     color: 'blue',
     fillColor: '#30f',
     fillOpacity: 0.75
 }).addTo(map);
 circle2.bindPopup("Mesurée effectuée il y a 30 mins.<br/>Niveau : moyen");
 
-var circle3 = L.circle([48.84946, 2.3451], 50, {
+var circle3 = L.circle([48.84946, 2.3451], 5, {
     color: 'green',
     fillColor: '#3f3',
     fillOpacity: 0.75
@@ -84,7 +84,7 @@ var circle3 = L.circle([48.84946, 2.3451], 50, {
 circle3.bindPopup("Mesurée effectuée il y a 30 mins.<br/>Niveau : bon");
 
 
-var circle4 = L.circle([48.84846, 2.3451], 50, {
+var circle4 = L.circle([48.84846, 2.3451], 5, {
     color: 'green',
     fillColor: '#3f3',
     fillOpacity: 0.15
