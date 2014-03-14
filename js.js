@@ -64,24 +64,23 @@ L.tileLayer(tiles_provider, {
 var circle1 = L.circle([48.84874, 2.34211], 5, {
     color: 'red',
     fillColor: '#f03',
-    fillOpacity: 0.75
+    fillOpacity: 1
 }).addTo(map);
-
-circle1.bindPopup("Mesurée effectuée il y a 30 mins.<br/>Niveau: mauvais");
+circle1.bindPopup("Mesure effectuée il y a 30 mins.<br/>NO<sub>2</sub> : 200 µg/m<sup>3</sup>.");
 
 var circle2 = L.circle([48.84946, 2.34011], 5, {
-    color: 'blue',
-    fillColor: '#30f',
-    fillOpacity: 0.75
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5
 }).addTo(map);
-circle2.bindPopup("Mesurée effectuée il y a 30 mins.<br/>Niveau : moyen");
+circle2.bindPopup("Mesure effectuée il y a 1h.<br/>NO<sub>2</sub> : 250 µg/m<sup>3</sup>.");
 
 var circle3 = L.circle([48.84946, 2.3451], 5, {
     color: 'green',
     fillColor: '#3f3',
-    fillOpacity: 0.75
+    fillOpacity: 1
 }).addTo(map);
-circle3.bindPopup("Mesurée effectuée il y a 30 mins.<br/>Niveau : bon");
+circle3.bindPopup("Mesure effectuée il y a 30 mins.<br/>NO<sub>2</sub> : 130 µg/m<sup>3</sup>.");
 
 
 var circle4 = L.circle([48.84846, 2.3451], 5, {
@@ -89,4 +88,11 @@ var circle4 = L.circle([48.84846, 2.3451], 5, {
     fillColor: '#3f3',
     fillOpacity: 0.15
 }).addTo(map);
-circle4.bindPopup("Mesurée effectuée il y a 3h.<br/>Niveau : bon.");
+circle4.bindPopup("Mesure effectuée il y a 1 an.<br/>NO<sub>2</sub> : 100 µg/m<sup>3</sup>.");
+
+var circle5 = L.circle([48.84886, 2.3391], 5, {
+    color: 'orange',
+    fillColor: '#F88017',
+    fillOpacity: 0.5
+}).addTo(map);
+circle5.bindPopup("Mesure effectuée il y a 5 jours.<br/>NO<sub>2</sub> : 180 µg/m<sup>3</sup>.");

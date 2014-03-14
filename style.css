@@ -25,3 +25,7 @@ a:link, a:visited, a:hover, a:active {
 .leaflet-control-attribution {
     background-color: lightgrey !important;
 }
+
+.leaflet-popup-content {
+    font-size: 2em;
+}
