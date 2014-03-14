@@ -25,3 +25,20 @@ L.tileLayer(tiles_provider, {
 
 // Add data
 // ========
+L.circle([48.84874, 2.34211], 50, {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(map);
+
+L.circle([48.84946, 2.34011], 50, {
+    color: 'blue',
+    fillColor: '#30f',
+    fillOpacity: 0.5
+}).addTo(map);
+
+L.circle([48.84946, 2.3451], 50, {
+    color: 'green',
+    fillColor: '#3f3',
+    fillOpacity: 0.5
+}).addTo(map);
