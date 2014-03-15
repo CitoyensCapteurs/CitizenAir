@@ -65,3 +65,7 @@ a:link, a:visited, a:hover, a:active {
 .settings label {
     display: block;
 }
+
+.settings table tr:not(:first-child):hover {
+    background-color: rgba(102, 44, 144, 0.5);
+}
