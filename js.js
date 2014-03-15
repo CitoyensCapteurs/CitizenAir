@@ -115,15 +115,16 @@ L.tileLayer(tiles_provider, {
 // =========
 
 // TODO : Request
+measures = new Array();
 markers = new Array();
 
 for(var measure in measures) {
     var marker = L.circle([measure.latitude, measure.longitude], measure.spatial_validity / 2, {
         color: colors[measure.color],
         fillColor: fillColors[measure.color],
-        fillOpacity: getOpacity(measure.timestamp, measure.start_decrease, measure.fully_gone);
+        fillOpacity: getOpacity(measure.timestamp, measure.start_decrease, measure.fully_gone)
     }).addTo(map);
-    marker.bindPopup("Mesure effectuée " + relativeDate(measure.date) + ".<br/>" + measure.type_name + " : " + measure.measure + measure.unit.");
+    marker.bindPopup("Mesure effectuée " + relativeDate(measure.date) + ".<br/>" + measure.type_name + " : " + measure.measure + measure.unit + ".");
 
     markers.push(marker);
 }
