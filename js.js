@@ -1,7 +1,7 @@
 // ========
 // Settings
 // ========
-var tiles_provider = 'http://c.tile.stamen.com/toner/{z}/{x}/{y}.jpg' // Stamen Toner
+var tiles_provider = 'http://c.tile.stamen.com/toner-lite/{z}/{x}/{y}.jpg' // Stamen Toner
 var attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a> | <a href="http://www.citoyenscapteurs.net/">Citoyens Capteurs</a>';
 
 var colors = Array();
