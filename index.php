@@ -36,7 +36,7 @@ if(!is_file('api.keys')) {
         </div>
         <div id="map"></div>
         <div id="attribution">
-            <p class='left'><a href="#legend" onclick="toggle('legend');">Légende</a> | <a href="">À propos</a></p>
+            <p class='left'><a onclick="toggle('legend');">Légende</a> | <a href="">À propos</a></p>
             <p><a title="A JS library for interactive maps" href="http://leafletjs.com">Leaflet</a> | Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a> | <a href="http://www.citoyenscapteurs.net/">Citoyens Capteurs</a></p>
         </div>
         <script type="text/javascript" src="leaflet.js"></script>
