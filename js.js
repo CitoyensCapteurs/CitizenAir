@@ -110,23 +110,61 @@ L.tileLayer(tiles_provider, {
     maxZoom: 19
 }).addTo(map);
 
-// =========
-// Plot data
-// =========
+// ==========
+// AJAX query
+// ==========
 
-// TODO : Request
-measures = new Array();
-markers = new Array();
+var xhr;
+var measures = false;
+var markers = new Array();
 
-for(var measure in measures) {
-    var marker = L.circle([measure.latitude, measure.longitude], measure.spatial_validity / 2, {
-        color: colors[measure.level],
-        fillColor: fillColors[measure.level],
-        fillOpacity: getOpacity(measure.timestamp, measure.start_decrease, measure.fully_gone)
-    }).addTo(map);
-    marker.bindPopup("Mesure effectuée " + relativeDate(measure.timestamp) + ".<br/>" + measure.type_name + " : " + measure.measure + measure.unit + ".");
+try {  
+    xhr = new XMLHttpRequest();
+}
+catch (e) {
+    try {   
+        xhr = new ActiveXObject('Msxml2.XMLHTTP');
+    }
+    catch (e2) {
+        try {  
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        catch (e3) {  
+            xhr = false;
+        }
+    }
+}
 
-    markers.push(marker);
+if(xhr == false) {
+    alert("Une erreur a été rencontrée pendant la récupération des mesures. Veuillez réessayer.");
+}
+else {
+    xhr.onreadystatechange  = function() {
+        if(xhr.readyState == 4) {
+            if(xhr.status == 200) {
+                measures = JSON.parse(xhr.responseText); // Parse the response
+
+                if(measures.length == 1) { //If there was an error
+                    alert("Une erreur a été rencontrée pendant la récupération des mesures. Veuillez réessayer.");
+                }
+                else {
+                    // Plot data
+                    for(var measure in measures) {
+                        var marker = L.circle([measure.latitude, measure.longitude], measure.spatial_validity / 2, {
+                            color: colors[measure.level],
+                            fillColor: fillColors[measure.level],
+                            fillOpacity: getOpacity(measure.timestamp, measure.start_decrease, measure.fully_gone)
+                        }).addTo(map);
+                        marker.bindPopup("Mesure effectuée " + relativeDate(measure.timestamp) + ".<br/>" + measure.type_name + " : " + measure.measure + measure.unit + ".");
+
+                        markers.push(marker);
+                    }
+                }
+            }
+        }
+    };
+
+    xhr.open("GET", "api.php?do=get&visu=1",  true);
 }
 
 // Demo data
