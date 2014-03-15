@@ -1,0 +1,6 @@
+Options -Indexes
+
+<Files "api.keys">  
+    Order Deny,Allow
+    Deny from All
+</Files>
