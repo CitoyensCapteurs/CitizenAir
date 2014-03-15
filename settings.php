@@ -41,7 +41,7 @@ if(!empty($_POST['device'])) {
     exit();
 }
 
-if(!empty($_POST['nom']) && !empty($_POST['unit']) && !empty($_POST['seuil_1']) && !empty($_POST['seuil_2']) && !empty($_POST['spatial_validity']) && !empty($_POST['start_decrease']) && !empty($_POST['fully_gone'])) {
+if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1']) && !empty($_POST['seuil_2']) && !empty($_POST['spatial_validity']) && !empty($_POST['start_decrease']) && !empty($_POST['fully_gone'])) {
     if(intval($_POST['seuil_1']) > intval($_POST['seuil_2'])) {
         exit('Le seuil 1 doit être en-deça du second seuil.');
     }
@@ -50,7 +50,7 @@ if(!empty($_POST['nom']) && !empty($_POST['unit']) && !empty($_POST['seuil_1']) 
         exit('La durée avant le début de la diminution de l\'opacité doit être en-deça de celle correspondant à l\'opacité minimale.');
     }
 
-    $types[$_POST['id']] = array('nom' => $_POST['nom'], 'unit' => $_POST['unit'], 'seuil_1' => intval($_POST['seuil_1']), 'seuil_2' => intval($_POST['seuil_2']), 'spatial_validity' => intval($_POST['spatial_validity']), 'start_decrease' => intval($_POST['start_decrease']), 'fully_gone' => intval($_POST['fully_gone']));
+    $types[$_POST['id']] = array('name' => $_POST['name'], 'unit' => $_POST['unit'], 'seuil_1' => intval($_POST['seuil_1']), 'seuil_2' => intval($_POST['seuil_2']), 'spatial_validity' => intval($_POST['spatial_validity']), 'start_decrease' => intval($_POST['start_decrease']), 'fully_gone' => intval($_POST['fully_gone']));
     file_put_contents('data/types.data', gzdeflate(json_encode($types)));
     header('location: settings.php');
     exit();
@@ -86,7 +86,7 @@ if(!empty($_POST['nom']) && !empty($_POST['unit']) && !empty($_POST['seuil_1']) 
         ?>
                     <form method="post" action="settings.php">
                         <p><label for="id">ID : </label><input types="text" name="id" id="id" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($_GET['id']).'"'; }?>/></p>
-                        <p><label for="nom">Nom (HTML possible) : </label><input types="text" name="nom" id="nom" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['nom']).'"'; }?>/></p>
+                        <p><label for="name">Nom (HTML possible) : </label><input types="text" name="name" id="name" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['name']).'"'; }?>/></p>
                         <p><label for="unit">Unité (HTML possible) : </label><input types="text" name="unit" id="unit" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['unit']).'"'; }?>/></p>
                         <p><label for="seuil_1">Seuil 1 : </label><input types="number" name="seuil_1" id="seuil_1" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['seuil_1']).'"'; }?>/></p>
                         <p><label for="seuil_2">Seuil 2 : </label><input types="number" name="seuil_2" id="seuil_2" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['seuil_2']).'"'; }?>/></p>
@@ -148,7 +148,7 @@ if(!empty($_POST['nom']) && !empty($_POST['unit']) && !empty($_POST['seuil_1']) 
                             <?php
                                 foreach($types as $id=>$type) {
                                     $id = htmlspecialchars($id);
-                                    echo '<tr><td>'.$id.'</td><td>'.$type['nom'].'</td><td>'.$type['unit'].'</td><td>'.$type['seuil_1'].'</td><td>'.$type['seuil_2'].'</td><td>'.$type['spatial_validity'].'</td><td>'.$type['start_decrease'].'</td><td>'.$type['fully_gone'].'</td><td><a href="?do=edit_type&amp;id='.$id.'">Modifier</a></td><td><a href="?do=delete_type&amp;id='.$id.'">Supprimer</a></td></tr>';
+                                    echo '<tr><td>'.$id.'</td><td>'.$type['name'].'</td><td>'.$type['unit'].'</td><td>'.$type['seuil_1'].'</td><td>'.$type['seuil_2'].'</td><td>'.$type['spatial_validity'].'</td><td>'.$type['start_decrease'].'</td><td>'.$type['fully_gone'].'</td><td><a href="?do=edit_type&amp;id='.$id.'">Modifier</a></td><td><a href="?do=delete_type&amp;id='.$id.'">Supprimer</a></td></tr>';
                                 }
                             ?>
                         </table>
