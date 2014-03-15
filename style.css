@@ -29,3 +29,39 @@ a:link, a:visited, a:hover, a:active {
 .leaflet-popup-content {
     font-size: 2em;
 }
+
+.settings * {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.settings h2 {
+    background-color: #662c90;
+    color: white;
+    padding: 0.5em;
+    width: 50%;
+    margin: auto;
+    margin-top: 1em;
+}
+
+.settings table {
+    margin: auto;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.settings table td {
+    border-top: 1px solid black;
+}
+
+.settings table td:not(:last-child), .settings table th:not(:last-child)  {
+    border-right: 1px solid black;
+}
+
+.settings table td, .settings table th {
+    padding: 0.5em;
+}
+
+.settings label {
+    display: block;
+}
