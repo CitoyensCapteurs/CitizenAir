@@ -15,15 +15,70 @@ h1 {
 }
 
 a:link, a:visited, a:hover, a:active {
-    color: #662c90;
+    color: #FFF;
+}
+
+#map a:link, #map a:visited, #map a:hover, #map a:active {
+    color: #000;
+}
+
+h1 a {
+    text-decoration: none;
 }
 
 #map {
     height: 450px;
+    transition: margin-left 0.4s ease 0s;
+}
+
+#legend {
+    padding: 0.5em;
+    transition: all 0.4s ease 0s;
+    position: fixed;
+    left: -18em;
+    top: 0;
+    background-color: white;
+    z-index: 10;
+    margin-top: 4.4em;
+    height: calc(100% - 7.3em);
+    border-right: 1px solid black;
+    width: 17em;
+}
+
+#legend h2 {
+    margin-bottom: 0.1em;
+    text-align: center;
+}
+
+#legend table {
+    border-collapse: collapse;
+}
+
+#legend td {
+    padding: 0.25em;
+    border: 1px solid grey;
 }
 
 .leaflet-control-attribution {
-    background-color: lightgrey !important;
+    display: none;
+}
+
+#attribution {
+    background-color: black;
+    color: white;
+    width: 100%;
+}
+
+#attribution p {
+    margin: 0;
+    padding: 0.4em;
+    font-size: 0.9em;
+    text-align: right;
+}
+
+.left {
+    float: left;
+    text-align: left;
 }
 
 .leaflet-popup-content {

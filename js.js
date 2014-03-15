@@ -2,7 +2,6 @@
 // Settings
 // ========
 var tiles_provider = 'http://c.tile.stamen.com/toner-lite/{z}/{x}/{y}.jpg' // Stamen Toner
-var attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a> | <a href="http://www.citoyenscapteurs.net/">Citoyens Capteurs</a>';
 
 var colors = Array();
 colors['high'] = 'red';
@@ -19,6 +18,18 @@ fillColors['low'] = '#3f3';
 // =========
 if (!Date.now) {
     Date.now = function() { return new Date().getTime(); };
+}
+
+function toggle(id) { // Toggle an element
+    var e = document.getElementById(id);
+    if(e.style.left == '0px') {
+        e.style.left = '-15%';
+        document.getElementById('map').style.marginLeft = '0';
+    }
+    else {
+        e.style.left = '0';
+        document.getElementById('map').style.marginLeft = '15%';
+    }
 }
 
 function geolocErrorFunction(error) { //Handle errors
@@ -93,10 +104,10 @@ function getOpacity(time, start_decrease, fully_gone) {
 // ==============
 // Initialisation
 // ==============
-document.getElementById("map").style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) + 'px'; // Set dynamically the height of the map
+document.getElementById("map").style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) - Math.max(document.getElementById('attribution').offsetHeight, document.getElementById('attribution').clientHeight || 0) + 'px'; // Set dynamically the height of the map
 
 window.onresize = function() {
-    document.getElementById("map").style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) + 'px';
+    document.getElementById("map").style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) - Math.max(document.getElementById('attribution').offsetHeight, document.getElementById('attribution').clientHeight || 0) + 'px';
 } // Same thing on window resizing
 
 // Set the map
@@ -106,7 +117,6 @@ var map = L.map('map').setView([48.84874, 2.34211], 18);
 navigator.geolocation.getCurrentPosition(geolocSuccessFunction, geolocErrorFunction, {enableHighAccuracy:true,  maximumAge:60000, timeout:500});
 
 L.tileLayer(tiles_provider, {
-    attribution: attribution,
     maxZoom: 19
 }).addTo(map);
 

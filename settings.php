@@ -64,7 +64,7 @@ if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1'])
         <link rel="stylesheet" href="style.css">
     </head>
     <body class="settings">
-        <header id="title"><h1>Citoyens Capteurs - Mesure de pollution - Configuration</h1></header>
+        <header id="title"><a href="index.php"><h1>Citoyens Capteurs - Mesure de pollution</a> - Configuration</h1></header>
         <?php
             if(!empty($_GET['do'])) {
                 if($_GET['do'] == 'add_device' || ($_GET['do'] == 'edit_device' && !empty($api_keys) && !empty($_GET['key']) && array_key_exists($_GET['key'], $api_keys))) {
