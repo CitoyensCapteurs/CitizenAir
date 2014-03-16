@@ -35,7 +35,7 @@ if(!empty($_POST['device'])) {
     if(!empty($_POST['key'])) {
         unset($api_keys[$_POST['key']]);
     }
-    $api_keys[substr(md5($_POST['device']), 0, 5)] = $_POST['device'];
+    $api_keys[substr(md5($_POST['device'].time()), 0, 5)] = $_POST['device'];
     file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
     header('location: settings.php');
     exit();
@@ -64,7 +64,7 @@ if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1'])
         <link rel="stylesheet" href="style.css">
     </head>
     <body class="settings">
-        <header id="title"><a href="index.php"><h1>Citoyens Capteurs - Mesure de pollution</a> - Configuration</h1></header>
+        <header id="title" class="white-links"><a href="index.php"><h1>Citoyens Capteurs - Mesure de pollution</a> - <a href="settings.php">Configuration</a></h1></header>
         <?php
             if(!empty($_GET['do'])) {
                 if($_GET['do'] == 'add_device' || ($_GET['do'] == 'edit_device' && !empty($api_keys) && !empty($_GET['key']) && array_key_exists($_GET['key'], $api_keys))) {
@@ -72,7 +72,7 @@ if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1'])
                     <form method="post" action="settings.php">
                         <p><label for="device">Nom : </label><input type="text" name="device" id="device" <?php if(!empty($_GET['key'])) { echo 'value="'.htmlspecialchars($api_keys[$_GET['key']]).'"'; }?>/></p>
                         <p>
-                            <input type="submit" value="Sauver"/>
+                            <input type="submit" value="Sauver"/> ou <a href="settings.php">Retour</a>
                             <?php
                                 if(!empty($_GET['key'])) {
                                     echo '<input type="hidden" name="key" value="'.htmlspecialchars($_GET['key']).'"/>';
@@ -94,7 +94,7 @@ if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1'])
                         <p><label for="start_decrease">Durée avant baisse de l'opacité (en secondes) : </label><input types="number" name="start_decrease" id="start_decrease" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['start_decrease']).'"'; }?>/></p>
                         <p><label for="fully_gone">Durée avant opacité min. (en secondes) : </label><input types="number" name="fully_gone" id="fully_gone" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['fully_gone']).'"'; }?>/></p>
                         <p>
-                            <input type="submit" value="Sauver"/>
+                            <input type="submit" value="Sauver"/> ou <a href="settings.php">Retour</a>
                         </p>
                     </form>
         <?php
@@ -140,15 +140,15 @@ if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1'])
                                 <th>Seuil 1</th>
                                 <th>Seuil 2</th>
                                 <th>Validité spatiale</th>
-                                <th>Durée avant baisse de l'opacité</th>
-                                <th>Durée avant opacité min.</th>
+                                <th>Opacité réduite après</th>
+                                <th>Opacité min. après</th>
                                 <th>Modifier</th>
                                 <th>Supprimer</th>
                             </tr>
                             <?php
                                 foreach($types as $id=>$type) {
                                     $id = htmlspecialchars($id);
-                                    echo '<tr><td>'.$id.'</td><td>'.$type['name'].'</td><td>'.$type['unit'].'</td><td>'.$type['seuil_1'].'</td><td>'.$type['seuil_2'].'</td><td>'.$type['spatial_validity'].'</td><td>'.$type['start_decrease'].'</td><td>'.$type['fully_gone'].'</td><td><a href="?do=edit_type&amp;id='.$id.'">Modifier</a></td><td><a href="?do=delete_type&amp;id='.$id.'">Supprimer</a></td></tr>';
+                                    echo '<tr><td>'.$id.'</td><td>'.$type['name'].'</td><td>'.$type['unit'].'</td><td>'.$type['seuil_1'].'</td><td>'.$type['seuil_2'].'</td><td>'.$type['spatial_validity'].'m</td><td>'.$type['start_decrease'].'s</td><td>'.$type['fully_gone'].'s</td><td><a href="?do=edit_type&amp;id='.$id.'">Modifier</a></td><td><a href="?do=delete_type&amp;id='.$id.'">Supprimer</a></td></tr>';
                                 }
                             ?>
                         </table>

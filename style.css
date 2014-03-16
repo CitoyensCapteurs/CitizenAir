@@ -5,6 +5,7 @@ html {
 
 html, body {
     margin: 0;
+    background-color: black;
 }
 
 h1 {
@@ -14,12 +15,8 @@ h1 {
     padding: 0.5em;
 }
 
-a:link, a:visited, a:hover, a:active {
+.white-links a:link, .white-links a:visited, .white-links a:hover, .white-links a:active {
     color: #FFF;
-}
-
-#map a:link, #map a:visited, #map a:hover, #map a:active {
-    color: #000;
 }
 
 h1 a {
@@ -28,21 +25,22 @@ h1 a {
 
 #map {
     height: 450px;
-    transition: margin-left 0.4s ease 0s;
+    transition: margin-left 0.5s ease 0s;
+    z-index: 1;
 }
 
 #legend {
     padding: 0.5em;
-    transition: all 0.4s ease 0s;
+    transition: left 0.5s ease 0s;
     position: fixed;
     left: -18em;
     top: 0;
     background-color: white;
-    z-index: 10;
     margin-top: 4.4em;
-    height: calc(100% - 7.3em);
+    height: 100%;
     border-right: 1px solid black;
-    width: 17em;
+    width: 25%;
+    z-index: 10;
 }
 
 #legend h2 {
@@ -63,16 +61,18 @@ h1 a {
     display: none;
 }
 
-#attribution {
+footer {
     background-color: black;
     color: white;
     width: 100%;
+    position: relative;
+    z-index: 100;
 }
 
-#attribution p {
+footer p {
     margin: 0;
     padding: 0.4em;
-    font-size: 0.9em;
+    font-size: 0.7em;
     text-align: right;
 }
 
@@ -83,6 +83,10 @@ h1 a {
 
 .leaflet-popup-content {
     font-size: 2em;
+}
+
+.settings {
+    font-size: 0.75em;
 }
 
 .settings * {

@@ -1,4 +1,8 @@
 <?php
+if(!is_file('data/types.data') || !is_file('api.keys')) {
+    header('HTTP/1.1 400 Bad Request');
+    exit();
+}
 $types = json_decode(gzinflate(file_get_contents('data/types.data')), true);
 $api_keys = json_decode(gzinflate(file_get_contents('api.keys')), true);
 
