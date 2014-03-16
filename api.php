@@ -20,7 +20,8 @@ class filterMeasures {
     }
 
     function filter($test) {
-        return in_array($test['type'], $this->types)
+        $test = $test[0];
+        return array_key_exists($test['type'], $this->types)
             && ($this->longitude_min === false || $this->latitude_min <= $test['latitude']) && ($this->longitude_max === false || $this->latitude_max >= $test['latitude'])
             && ($this->latitude_min === false || $this->latitude_min <= $test['latitude']) && ($this->latitude_max === false || $this->latitude_max >= $test['latitude'])
             && ($this->timestamp_min === false || $this->timestamp_min <= $test['timestamp']) && ($this->timestamp_max === false || $this->timestamp_max >= $test['timestamp']);
@@ -42,8 +43,8 @@ function get_level($measure, $seuil_1, $seuil_2) {
 function sort_array($array, $key) {
     $sort_keys = array();
 
-    foreach ($array as $key => $entry) {
-        $sort_keys[$key] = $entry[$key];
+    foreach ($array as $key2 => $entry) {
+        $sort_keys[$key2] = $entry[$key];
     }
 
     return array_multisort($sort_keys, SORT_DESC, $array);
@@ -82,7 +83,7 @@ if($_GET['do'] == 'add' && !empty($_GET['type']) && !empty($_GET['measure']) && 
         'latitude' => floatval($_GET['lat']),
     );
 
-    file_put_contents($_GET['api_key'].'.data', gzdeflate(json_encode($data)));
+    file_put_contents('data/'.$_GET['api_key'].'.data', gzdeflate(json_encode($data)));
     exit();
 }
 
@@ -150,7 +151,7 @@ if($_GET['do'] == 'get') {
     $data = array_filter($data, array(new filterMeasures($measures_types, $latitude_min, $latitude_max, $longitude_min, $longitude_max, $timestamp_min, $timestamp_max), 'filter'));
 // Completion des données
     $dataset = array();
-    foreach($data as $capteur->$measures) {
+    foreach($data as $capteur=>$measures) {
         foreach($measures as $measure) {
             $dataset[] = array(
                 'capteur' => $capteur,
