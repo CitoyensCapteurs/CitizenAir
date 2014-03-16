@@ -96,9 +96,9 @@ function relativeDate(time) {
      * http://ejohn.org/files/pretty.js
      */
     // Translated in French
-    var date = new Date((time || "").replace(/-/g,"/").replace(/[TZ]/g," ")),
-        diff = (((new Date()).getTime() - date.getTime()) / 1000),
-        day_diff = Math.floor(diff / 86400);
+    var date = (new Date((time || ""))).toString().replace(/-/g,"/").replace(/[TZ]/g," ");
+    var diff = (((new Date()).getTime() - date.getTime()) / 1000);
+    var day_diff = Math.floor(diff / 86400);
 
     if ( isNaN(day_diff) || day_diff < 0 || day_diff >= 31 )
         return;
@@ -200,12 +200,12 @@ else {
                 else {
                     // Plot data
                     for(var measure in measures) {
-                        var marker = L.circle([measure.latitude, measure.longitude], measure.spatial_validity / 2, {
-                            color: colors[measure.level],
-                            fillColor: fillColors[measure.level],
-                            fillOpacity: getOpacity(measure.timestamp, measure.start_decrease, measure.fully_gone)
+                        var marker = L.circle([measures[measure].latitude, measures[measure].longitude], measures[measure].spatial_validity / 2, {
+                            color: colors[measures[measure].level],
+                            fillColor: fillColors[measures[measure].level],
+                            fillOpacity: getOpacity(measures[measure].timestamp, measures[measure].start_decrease, measures[measure].fully_gone)
                         }).addTo(map);
-                        marker.bindPopup("Mesure effectuée " + relativeDate(measure.timestamp) + ".<br/>" + measure.type_name + " : " + measure.measure + measure.unit + ".");
+                        marker.bindPopup("Mesure effectuée " + relativeDate(measures[measure].timestamp) + ".<br/>" + measures[measure].type_name + " : " + measures[measure].measure + measures[measure].unit + ".");
 
                         markers.push(marker);
                     }
@@ -215,4 +215,5 @@ else {
     };
 
     xhr.open("GET", "api.php?do=get&visu=1",  true);
+    xhr.send();
 }

@@ -159,7 +159,7 @@ if($_GET['do'] == 'get') {
                 'longitude' => $measure['longitude'],
                 'timestamp' => $measure['timestamp'],
                 'type' => $measure['type'],
-                'mesure' => $measure['measure'],
+                'measure' => $measure['measure'],
                 'unit' => $types[$measure['type']]['unit']
             );
 
