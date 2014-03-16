@@ -164,8 +164,8 @@ if($_GET['do'] == 'get') {
             );
 
             if(!empty($_GET['visu'])) {
-                $index = current($dataset);
-                $dataset[$index]['type_name'] = $types[$measure['type']]['nom'];
+                $index = count($dataset) - 1;
+                $dataset[$index]['type_name'] = $types[$measure['type']]['name'];
                 $dataset[$index]['level'] = get_level($measure['measure'], $types[$measure['type']]['seuil_1'], $types[$measure['type']]['seuil_2']);
                 $dataset[$index]['start_decrease'] = $types[$measure['type']]['start_decrease'];
                 $dataset[$index]['fully_gone'] = $types[$measure['type']]['fully_gone'];
