@@ -96,11 +96,11 @@ function relativeDate(time) {
      * http://ejohn.org/files/pretty.js
      */
     // Translated in French
-    var date = (new Date((time || ""))).toString().replace(/-/g,"/").replace(/[TZ]/g," ");
-    var diff = (((new Date()).getTime() - date.getTime()) / 1000);
+    var date = new Date(time || "");
+    var diff = (new Date().getTime() - date.getTime()) / 1000;
     var day_diff = Math.floor(diff / 86400);
 
-    if ( isNaN(day_diff) || day_diff < 0 || day_diff >= 31 )
+    if ( isNaN(day_diff) || day_diff < 0)
         return;
 
     return day_diff == 0 && (
@@ -111,7 +111,10 @@ function relativeDate(time) {
             diff < 86400 && "il y a " + Math.floor( diff / 3600 ) + " heures") ||
         day_diff == 1 && "hier" ||
         day_diff < 7 && " il y a " + day_diff + " jours" ||
-        day_diff < 31 && "il y a " + Math.ceil( day_diff / 7 ) + " semaines";
+        day_diff < 31 && "il y a " + Math.ceil( day_diff / 7 ) + " semaines" ||
+        day_diff < 365 && "il y a " + Math.ceil( day_diff / 30 ) + " mois" ||
+        day_diff < 700 && "il y a 1 an" ||
+        "il y a " + Math.ceil(day_diff / 365) + " ans";
 }
 
 function getOpacity(time, start_decrease, fully_gone) {
