@@ -105,16 +105,16 @@ function relativeDate(time) {
 
     return day_diff == 0 && (
             diff < 60 && "à l'instant" ||
-            diff < 120 && "il y a 1 minute" ||
-            diff < 3600 && "il y a " + Math.floor( diff / 60 ) + " minutes" ||
-            diff < 7200 && "il y a 1 heure" ||
-            diff < 86400 && "il y a " + Math.floor( diff / 3600 ) + " heures") ||
+            diff < 120 && "il y a 1&nbsp;minute" ||
+            diff < 3600 && "il y a " + Math.floor( diff / 60 ) + "&nbsp;minutes" ||
+            diff < 7200 && "il y a 1&nbsp;heure" ||
+            diff < 86400 && "il y a " + Math.floor( diff / 3600 ) + "&nbsp;heures") ||
         day_diff == 1 && "hier" ||
         day_diff < 7 && " il y a " + day_diff + " jours" ||
-        day_diff < 31 && "il y a " + Math.ceil( day_diff / 7 ) + " semaines" ||
-        day_diff < 365 && "il y a " + Math.ceil( day_diff / 30 ) + " mois" ||
-        day_diff < 700 && "il y a 1 an" ||
-        "il y a " + Math.ceil(day_diff / 365) + " ans";
+        day_diff < 31 && "il y a " + Math.ceil( day_diff / 7 ) + "&nbsp;semaines" ||
+        day_diff < 365 && "il y a " + Math.ceil( day_diff / 30 ) + "&nbsp;mois" ||
+        day_diff < 700 && "il y a 1&nbsp;an" ||
+        "il y a " + Math.ceil(day_diff / 365) + "&nbsp;ans";
 }
 
 function getOpacity(time, start_decrease, fully_gone) {
@@ -208,7 +208,7 @@ else {
                             fillColor: fillColors[measures[measure].level],
                             fillOpacity: getOpacity(measures[measure].timestamp, measures[measure].start_decrease, measures[measure].fully_gone)
                         }).addTo(map);
-                        marker.bindPopup("Mesure effectuée " + relativeDate(measures[measure].timestamp) + ".<br/>" + measures[measure].type_name + " : " + measures[measure].measure + measures[measure].unit + ".");
+                        marker.bindPopup("Mesure effectuée " + relativeDate(measures[measure].timestamp) + ".<br/>" + measures[measure].type_name + " : " + measures[measure].measure + measures[measure].unit + "<br/>Capteur : " + measures[measure].capteur);
 
                         markers.push(marker);
                     }
