@@ -25,14 +25,14 @@ function toggle(id, immediate) { // Toggle an element
     var m = document.getElementById('map');
     var tmp = '';
     var tmp2 = '';
-    if(e.style.left == '0px') {
+    if(e.style.marginLeft == '0px') {
         if(immediate) {
             tmp = e.style.transition;
             e.style.transition = 'none';
             tmp2 = m.style.transition;
             m.style.transition = 'none';
         }
-        e.style.left = -e.offsetWidth + 'px';
+        e.style.marginLeft = -e.offsetWidth + 'px';
         m.style.marginLeft = '0';
         window.location = '#';
         if(immediate) {
@@ -47,7 +47,7 @@ function toggle(id, immediate) { // Toggle an element
             tmp2 = m.style.transition;
             m.style.transition = 'none';
         }
-        e.style.left = '0';
+        e.style.marginLeft = '0';
         m.style.marginLeft = e.offsetWidth + 'px';
         window.location = '#legend';
         if(immediate) {
@@ -132,7 +132,16 @@ function getOpacity(time, start_decrease, fully_gone) {
 document.getElementById("map").style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) - Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0) +  'px'; // Set dynamically the height of the map
 
 window.onresize = function() {
-    document.getElementById("map").style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) - Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0) + 'px';
+    var m = document.getElementById('map');
+    m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) - Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0) + 'px';
+    var e = document.getElementById("legend");
+    var tmp = '';
+    if(e.style.marginLeft == '0px') {
+        tmp = m.style.transition;
+        m.style.transition = 'none';
+        m.style.marginLeft = e.offsetWidth + 'px';
+        m.style.transition = tmp;
+    }
 } // Same thing on window resizing
 
 window.onload = function() {

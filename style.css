@@ -13,6 +13,7 @@ h1 {
     color: white;
     margin: 0;
     padding: 0.5em;
+    font-size: 1.5em;
 }
 
 .white-links a:link, .white-links a:visited, .white-links a:hover, .white-links a:active {
@@ -23,29 +24,33 @@ h1 a {
     text-decoration: none;
 }
 
+#main {
+    background-color: white;
+    font-size: 0.75em;
+}
+
 #map {
     height: 450px;
     transition: margin-left 0.5s ease 0s;
-    z-index: 1;
 }
 
 #legend {
     padding: 0.5em;
-    transition: left 0.5s ease 0s;
-    position: fixed;
-    left: -18em;
-    top: 0;
+    transition: margin-left 0.5s ease 0s;
     background-color: white;
     margin-top: 4.4em;
     height: 100%;
-    border-right: 1px solid black;
-    width: 25%;
-    z-index: 10;
+    margin-left: -100%;
 }
 
 #legend h2 {
     margin-bottom: 0.1em;
+    text-align: left;
+}
+
+#legend h2:first-child {
     text-align: center;
+    text-decoration: underline;
 }
 
 #legend table {
@@ -66,7 +71,6 @@ footer {
     color: white;
     width: 100%;
     position: relative;
-    z-index: 100;
 }
 
 footer p {
