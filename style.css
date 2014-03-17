@@ -44,6 +44,7 @@ h1 a {
     height: 100%;
     margin-left: -100%;
     overflow-y: auto;
+    border-right: 1px solid black;
 }
 
 #legend h2 {
