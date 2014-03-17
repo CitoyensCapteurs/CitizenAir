@@ -133,6 +133,7 @@ function getOpacity(time, start_decrease, fully_gone) {
 // Initialisation
 // ==============
 document.getElementById("map").style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) - Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0) +  'px'; // Set dynamically the height of the map
+document.getElementById("legend").style.height = document.getElementById('map').style.height;
 
 window.onresize = function() {
     var m = document.getElementById('map');
@@ -145,6 +146,7 @@ window.onresize = function() {
         m.style.marginLeft = e.offsetWidth + 'px';
         m.style.transition = tmp;
     }
+    e.style.height = m.style.height;
 } // Same thing on window resizing
 
 window.onload = function() {
