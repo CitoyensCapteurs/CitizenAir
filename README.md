@@ -26,3 +26,7 @@ Paramètres :
 
 ## TODO
 http://maps.stamen.com/#terrain/12/37.7706/-122.3782
+timeline
+onglets (cf IRC)
+update régulier
+update readme
