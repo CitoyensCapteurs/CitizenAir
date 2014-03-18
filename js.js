@@ -10,6 +10,7 @@ colors['medium'] = 'orange';
 colors['low'] = 'green';
 
 var fillColors = Array();
+fillColors['highest'] = '#111';
 fillColors['high'] = '#f03';
 fillColors['medium'] = '#F88017';
 fillColors['low'] = '#3f3';
