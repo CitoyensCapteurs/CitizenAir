@@ -152,7 +152,8 @@ footer p {
 }
 
 #live {
-    font-size: 10em;
+    font-size: 5em;
+    font-size: 10vh;
     margin: 0;
     text-align: center;
     display: table-cell;
