@@ -4,6 +4,7 @@
 var tiles_provider = 'http://c.tile.stamen.com/toner-lite/{z}/{x}/{y}.jpg' // Stamen Toner
 
 var colors = Array();
+colors['highest'] = 'black';
 colors['high'] = 'red';
 colors['medium'] = 'orange';
 colors['low'] = 'green';

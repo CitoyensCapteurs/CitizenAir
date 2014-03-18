@@ -41,16 +41,19 @@ if(!empty($_POST['device'])) {
     exit();
 }
 
-if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1']) && !empty($_POST['seuil_2']) && !empty($_POST['spatial_validity']) && !empty($_POST['start_decrease']) && !empty($_POST['fully_gone'])) {
+if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1']) && !empty($_POST['seuil_2']) && !empty($_POST['seuil_3']) && && !empty($_POST['spatial_validity']) && !empty($_POST['start_decrease']) && !empty($_POST['fully_gone'])) {
     if(intval($_POST['seuil_1']) > intval($_POST['seuil_2'])) {
         exit('Le seuil 1 doit être en-deça du second seuil.');
+    }
+    if(intval($_POST['seuil_2']) > intval($_POST['seuil_3'])) {
+        exit('Le seuil 2 doit être en-deça du troisième seuil.');
     }
 
     if(intval($_POST['start_decrease']) > intval($_POST['fully_gone'])) {
         exit('La durée avant le début de la diminution de l\'opacité doit être en-deça de celle correspondant à l\'opacité minimale.');
     }
 
-    $types[$_POST['id']] = array('name' => $_POST['name'], 'unit' => $_POST['unit'], 'seuil_1' => intval($_POST['seuil_1']), 'seuil_2' => intval($_POST['seuil_2']), 'spatial_validity' => intval($_POST['spatial_validity']), 'start_decrease' => intval($_POST['start_decrease']), 'fully_gone' => intval($_POST['fully_gone']));
+    $types[$_POST['id']] = array('name' => $_POST['name'], 'unit' => $_POST['unit'], 'seuil_1' => intval($_POST['seuil_1']), 'seuil_2' => intval($_POST['seuil_2']), s'euil_3' => intval($_POST['seuil_3']), 'spatial_validity' => intval($_POST['spatial_validity']), 'start_decrease' => intval($_POST['start_decrease']), 'fully_gone' => intval($_POST['fully_gone']));
     file_put_contents('data/types.data', gzdeflate(json_encode($types)));
     header('location: settings.php');
     exit();
@@ -90,6 +93,7 @@ if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1'])
                         <p><label for="unit">Unité (HTML possible) : </label><input types="text" name="unit" id="unit" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['unit']).'"'; }?>/></p>
                         <p><label for="seuil_1">Seuil 1 : </label><input types="number" name="seuil_1" id="seuil_1" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['seuil_1']).'"'; }?>/></p>
                         <p><label for="seuil_2">Seuil 2 : </label><input types="number" name="seuil_2" id="seuil_2" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['seuil_2']).'"'; }?>/></p>
+                        <p><label for="seuil_3">Seuil 3 : </label><input types="number" name="seuil_3" id="seuil_3" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['seuil_3']).'"'; }?>/></p>
                         <p><label for="spatial_validity">Validité spatiale (diamètre, en mètres) : </label><input types="number" name="spatial_validity" id="spatial_validity" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['spatial_validity']).'"'; }?>/></p>
                         <p><label for="start_decrease">Durée avant baisse de l'opacité (en secondes) : </label><input types="number" name="start_decrease" id="start_decrease" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['start_decrease']).'"'; }?>/></p>
                         <p><label for="fully_gone">Durée avant opacité min. (en secondes) : </label><input types="number" name="fully_gone" id="fully_gone" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['fully_gone']).'"'; }?>/></p>
@@ -139,6 +143,7 @@ if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1'])
                                 <th>Unité</th>
                                 <th>Seuil 1</th>
                                 <th>Seuil 2</th>
+                                <th>Seuil 3</th>
                                 <th>Validité spatiale</th>
                                 <th>Opacité réduite après</th>
                                 <th>Opacité min. après</th>
@@ -148,7 +153,7 @@ if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1'])
                             <?php
                                 foreach($types as $id=>$type) {
                                     $id = htmlspecialchars($id);
-                                    echo '<tr><td>'.$id.'</td><td>'.$type['name'].'</td><td>'.$type['unit'].'</td><td>'.$type['seuil_1'].'</td><td>'.$type['seuil_2'].'</td><td>'.$type['spatial_validity'].'m</td><td>'.$type['start_decrease'].'s</td><td>'.$type['fully_gone'].'s</td><td><a href="?do=edit_type&amp;id='.$id.'">Modifier</a></td><td><a href="?do=delete_type&amp;id='.$id.'">Supprimer</a></td></tr>';
+                                    echo '<tr><td>'.$id.'</td><td>'.$type['name'].'</td><td>'.$type['unit'].'</td><td>'.$type['seuil_1'].'</td><td>'.$type['seuil_2'].'</td><td>'.$type['seuil_3'].'</td><td>'.$type['spatial_validity'].'m</td><td>'.$type['start_decrease'].'s</td><td>'.$type['fully_gone'].'s</td><td><a href="?do=edit_type&amp;id='.$id.'">Modifier</a></td><td><a href="?do=delete_type&amp;id='.$id.'">Supprimer</a></td></tr>';
                                 }
                             ?>
                         </table>

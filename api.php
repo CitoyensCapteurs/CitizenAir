@@ -28,15 +28,18 @@ class filterMeasures {
     }
 }
 
-function get_level($measure, $seuil_1, $seuil_2) {
+function get_level($measure, $seuil_1, $seuil_2, $seuil_3) {
     if($measure < $seuil_1) {
         return 'low';
     }
     elseif($measure < $seuil_2) {
         return 'medium';
     }
-    else {
+    elseif($measure < $seuil_3) {
         return 'high';
+    }
+    else {
+        return 'highest';
     }
 }
 
@@ -166,7 +169,7 @@ if($_GET['do'] == 'get') {
             if(!empty($_GET['visu'])) {
                 $index = count($dataset) - 1;
                 $dataset[$index]['type_name'] = $types[$measure['type']]['name'];
-                $dataset[$index]['level'] = get_level($measure['measure'], $types[$measure['type']]['seuil_1'], $types[$measure['type']]['seuil_2']);
+                $dataset[$index]['level'] = get_level($measure['measure'], $types[$measure['type']]['seuil_1'], $types[$measure['type']]['seuil_2'], $types[$measure['type']]['seuil_3']);
                 $dataset[$index]['start_decrease'] = $types[$measure['type']]['start_decrease'];
                 $dataset[$index]['fully_gone'] = $types[$measure['type']]['fully_gone'];
                 $dataset[$index]['spatial_validity'] = $types[$measure['type']]['spatial_validity'];
