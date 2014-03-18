@@ -9,14 +9,14 @@ $types = json_decode(gzinflate(file_get_contents('data/types.data')), true);
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title>Citoyens Capteurs - Pollution</title>
+        <title>CitizenAir</title>
         <link rel="stylesheet" href="leaflet.css">
         <link rel="stylesheet" href="style.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <header id="title">
-            <h1 class="white-links"><a href="">Citoyens Capteurs - Mesure de pollution</a></h1>
+            <h1 class="white-links"><a href="">CitizenAir</a></h1>
         </header>
         <div id="main">
             <div id="legend" class="left">

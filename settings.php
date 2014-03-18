@@ -74,11 +74,11 @@ if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1'])
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title>Citoyens Capteurs - Pollution [Configuration]</title>
+        <title>CitizenAir [Configuration]</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body class="settings">
-        <header id="title" class="white-links"><a href="index.php"><h1>Citoyens Capteurs - Mesure de pollution</a> - <a href="settings.php">Configuration</a></h1></header>
+        <header id="title" class="white-links"><a href="index.php"><h1>CitizenAir</a> - <a href="settings.php">Configuration</a></h1></header>
         <?php
             if(!empty($_GET['do'])) {
                 if($_GET['do'] == 'add_device' || ($_GET['do'] == 'edit_device' && !empty($api_keys) && !empty($_GET['key']) && array_key_exists($_GET['key'], $api_keys))) {
