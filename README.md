@@ -54,7 +54,5 @@ La visualisation web disponible (page _index.php_) n'est qu'une interface pour r
 
 ## TODO
 
-- http://maps.stamen.com/#terrain/12/37.7706/-122.3782
 - timeline
 - onglets (cf IRC)
-- Légende qui flash ?
