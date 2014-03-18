@@ -58,4 +58,3 @@ La visualisation web disponible (page _index.php_) n'est qu'une interface pour r
 [ ] timeline
 [ ] onglets (cf IRC)
 [ ] update régulier
-[ ] protection pour ne pas avoir deux fois le même api_key

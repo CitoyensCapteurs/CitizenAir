@@ -13,6 +13,17 @@ else {
     $types = array();
 }
 
+function get_key($api_keys, $device) {
+    $key = substr(md5($device.time()), 0, 5);
+
+    if(!array_key_exists($key, $api_keys)) {
+        return $key;
+    }
+    else {
+        return get_key($api_keys, $device.$key);
+    }
+}
+
 if(!empty($_GET['do']) && $_GET['do'] == 'delete_device' && !empty($_GET['key'])) {
     if(array_key_exists($_GET['key'], $api_keys)) {
         unset($api_keys[$_GET['key']]);
@@ -35,7 +46,7 @@ if(!empty($_POST['device'])) {
     if(!empty($_POST['key'])) {
         unset($api_keys[$_POST['key']]);
     }
-    $api_keys[substr(md5($_POST['device'].time()), 0, 5)] = $_POST['device'];
+    $api_keys[get_key($api_keys, $_POST['device'])] = $_POST['device'];
     file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
     header('location: settings.php');
     exit();
