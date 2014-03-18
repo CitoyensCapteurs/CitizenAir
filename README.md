@@ -55,4 +55,3 @@ La visualisation web disponible (page _index.php_) n'est qu'une interface pour r
 ## TODO
 
 - timeline
-- onglets (cf IRC) => slide pourri (width) avec la légende
