@@ -151,12 +151,6 @@ window.onresize = function() {
     e.style.height = m.style.height;
 } // Same thing on window resizing
 
-window.onload = function() {
-    if(window.location.hash == '#legend') {
-        toggle('legend', true);
-    }
-};
-
 // Set the map
 var map = L.map('map').setView([48.86222, 2.35083], 13);
 
@@ -171,56 +165,71 @@ L.tileLayer(tiles_provider, {
 // AJAX query
 // ==========
 
-var xhr;
-var measures = false;
 var markers = new Array();
 
-try {  
-    xhr = new XMLHttpRequest();
-}
-catch (e) {
-    try {   
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
+function ajaxQuery() {
+    var xhr;
+    var measures = false;
+    try {  
+        xhr = new XMLHttpRequest();
     }
-    catch (e2) {
-        try {  
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+    catch (e) {
+        try {   
+            xhr = new ActiveXObject('Msxml2.XMLHTTP');
         }
-        catch (e3) {  
-            xhr = false;
+        catch (e2) {
+            try {  
+                xhr = new ActiveXObject('Microsoft.XMLHTTP');
+            }
+            catch (e3) {  
+                xhr = false;
+            }
         }
     }
-}
 
-if(xhr == false) {
-    alert("Une erreur a été rencontrée pendant la récupération des mesures. Veuillez réessayer.");
-}
-else {
-    xhr.onreadystatechange  = function() {
-        if(xhr.readyState == 4) {
-            if(xhr.status == 200) {
-                measures = JSON.parse(xhr.responseText); // Parse the response
+    if(xhr == false) {
+        alert("Une erreur a été rencontrée pendant la récupération des mesures. Veuillez réessayer.");
+    }
+    else {
+        xhr.onreadystatechange  = function() {
+            if(xhr.readyState == 4) {
+                if(xhr.status == 200) {
+                    measures = JSON.parse(xhr.responseText); // Parse the response
 
-                if(measures.length == 1) { //If there was an error
-                    alert("Une erreur a été rencontrée pendant la récupération des mesures. Veuillez réessayer.");
-                }
-                else {
-                    // Plot data
-                    for(var measure in measures) {
-                        var marker = L.circle([measures[measure].latitude, measures[measure].longitude], measures[measure].spatial_validity / 2, {
-                            color: colors[measures[measure].level],
-                            fillColor: fillColors[measures[measure].level],
-                            fillOpacity: getOpacity(measures[measure].timestamp, measures[measure].start_decrease, measures[measure].fully_gone)
-                        }).addTo(map);
-                        marker.bindPopup("Mesure effectuée " + relativeDate(measures[measure].timestamp) + ".<br/>" + measures[measure].type_name + " : " + measures[measure].measure + measures[measure].unit + "<br/>Capteur : " + measures[measure].capteur);
-
-                        markers.push(marker);
+                    if(measures.length == 1) { //If there was an error
+                        alert("Une erreur a été rencontrée pendant la récupération des mesures. Veuillez réessayer.");
+                    }
+                    else {
+                        if(measures.length != 1) {
+                            // Plot data
+                            for(var measure in measures) {
+                                var marker = L.circle([measures[measure].latitude, measures[measure].longitude], measures[measure].spatial_validity / 2, {
+                                    color: colors[measures[measure].level],
+                                    fillColor: fillColors[measures[measure].level],
+                                    fillOpacity: getOpacity(measures[measure].timestamp, measures[measure].start_decrease, measures[measure].fully_gone)
+                                });
+                                if(!window.map.hasLayer(marker)) {
+                                    marker.addTo(window.map);
+                                    marker.bindPopup("Mesure effectuée " + relativeDate(measures[measure].timestamp) + ".<br/>" + measures[measure].type_name + " : " + measures[measure].measure + measures[measure].unit + "<br/>Capteur : " + measures[measure].capteur);
+                                    window.markers.push(marker);
+                                }
+                            }
+                        }
                     }
                 }
             }
-        }
-    };
+        };
 
-    xhr.open("GET", "api.php?do=get&visu=1",  true);
-    xhr.send();
+        xhr.open("GET", "api.php?do=get&visu=1",  true);
+        xhr.send();
+    }
 }
+
+window.onload = function() {
+    if(window.location.hash == '#legend') {
+        toggle('legend', true);
+    }
+    ajaxQuery();
+};
+
+window.setInterval(function() { ajaxQuery(); }, 300000);
