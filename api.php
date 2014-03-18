@@ -99,7 +99,7 @@ if($_GET['do'] == 'get') {
     $keys = array();
     if(!empty($_GET['capteur'])) {
         foreach(explode(',', $_GET['capteur']) as $capteur) {
-            $keys[array_search($api_keys, $capteur)] = $capteur;
+            $keys[array_search($capteur, $api_keys)] = $capteur;
         }
     }
     else {

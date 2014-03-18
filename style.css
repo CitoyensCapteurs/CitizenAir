@@ -50,6 +50,8 @@ h1 a {
 #legend h2 {
     margin-bottom: 0.1em;
     text-align: left;
+    margin-left: 0.5em;
+    margin-right: 0.6em;
 }
 
 #legend h2:first-child {
@@ -142,4 +144,18 @@ footer p {
 
 .settings table tr:not(:first-child):hover {
     background-color: rgba(102, 44, 144, 0.5);
+}
+
+.live {
+    display: table;
+    width: 100%;
+}
+
+#live {
+    font-size: 10em;
+    margin: 0;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 2em;
 }

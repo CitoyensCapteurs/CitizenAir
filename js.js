@@ -131,10 +131,38 @@ function getOpacity(time, start_decrease, fully_gone) {
     }
 }
 
+function params() //Get all the parameters in the URL
+{	
+    var t = location.search.substring(1).split('&');
+    var params = [];
+
+    for (var i=0; i<t.length; i++)
+    {
+        var x = t[i].split('=');
+        params[x[0]] = x[1];
+    }
+    return params;
+}
+
 // ==============
 // Initialisation
 // ==============
+var params = params();
+var live = false;
+
+for(GET in params) {
+    if(GET != '') {
+        switch(GET)
+        {
+            case 'live':
+                live = params['live'];
+                break;
+        }
+    }
+}
+
 document.getElementById("map").style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) - Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0) +  'px'; // Set dynamically the height of the map
+
 document.getElementById("legend").style.height = document.getElementById('map').style.height;
 
 window.onresize = function() {
@@ -151,15 +179,17 @@ window.onresize = function() {
     e.style.height = m.style.height;
 } // Same thing on window resizing
 
-// Set the map
-var map = L.map('map').setView([48.86222, 2.35083], 13);
+if(live === false) {
+    // Set the map
+    var map = L.map('map').setView([48.86222, 2.35083], 13);
 
-// Get location
-navigator.geolocation.getCurrentPosition(geolocSuccessFunction, geolocErrorFunction, {enableHighAccuracy:true,  maximumAge:60000, timeout:500});
+    // Get location
+    navigator.geolocation.getCurrentPosition(geolocSuccessFunction, geolocErrorFunction, {enableHighAccuracy:true,  maximumAge:60000, timeout:500});
 
-L.tileLayer(tiles_provider, {
-    maxZoom: 19
-}).addTo(map);
+    L.tileLayer(tiles_provider, {
+        maxZoom: 19
+    }).addTo(map);
+}
 
 // ==========
 // AJAX query
@@ -200,7 +230,7 @@ function ajaxQuery() {
                         alert("Une erreur a été rencontrée pendant la récupération des mesures. Veuillez réessayer.");
                     }
                     else {
-                        if(measures.length != 1) {
+                        if(live === false) {
                             // Plot data
                             for(var measure in measures) {
                                 var marker = L.circle([measures[measure].latitude, measures[measure].longitude], measures[measure].spatial_validity / 2, {
@@ -215,13 +245,22 @@ function ajaxQuery() {
                                 }
                             }
                         }
+                        else {
+                            document.getElementById('live').innerHTML = '<p>' + measures[0].measure + " " + measures[0].unit + ',<br/>' + relativeDate(measures[0].timestamp) + '</p>';
+                        }
                     }
                 }
             }
         };
 
-        xhr.open("GET", "api.php?do=get&visu=1",  true);
-        xhr.send();
+        if(live === false) {
+            xhr.open("GET", "api.php?do=get&visu=1",  true);
+            xhr.send();
+        }
+        else {
+            xhr.open("GET", "api.php?do=get&visu=1&capteur="+live,  true);
+            xhr.send();
+        }
     }
 }
 
