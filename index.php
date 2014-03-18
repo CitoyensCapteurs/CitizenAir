@@ -23,7 +23,7 @@ $types = json_decode(gzinflate(file_get_contents('data/types.data')), true);
                 <h2>Légende :</h2>
                 <?php
                     foreach($types as $type) {
-                        echo '<div class="legend-item"><h2>'.$type['name'].'</h2><table><td>Vert</td><td>&lt;'.$type['seuil_1'].' '.$type['unit'].'</td></tr><tr><td>Orange</td><td>Entre '.$type['seuil_1'].' et '.$type['seuil_2'].' '.$type['unit'].'</td></tr><tr><td>Rouge</td><td>&gt;'.$type['seuil_2'].' '.$type['unit'].'</td></tr></table></div>';
+                        echo '<div class="legend-item"><h2>'.$type['name'].'</h2><table><td>Vert</td><td>&lt;'.$type['seuil_1'].' '.$type['unit'].'</td></tr><tr><td>Orange</td><td>Entre '.$type['seuil_1'].' et '.$type['seuil_2'].' '.$type['unit'].'</td></tr><tr><td>Rouge</td><td>&gt;'.$type['seuil_2'].' '.$type['unit'].'</td></tr><tr><td>Noir</td><td>&gt;'.$type['seuil_3'].' '.$type['unit'].'</td></tr></table></div>';
                     }
                 ?>
             </div>
