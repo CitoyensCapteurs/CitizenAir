@@ -25,13 +25,13 @@ Lors de la récupération des données, celles-ci sont retournées en JSON par l
 ## Envoi des données avec l'API
 
 Pour envoyer des données à l'API, il suffit de faire une requête GET sur la page api.php en passant les paramètres suivants :
-* do = add, pour envoyer des données
-* type = un identifiant de type disponible
-* measure = valeur de la mesure
-* timestamp = timestamp UNIX de la mesure
-* api_key = clé secrète liée au capteur
-* long = longitude de la mesure
-* lat = latitude de la mesure
+* `do` = `add`, pour envoyer des données
+* `type` = un identifiant de type disponible
+* `measure` = valeur de la mesure
+* `timestamp` = timestamp UNIX de la mesure
+* `api_key` = clé secrète liée au capteur
+* `long` = longitude de la mesure
+* `lat` = latitude de la mesure
 
 Par exemple :
 ```
@@ -41,11 +41,11 @@ Par exemple :
 ## Récupération des données avec l'API
 
 La même page, _api.php_ permet également de récupérer les données stockées. Il faut alors l'appeler avec le paramètre `do=get` pour récupérer des données (par exemple : `/api.php?do=get`). On peut lui passer les paramètres optionnels suivants :
-* capteur = une liste de noms de capteurs (de noms, et non de clés d'API), séparés par des virgules. Si pas de noms passés, il n'y a pas de filtrage sur le capteur.
-* type = une liste de types de mesures, séparés par des virgules. Si pas de types passés, il n'y a aucun filtrage sur le type de mesure.
-* time\_min et time\_max pour filtrer les mesures réalisées dans l'intervalle de temps spécifié (les deux paramètres ne sont pas obligatoires).
-* lat\_min et lat\_max pour filtrer les mesures entre les latitudes spécifiées (les deux paramètres ne sont pas obligatoires).
-* long\_min et long\_max pour filtrer les mesures entre les longitudes spécifiées (les deux paramètres ne sont pas obligatoires).
+* `capteur` = une liste de noms de capteurs (de noms, et non de clés d'API), séparés par des virgules. Si pas de noms passés, il n'y a pas de filtrage sur le capteur.
+* `type` = une liste de types de mesures, séparés par des virgules. Si pas de types passés, il n'y a aucun filtrage sur le type de mesure.
+* `time_min` et `time_max` pour filtrer les mesures réalisées dans l'intervalle de temps spécifié (les deux paramètres ne sont pas obligatoires).
+* `lat_min` et `lat_max` pour filtrer les mesures entre les latitudes spécifiées (les deux paramètres ne sont pas obligatoires).
+* `long_min` et `long_max` pour filtrer les mesures entre les longitudes spécifiées (les deux paramètres ne sont pas obligatoires).
 
 
 ## Visualisation web
@@ -54,8 +54,8 @@ La visualisation web disponible (page _index.php_) n'est qu'une interface pour r
 
 ## TODO
 
-[ ] http://maps.stamen.com/#terrain/12/37.7706/-122.3782
-[ ] timeline
-[ ] onglets (cf IRC)
-[ ] update régulier
-[ ] protection pour ne pas avoir deux fois le même api_key
+- http://maps.stamen.com/#terrain/12/37.7706/-122.3782
+- timeline
+- onglets (cf IRC)
+- update régulier
+- protection pour ne pas avoir deux fois le même api_key
