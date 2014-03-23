@@ -43,10 +43,12 @@ if(!empty($_GET['do']) && $_GET['do'] == 'delete_type' && !empty($_GET['id'])) {
 }
 
 if(!empty($_POST['device'])) {
+    $new_key = get_key($api_keys, $_POST['device']);
     if(!empty($_POST['key'])) {
+        rename('data/'.$_POST['key'].'.data', 'data/'.$new_key.'.data')
         unset($api_keys[$_POST['key']]);
     }
-    $api_keys[get_key($api_keys, $_POST['device'])] = $_POST['device'];
+    $api_keys[$new_key] = $_POST['device'];
     file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
     header('location: settings.php');
     exit();
