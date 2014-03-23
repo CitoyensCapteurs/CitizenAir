@@ -24,12 +24,12 @@ $tpl .= "</div>
             <div id=\"map\" ".((isset($_GET['live'])) ? 'class="live"' : '')."><div id=\"need-js\"><p>Vous devez activer JavaScript pour utiliser ce site web.</p></div>";
 
 if(isset($_GET['live']) && empty($live)) {
-    $tpl .= "<p>Choisissez le capteur à suivre :</p>
+    $tpl .= "<div class=\"table\"><p>Choisissez le capteur à suivre :</p>
             <ul>";
     foreach($api_keys as $capteur) {
         $tpl .= '<li><a href="?live='.htmlspecialchars($capteur).'">'.htmlspecialchars($capteur).'</a></li>';
     }
-    $tpl .= "</ul>";
+    $tpl .= "</ul></div>";
 }
 $tpl .= "</div>
     </div>";

@@ -251,7 +251,7 @@ function ajaxQuery() {
                             }
                         }
                         else if(live !== '') {
-                            document.getElementById('live').innerHTML = '<p>' + measures[0].measure + " " + measures[0].unit + ',<br/>' + relativeDate(measures[0].timestamp) + '</p>';
+                            document.getElementsByClassName('live')[0].innerHTML = '<p>' + measures[0].measure + " " + measures[0].unit + ',<br/>' + relativeDate(measures[0].timestamp) + '</p>';
                         }
                     }
                 }
