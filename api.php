@@ -59,7 +59,7 @@ if(empty($_GET['do']) || ($_GET['do'] != 'add' && $_GET['do'] != 'get')) {
 }
 
 // Si on veut envoyer une donnée
-if($_GET['do'] == 'add' && !empty($_GET['type']) && !empty($_GET['measure']) && !empty($_GET['timestamp']) && !empty($_GET['long']) && !empty($_GET['lat']) && !empty($_GET['api_key'])) {
+if($_GET['do'] == 'add' && !empty($_GET['type']) && isset($_GET['measure']) && isset($_GET['timestamp']) && isset($_GET['long']) && isset($_GET['lat']) && !empty($_GET['api_key'])) {
 
     if(!array_key_exists($_GET['api_key'], $api_keys)) {
         // Send a 403 HTTP response (access forbidden)
@@ -108,37 +108,37 @@ if($_GET['do'] == 'get') {
 
     // Types de mesures
     $measures_types = $types;
-    if(!empty($_GET['type'])) {
+    if(isset($_GET['type'])) {
         $measures_types = explode(',', $_GET['type']); // TODO : incohérent
     }
 
     // Timestamp
     $timestamp_min = false;
-    if(!empty($_GET['time_min'])) {
+    if(isset($_GET['time_min'])) {
         $timestamp_min = floatval($_GET['time_min']);
     }
     $timestamp_max = false;
-    if(!empty($_GET['time_max'])) {
+    if(isset($_GET['time_max'])) {
         $timestamp_max = floatval($_GET['time_max']);
     }
 
     // Longitude
     $longitude_min = false;
-    if(!empty($_GET['long_min'])) {
+    if(isset($_GET['long_min'])) {
         $longitude_min = floatval($_GET['long_min']);
     }
     $longitude_max = false;
-    if(!empty($_GET['long_max'])) {
+    if(isset($_GET['long_max'])) {
         $longitude_max = floatval($_GET['long_max']);
     }
 
     // Latitude
     $latitude_min = false;
-    if(!empty($_GET['lat_min'])) {
+    if(isset($_GET['lat_min'])) {
         $latitude_min = floatval($_GET['lat_min']);
     }
     $latitude_max = false;
-    if(!empty($_GET['lat_max'])) {
+    if(isset($_GET['lat_max'])) {
         $latitude_max = floatval($_GET['lat_max']);
     }
 
@@ -166,7 +166,7 @@ if($_GET['do'] == 'get') {
                 'unit' => $types[$measure['type']]['unit']
             );
 
-            if(!empty($_GET['visu'])) {
+            if(isset($_GET['visu'])) {
                 $index = count($dataset) - 1;
                 $dataset[$index]['type_name'] = $types[$measure['type']]['name'];
                 $dataset[$index]['level'] = get_level($measure['measure'], $types[$measure['type']]['seuil_1'], $types[$measure['type']]['seuil_2'], $types[$measure['type']]['seuil_3']);

@@ -55,3 +55,11 @@ La visualisation web disponible (page _index.php_) n'est qu'une interface pour r
 ## TODO
 
 - timeline
+* lat et long nuls ?
+* note : la page se mettra à jour toute seule
+* afficher que la zone avec des mesures
+* points plus gros et qui diminuent
+* timeline : 1 jour / 1 semaine / 1 mois
+* menu en haut
+* interface pour la récup
+* licence GPL
