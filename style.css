@@ -7,30 +7,36 @@ html, body {
     margin: 0;
 }
 
-body {
-    background-color: black;
+a:link, a:visited, a:hover, a:active {
+    color: white;
 }
 
+li {
+    list-style-type: none;
+}
+
+header {
+    color: white;
+}
 
 h1 {
     background-color: #662c90;
-    color: white;
     margin: 0;
     padding: 0.5em;
     font-size: 1.5em;
-}
-
-.white-links a:link, .white-links a:visited, .white-links a:hover, .white-links a:active {
-    color: #FFF;
 }
 
 h1 a {
     text-decoration: none;
 }
 
-#main {
-    background-color: white;
-    font-size: 0.75em;
+.left {
+    float: left;
+    text-align: left;
+}
+
+header .left {
+    margin-left: 1em;
 }
 
 #map {
@@ -38,13 +44,21 @@ h1 a {
     transition: margin-left 0.5s ease 0s;
 }
 
+#map a:link, #map a:visited, #map a:hover, #map a:active {
+    color: #575757;
+}
+
+.leaflet-popup-content {
+    font-size: 1.5em;
+}
+
 #legend {
     transition: margin-left 0.5s ease 0s;
-    background-color: white;
     height: 100%;
-    margin-left: -100%;
     overflow-y: auto;
+    margin-left: -100%;
     border-right: 1px solid black;
+    color: #333; /* TODO */
 }
 
 #legend h2 {
@@ -54,7 +68,7 @@ h1 a {
     margin-right: 0.6em;
 }
 
-#legend h2:first-child {
+#legend h2:first-child { /* TODO */
     text-align: center;
     text-decoration: underline;
 }
@@ -73,6 +87,10 @@ h1 a {
     list-style-type: square;
 }
 
+#legend a:link, #legend a:visited, #legend a:hover, #legend a:active {
+    color: black;
+}
+
 .legend-item {
     margin-left: 0.5em;
     margin-right: 0.6em;
@@ -87,7 +105,6 @@ footer {
     background-color: black;
     color: white;
     width: 100%;
-    position: relative;
 }
 
 footer p {
@@ -97,18 +114,8 @@ footer p {
     text-align: right;
 }
 
-.left {
-    float: left;
-    text-align: left;
-}
-
-.leaflet-popup-content {
-    font-size: 1.5em;
-}
-
-.settings {
-    font-size: 0.75em;
-    background-color: white;
+.settings a:link, .settings a:visited, .settings a:hover, .settings a:active {
+    color: black;
 }
 
 .settings * {
@@ -121,14 +128,11 @@ footer p {
     color: white;
     padding: 0.5em;
     width: 50%;
-    margin: auto;
     margin-top: 1em;
 }
 
 .settings table {
-    margin: auto;
     border-collapse: collapse;
-    text-align: center;
 }
 
 .settings table td {
@@ -148,7 +152,7 @@ footer p {
 }
 
 .settings table tr:not(:first-child):hover {
-    background-color: rgba(102, 44, 144, 0.5);
+    background-color: rgba(102, 44, 144, 0.6);
 }
 
 .live {
@@ -156,16 +160,10 @@ footer p {
     margin: auto;
 }
 
-#live {
-    font-size: 5em;
-    font-size: 10vh;
+.live {
     margin: 0;
     text-align: center;
     display: table-cell;
     vertical-align: middle;
     line-height: 2em;
-}
-
-#live li {
-    list-style-type: none;
 }

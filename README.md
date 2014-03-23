@@ -73,7 +73,6 @@ Tous les scripts devraient contenir cette note de licence. Si ce n'est pas le ca
 
 ## TODO
 
-* note : la page se mettra à jour toute seule
 * afficher que la zone avec des mesures
 * points plus gros et qui diminuent
 * timeline : 1 jour / 1 semaine / 1 mois

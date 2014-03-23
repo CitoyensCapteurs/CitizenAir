@@ -77,103 +77,105 @@ if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1'])
         <title>CitizenAir [Configuration]</title>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body class="settings">
+    <body>
         <header id="title" class="white-links"><a href="index.php"><h1>CitizenAir</a> - <a href="settings.php">Configuration</a></h1></header>
-        <?php
-            if(!empty($_GET['do'])) {
-                if($_GET['do'] == 'add_device' || ($_GET['do'] == 'edit_device' && !empty($api_keys) && !empty($_GET['key']) && array_key_exists($_GET['key'], $api_keys))) {
-        ?>
-                    <form method="post" action="settings.php">
-                        <p><label for="device">Nom : </label><input type="text" name="device" id="device" <?php if(!empty($_GET['key'])) { echo 'value="'.htmlspecialchars($api_keys[$_GET['key']]).'"'; }?>/></p>
-                        <p>
-                            <input type="submit" value="Sauver"/> ou <a href="settings.php">Retour</a>
-                            <?php
-                                if(!empty($_GET['key'])) {
-                                    echo '<input type="hidden" name="key" value="'.htmlspecialchars($_GET['key']).'"/>';
-                                }
-                            ?>
-                        </p>
-                    </form>
-        <?php
-                }
-                elseif($_GET['do'] == 'add_type' || ($_GET['do'] == 'edit_type' && !empty($types) && !empty($_GET['id']) && array_key_exists($_GET['id'], $types))) {
-        ?>
-                    <form method="post" action="settings.php">
-                        <p><label for="id">ID : </label><input types="text" name="id" id="id" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($_GET['id']).'"'; }?>/></p>
-                        <p><label for="name">Nom (HTML possible) : </label><input types="text" name="name" id="name" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['name']).'"'; }?>/></p>
-                        <p><label for="unit">Unité (HTML possible) : </label><input types="text" name="unit" id="unit" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['unit']).'"'; }?>/></p>
-                        <p><label for="seuil_1">Seuil 1 : </label><input types="number" name="seuil_1" id="seuil_1" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['seuil_1']).'"'; }?>/></p>
-                        <p><label for="seuil_2">Seuil 2 : </label><input types="number" name="seuil_2" id="seuil_2" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['seuil_2']).'"'; }?>/></p>
-                        <p><label for="seuil_3">Seuil 3 : </label><input types="number" name="seuil_3" id="seuil_3" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['seuil_3']).'"'; }?>/></p>
-                        <p><label for="spatial_validity">Validité spatiale (diamètre, en mètres) : </label><input types="number" name="spatial_validity" id="spatial_validity" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['spatial_validity']).'"'; }?>/></p>
-                        <p><label for="start_decrease">Durée avant baisse de l'opacité (en secondes) : </label><input types="number" name="start_decrease" id="start_decrease" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['start_decrease']).'"'; }?>/></p>
-                        <p><label for="fully_gone">Durée avant opacité min. (en secondes) : </label><input types="number" name="fully_gone" id="fully_gone" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['fully_gone']).'"'; }?>/></p>
-                        <p>
-                            <input type="submit" value="Sauver"/> ou <a href="settings.php">Retour</a>
-                        </p>
-                    </form>
-        <?php
-                }
-            }
-            else {
-        ?>
-                <h2>Liste des capteurs actuellement autorisés</h2>
-                <p><a href="?do=add_device">Ajouter un capteur</a></p>
-                <?php
-                    if(!empty($api_keys)) {
-                ?>
-                        <table>
-                            <tr>
-                                <th>Nom</th>
-                                <th>Clé</th>
-                                <th>Modifier</th>
-                                <th>Supprimer</th>
-                            </tr>
-                            <?php
-                                foreach($api_keys as $key=>$name) {
-                                    $key = htmlspecialchars($key);
-                                    echo '<tr><td>'.htmlspecialchars($name).'</td><td>'.$key.'</td><td><a href="?do=edit_device&amp;key='.$key.'">Modifier</a></td><td><a href="?do=delete_device&amp;key='.$key.'">Supprimer</a></td></tr>';
-                                }
-                            ?>
-                        </table>
-                <?php
-                    } else {
-                        echo "<p>Aucun capteur pour le moment.</p>";
+        <div class="settings">
+            <?php
+                if(!empty($_GET['do'])) {
+                    if($_GET['do'] == 'add_device' || ($_GET['do'] == 'edit_device' && !empty($api_keys) && !empty($_GET['key']) && array_key_exists($_GET['key'], $api_keys))) {
+            ?>
+                        <form method="post" action="settings.php">
+                            <p><label for="device">Nom : </label><input type="text" name="device" id="device" <?php if(!empty($_GET['key'])) { echo 'value="'.htmlspecialchars($api_keys[$_GET['key']]).'"'; }?>/></p>
+                            <p>
+                                <input type="submit" value="Sauver"/> ou <a href="settings.php">Retour</a>
+                                <?php
+                                    if(!empty($_GET['key'])) {
+                                        echo '<input type="hidden" name="key" value="'.htmlspecialchars($_GET['key']).'"/>';
+                                    }
+                                ?>
+                            </p>
+                        </form>
+            <?php
                     }
-                ?>
+                    elseif($_GET['do'] == 'add_type' || ($_GET['do'] == 'edit_type' && !empty($types) && !empty($_GET['id']) && array_key_exists($_GET['id'], $types))) {
+            ?>
+                        <form method="post" action="settings.php">
+                            <p><label for="id">ID : </label><input types="text" name="id" id="id" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($_GET['id']).'"'; }?>/></p>
+                            <p><label for="name">Nom (HTML possible) : </label><input types="text" name="name" id="name" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['name']).'"'; }?>/></p>
+                            <p><label for="unit">Unité (HTML possible) : </label><input types="text" name="unit" id="unit" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['unit']).'"'; }?>/></p>
+                            <p><label for="seuil_1">Seuil 1 : </label><input types="number" name="seuil_1" id="seuil_1" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['seuil_1']).'"'; }?>/></p>
+                            <p><label for="seuil_2">Seuil 2 : </label><input types="number" name="seuil_2" id="seuil_2" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['seuil_2']).'"'; }?>/></p>
+                            <p><label for="seuil_3">Seuil 3 : </label><input types="number" name="seuil_3" id="seuil_3" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['seuil_3']).'"'; }?>/></p>
+                            <p><label for="spatial_validity">Validité spatiale (diamètre, en mètres) : </label><input types="number" name="spatial_validity" id="spatial_validity" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['spatial_validity']).'"'; }?>/></p>
+                            <p><label for="start_decrease">Durée avant baisse de l'opacité (en secondes) : </label><input types="number" name="start_decrease" id="start_decrease" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['start_decrease']).'"'; }?>/></p>
+                            <p><label for="fully_gone">Durée avant opacité min. (en secondes) : </label><input types="number" name="fully_gone" id="fully_gone" <?php if(!empty($_GET['id'])) { echo 'value="'.htmlspecialchars($types[$_GET['id']]['fully_gone']).'"'; }?>/></p>
+                            <p>
+                                <input type="submit" value="Sauver"/> ou <a href="settings.php">Retour</a>
+                            </p>
+                        </form>
+            <?php
+                    }
+                }
+                else {
+            ?>
+                    <h2>Liste des capteurs actuellement autorisés</h2>
+                    <p><a href="?do=add_device">Ajouter un capteur</a></p>
+                    <?php
+                        if(!empty($api_keys)) {
+                    ?>
+                            <table>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Clé</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                                <?php
+                                    foreach($api_keys as $key=>$name) {
+                                        $key = htmlspecialchars($key);
+                                        echo '<tr><td>'.htmlspecialchars($name).'</td><td>'.$key.'</td><td><a href="?do=edit_device&amp;key='.$key.'">Modifier</a></td><td><a href="?do=delete_device&amp;key='.$key.'">Supprimer</a></td></tr>';
+                                    }
+                                ?>
+                            </table>
+                    <?php
+                        } else {
+                            echo "<p>Aucun capteur pour le moment.</p>";
+                        }
+                    ?>
 
-                <h2>Liste des types de mesure disponibles</h2>
-                <p><a href="?do=add_type">Ajouter un type</a></p>
-                <?php
-                    if(!empty($types)) {
-                ?>
-                        <table>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nom</th>
-                                <th>Unité</th>
-                                <th>Seuil 1</th>
-                                <th>Seuil 2</th>
-                                <th>Seuil 3</th>
-                                <th>Validité spatiale</th>
-                                <th>Opacité réduite après</th>
-                                <th>Opacité min. après</th>
-                                <th>Modifier</th>
-                                <th>Supprimer</th>
-                            </tr>
-                            <?php
-                                foreach($types as $id=>$type) {
-                                    $id = htmlspecialchars($id);
-                                    echo '<tr><td>'.$id.'</td><td>'.$type['name'].'</td><td>'.$type['unit'].'</td><td>'.$type['seuil_1'].'</td><td>'.$type['seuil_2'].'</td><td>'.$type['seuil_3'].'</td><td>'.$type['spatial_validity'].'m</td><td>'.$type['start_decrease'].'s</td><td>'.$type['fully_gone'].'s</td><td><a href="?do=edit_type&amp;id='.$id.'">Modifier</a></td><td><a href="?do=delete_type&amp;id='.$id.'">Supprimer</a></td></tr>';
-                                }
-                            ?>
-                        </table>
-                <?php
-                    } else {
-                        echo "<p>Aucun capteur pour le moment.</p>";
-                    }
-		    }
-        ?>
+                    <h2>Liste des types de mesure disponibles</h2>
+                    <p><a href="?do=add_type">Ajouter un type</a></p>
+                    <?php
+                        if(!empty($types)) {
+                    ?>
+                            <table>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Unité</th>
+                                    <th>Seuil 1</th>
+                                    <th>Seuil 2</th>
+                                    <th>Seuil 3</th>
+                                    <th>Validité spatiale</th>
+                                    <th>Opacité réduite après</th>
+                                    <th>Opacité min. après</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                                <?php
+                                    foreach($types as $id=>$type) {
+                                        $id = htmlspecialchars($id);
+                                        echo '<tr><td>'.$id.'</td><td>'.$type['name'].'</td><td>'.$type['unit'].'</td><td>'.$type['seuil_1'].'</td><td>'.$type['seuil_2'].'</td><td>'.$type['seuil_3'].'</td><td>'.$type['spatial_validity'].'m</td><td>'.$type['start_decrease'].'s</td><td>'.$type['fully_gone'].'s</td><td><a href="?do=edit_type&amp;id='.$id.'">Modifier</a></td><td><a href="?do=delete_type&amp;id='.$id.'">Supprimer</a></td></tr>';
+                                    }
+                                ?>
+                            </table>
+                    <?php
+                        } else {
+                            echo "<p>Aucun capteur pour le moment.</p>";
+                        }
+                }
+            ?>
+        </div>
     </body>
 </html>
 

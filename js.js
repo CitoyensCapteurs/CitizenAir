@@ -165,6 +165,7 @@ for(GET in params) {
     }
 }
 
+document.getElementById('need-js').innerHTML = '';
 document.getElementById("map").style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) - Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0) +  'px'; // Set dynamically the height of the map
 
 document.getElementById("legend").style.height = document.getElementById('map').style.height;
