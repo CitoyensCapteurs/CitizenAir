@@ -108,37 +108,37 @@ if($_GET['do'] == 'get') {
 
     // Types de mesures
     $measures_types = $types;
-    if(isset($_GET['type'])) {
+    if(!empty($_GET['type'])) {
         $measures_types = explode(',', $_GET['type']); // TODO : incohérent
     }
 
     // Timestamp
     $timestamp_min = false;
-    if(isset($_GET['time_min'])) {
+    if(!empty($_GET['time_min'])) {
         $timestamp_min = floatval($_GET['time_min']);
     }
     $timestamp_max = false;
-    if(isset($_GET['time_max'])) {
+    if(!empty($_GET['time_max'])) {
         $timestamp_max = floatval($_GET['time_max']);
     }
 
     // Longitude
     $longitude_min = false;
-    if(isset($_GET['long_min'])) {
+    if(!empty($_GET['long_min'])) {
         $longitude_min = floatval($_GET['long_min']);
     }
     $longitude_max = false;
-    if(isset($_GET['long_max'])) {
+    if(!empty($_GET['long_max'])) {
         $longitude_max = floatval($_GET['long_max']);
     }
 
     // Latitude
     $latitude_min = false;
-    if(isset($_GET['lat_min'])) {
+    if(!empty($_GET['lat_min'])) {
         $latitude_min = floatval($_GET['lat_min']);
     }
     $latitude_max = false;
-    if(isset($_GET['lat_max'])) {
+    if(!empty($_GET['lat_max'])) {
         $latitude_max = floatval($_GET['lat_max']);
     }
 
@@ -166,7 +166,7 @@ if($_GET['do'] == 'get') {
                 'unit' => $types[$measure['type']]['unit']
             );
 
-            if(isset($_GET['visu'])) {
+            if(!empty($_GET['visu'])) {
                 $index = count($dataset) - 1;
                 $dataset[$index]['type_name'] = $types[$measure['type']]['name'];
                 $dataset[$index]['level'] = get_level($measure['measure'], $types[$measure['type']]['seuil_1'], $types[$measure['type']]['seuil_2'], $types[$measure['type']]['seuil_3']);
@@ -185,7 +185,7 @@ if($_GET['do'] == 'get') {
         header("Content-Type:application/csv"); 
         header("Content-Disposition:attachment;filename=citizenair.csv"); 
 
-        if(!isset($_GET['visu'])) {
+        if(empty($_GET['visu'])) {
             fputcsv($out, array('capteur','latitude','longitude','timestamp','type','measure','unit'));
         }
         else {

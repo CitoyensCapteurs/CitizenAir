@@ -100,8 +100,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ## TODO
 
-* points plus gros et qui diminuent
+* points plus gros et qui diminuent de taille en zoomant
 * timeline : 1 jour / 1 semaine / 1 mois
-* interface pour la récup
 * Page pour supprimer les mesures
 * Renommer fichier de mesures quand édition d'un capteur + idem avec types => ne pas tout casser à la modif
+* RainTPL + refactor
+* TODO divers dans les fichiers

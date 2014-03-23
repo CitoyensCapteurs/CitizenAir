@@ -222,6 +222,11 @@ function ajaxQuery() {
 
 window.onresize = function() {
     m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - header_footer_size + 'px';
+
+    if(window.isExport !== false) {
+        return;
+    }
+
     var tmp = '';
     if(e.style.marginLeft == '0px') {
         tmp = m.style.transition;
@@ -229,18 +234,35 @@ window.onresize = function() {
         m.style.marginLeft = e.offsetWidth + 'px';
         m.style.transition = tmp;
     }
+
     e.style.height = m.style.height;
 } // Same thing on window resizing
 
 window.onload = function() {
     window.live = false;
+    window.isExport = false;
     window.m = document.getElementById('map');
     window.e = document.getElementById("legend");
     window.header_footer_size = Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) + Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0);
 
+    document.getElementById('need-js').innerHTML = '';
+
+    if(window.location.hash == '#legend') {
+        toggleLegend(true);
+    }
+
     if(document.getElementsByClassName('live').length > 0) {
         window.live = true;
     }
+
+    window.m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) - Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0) +  'px'; // Set dynamically the height of the map
+
+    if(document.getElementsByClassName('export').length > 0) {
+        window.isExport = true;
+        return;
+    }
+
+    window.e.style.height = m.style.height;
 
 
     if(live === false) {
@@ -255,15 +277,9 @@ window.onload = function() {
         }).addTo(window.map);
     }
 
-    document.getElementById('need-js').innerHTML = '';
-    window.m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) - Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0) +  'px'; // Set dynamically the height of the map
-
-    window.e.style.height = m.style.height;
-
-    if(window.location.hash == '#legend') {
-        toggleLegend(true);
-    }
     ajaxQuery();
 };
 
-window.setInterval(function() { ajaxQuery(); }, 300000);
+if(window.isExport === false) {
+    window.setInterval(function() { ajaxQuery(); }, 300000);
+}

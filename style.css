@@ -7,6 +7,10 @@ html, body {
     margin: 0;
 }
 
+.center {
+    text-align: center;
+}
+
 a:link, a:visited, a:hover, a:active {
     color: white;
 }
@@ -168,4 +172,11 @@ footer p {
 .table {
     margin: 0;
     display: table-cell;
+}
+
+#export_form {
+    width: 66%;
+    margin: auto;
+    margin-top: 1em;
+    text-align: left;
 }
