@@ -70,7 +70,7 @@ along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.
 ```
 Tous les scripts devraient contenir cette note de licence. Si ce n'est pas le cas, n'hésitez pas à nous deamnder. Veuillez noter que les fichiers pour lesquels il est difficile de déterminer les informations sur la licence (comme les images) sont aussi distribués sous ces termes.
 
-## Leaflet license (files leaflet.css, leaflet.ie.css, leaflet.js)
+## Licence de Leaflet (fichiers leaflet.css, leaflet.js)
 ```
 Copyright (c) 2010-2013, Vladimir Agafonkin
 Copyright (c) 2010-2011, CloudMade
@@ -99,8 +99,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ## TODO
 
-* afficher que la zone avec des mesures
 * points plus gros et qui diminuent
 * timeline : 1 jour / 1 semaine / 1 mois
 * interface pour la récup
 * refactor JS
+* Page pour supprimer les mesures
+* Renommer fichier de mesures quand édition d'un capteur

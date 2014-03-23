@@ -148,6 +148,15 @@ function params() //Get all the parameters in the URL
     return params;
 }
 
+function fitBounds(measures) {
+    bounds = [];
+    for(measure in measures) {
+        bounds.push([measures[measure]['latitude'], measures[measure]['longitude']]);
+    }
+    window.map.fitBounds(bounds); //0.00015 = margin because of markers size
+}
+
+
 // ==============
 // Initialisation
 // ==============
@@ -231,7 +240,7 @@ function ajaxQuery() {
                 if(xhr.status == 200) {
                     measures = JSON.parse(xhr.responseText); // Parse the response
 
-                    if(measures.length == 1) { //If there was an error
+                    if(measures.length == 0) { //If there was an error
                         alert("Une erreur a été rencontrée pendant la récupération des mesures. Veuillez réessayer.");
                     }
                     else {
@@ -249,6 +258,7 @@ function ajaxQuery() {
                                     window.markers.push(marker);
                                 }
                             }
+                            fitBounds(measures);
                         }
                         else if(live !== '') {
                             document.getElementsByClassName('live')[0].innerHTML = '<p>' + measures[0].measure + " " + measures[0].unit + ',<br/>' + relativeDate(measures[0].timestamp) + '</p>';
