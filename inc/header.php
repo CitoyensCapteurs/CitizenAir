@@ -17,7 +17,7 @@
                     </head>
                     <body>
                         <header id=\"title\">
-                            <p class='left'>".((!isset($_GET['live'])) ? '<a href="#legend" onclick="event.preventDefault(); toggle(\'legend\', false);">Légende</a> | <a href="?live=">Capteur en live</a>' : '<a href="#legend" onclick="event.preventDefault(); toggle(\'legend\', false);">Choix du capteur</a> | <a href="index.php">Retour à la carte</a>')." | <a href=\"\">Export</a> | <a href=\"about.php\">À propos</a></p>
+                            <p class='left'>".((!isset($_GET['live'])) ? '<a href="#legend" onclick="event.preventDefault(); toggleLegend(false);">Légende</a> | <a href="?live=">Capteur en live</a>' : '<a href="#legend" onclick="event.preventDefault(); toggleLegend(false);">Choix du capteur</a> | <a href="index.php">Retour à la carte</a>')." | <a href=\"\">Export</a> | <a href=\"about.php\">À propos</a></p>
                             <h1 class=\"white-links\"><a href=\"\">CitizenAir</a>".((!empty($live)) ? ' - Live du capteur '.$live : '')."</h1>
                         </header>
                         <div id=\"main\">";

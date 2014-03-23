@@ -102,6 +102,5 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * points plus gros et qui diminuent
 * timeline : 1 jour / 1 semaine / 1 mois
 * interface pour la récup
-* refactor JS
 * Page pour supprimer les mesures
-* Renommer fichier de mesures quand édition d'un capteur
+* Renommer fichier de mesures quand édition d'un capteur + idem avec types => ne pas tout casser à la modif
