@@ -46,6 +46,7 @@ La même page, _api.php_ permet également de récupérer les données stockées
 * `time_min` et `time_max` pour filtrer les mesures réalisées dans l'intervalle de temps spécifié (les deux paramètres ne sont pas obligatoires).
 * `lat_min` et `lat_max` pour filtrer les mesures entre les latitudes spécifiées (les deux paramètres ne sont pas obligatoires).
 * `long_min` et `long_max` pour filtrer les mesures entre les longitudes spécifiées (les deux paramètres ne sont pas obligatoires).
+* `format` qui peut valoir `json` ou `csv` pour choisir le format d'export. Par défaut, le format `json` est utilisé si le paramètre n'est pas spécifié.
 
 
 ## Visualisation web

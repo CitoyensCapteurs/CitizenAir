@@ -180,6 +180,27 @@ if($_GET['do'] == 'get') {
     sort_array($dataset, 'timestamp');
 
 // Envoi des données
-    echo(json_encode($dataset));
+    if(!empty($_GET['format']) && $_GET['format'] == 'csv') {
+        $out = fopen('php://output', 'w');
+        header("Content-Type:application/csv"); 
+        header("Content-Disposition:attachment;filename=citizenair.csv"); 
+
+        if(!isset($_GET['visu'])) {
+            fputcsv($out, array('capteur','latitude','longitude','timestamp','type','measure','unit'));
+        }
+        else {
+            fputcsv($out, array('capteur','latitude','longitude','timestamp','type','measure','unit', 'type_name', 'level', 'start_decrease', 'fully_gone', 'spatial_validity'));
+        }
+        foreach($dataset as $data) {
+            fputcsv($out, $data);
+        }
+        fclose($out);
+    }
+    else {
+        header("Content-Type:application/json"); 
+        header("Content-Disposition:attachment;filename=citizenair.json"); 
+
+        echo(json_encode($dataset));
+    }
     exit();
 }
