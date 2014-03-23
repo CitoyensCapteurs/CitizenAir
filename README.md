@@ -52,14 +52,30 @@ La même page, _api.php_ permet également de récupérer les données stockées
 
 La visualisation web disponible (page _index.php_) n'est qu'une interface pour représenter les données stockées. Elle utilise l'API décrite précédemment. Elle permet de visualiser directement sur une carte OpenStreeMaps les mesures effectuées, avec une légende et toutes les informations utiles.
 
+## Licence
+
+```
+CitizenAir is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+CitizenAir is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.
+```
+Tous les scripts devraient contenir cette note de licence. Si ce n'est pas le cas, n'hésitez pas à nous deamnder. Veuillez noter que les fichiers pour lesquels il est difficile de déterminer les informations sur la licence (comme les images) sont aussi distribués sous ces termes.
+
+
 ## TODO
 
-- timeline
-* lat et long nuls ?
 * note : la page se mettra à jour toute seule
 * afficher que la zone avec des mesures
 * points plus gros et qui diminuent
 * timeline : 1 jour / 1 semaine / 1 mois
 * menu en haut
 * interface pour la récup
-* licence GPL
