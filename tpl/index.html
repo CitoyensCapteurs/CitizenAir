@@ -7,19 +7,19 @@
         <table>
             <tr>
                 <td>Vert</td>
-                <td>&lt;{function="htmlspecialchars($value['seuil_1'])"} {function="htmlspecialchars($value['unit'])"}</td>
+                <td>&lt;{function="htmlspecialchars($value['seuil_1'])"} {$value['unit']}</td>
             </tr>
             <tr>
                 <td>Orange</td>
-                <td>Entre {function="htmlspecialchars($value['seuil_1'])"} et {function="htmlspecialchars($value['seuil_2'])"} {function="htmlspecialchars($value['unit'])"}</td>
+                <td>Entre {function="htmlspecialchars($value['seuil_1'])"} et {function="htmlspecialchars($value['seuil_2'])"} {$value['unit']}</td>
             </tr>
             <tr>
                 <td>Rouge</td>
-                <td>Entre {function="htmlspecialchars($value['seuil_2'])"} et {function="htmlspecialchars($value['seuil_3'])"} {function="htmlspecialchars($value['unit'])"}</td>
+                <td>Entre {function="htmlspecialchars($value['seuil_2'])"} et {function="htmlspecialchars($value['seuil_3'])"} {$value['unit']}</td>
             </tr>
             <tr>
                 <td>Noir</td>
-                <td>&gt;{function="htmlspecialchars($value['seuil_3'])"} {function="htmlspecialchars($value['unit'])"}</td>
+                <td>&gt;{function="htmlspecialchars($value['seuil_3'])"} {$value['unit']}</td>
             </tr>
         </table>
     </div>

@@ -5,8 +5,10 @@ Visualisation web pour les données issues de http://jnum.parisdescartes.fr/atel
 
 ## Installation
 
-* S'assurer que le script a les droits nécessaires pour créer un fichier _api.keys_ à la racine et pour écrire dans le répertoire _data/_.
-* Décommenter la partie nécessaire dans le .htaccess pour empêcher l'accès libre à la page de configuration _settings.php_ et mettre un fichier _.htpasswd_ correspondant à côté.
+* Cloner le dépôt git où vous voulez.
+* S'assurer que le script a les droits nécessaires pour créer les fichiers _api.keys_ et _passwd_ à la racine et pour écrire dans le répertoire _data/_.
+* S'assurer que le script a les droits nécessaires pour écrire dans le répertoire _tmp/_.
+* Accéder à la page `index.php?settings=` pour mettre en place un mot de passe pour protéger la configuration.
 
 
 ## Configuration
@@ -103,4 +105,4 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * timeline : 1 jour / 1 semaine / 1 mois
 * Page pour supprimer les mesures
 * Choix du capteur
-* Légende
+* Légende cf e-mail

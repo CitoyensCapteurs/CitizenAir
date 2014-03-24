@@ -51,80 +51,111 @@ else {
 }
 
 if(isset($_GET['settings'])) {
-    if($_GET['settings'] == 'delete_device' && !empty($_GET['key'])) {
-        if(array_key_exists($_GET['key'], $api_keys)) {
-            unset($api_keys[$_GET['key']]);
-            file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
+    session_start();
+
+    if($_GET['settings'] == 'logout') {
+        session_destroy();
+        header('location: index.php');
+    }
+
+    if(!empty($_POST['password'])) {
+        var_dump(file_get_contents('password'));
+        if(is_file('password') && file_get_contents('password') == sha1($_POST['password'])) {
+            $_SESSION['login'] = true;
             header('location: ?settings=');
-            exit();
         }
-    }
-
-    if($_GET['settings'] == 'delete_type' && !empty($_GET['id'])) {
-        if(array_key_exists($_GET['id'], $types)) {
-            unset($types[$_GET['id']]);
-            file_put_contents('data/types.data', gzdeflate(json_encode($types)));
+        elseif(!is_file('password')) {
+            file_put_contents('password', sha1($_POST['password']));
+            $_SESSION['login'] = true;
             header('location: ?settings=');
-            exit();
         }
     }
-
-    if(!empty($_POST['device'])) {
-        $new_key = get_key($api_keys, $_POST['device']);
-        if(!empty($_POST['key'])) {
-            rename('data/'.$_POST['key'].'.data', 'data/'.$new_key.'.data');
-            unset($api_keys[$_POST['key']]);
-        }
-        $api_keys[$new_key] = $_POST['device'];
-        file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
-        header('location: ?settings=');
-        exit();
-    }
-
-    if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1']) && !empty($_POST['seuil_2']) && !empty($_POST['seuil_3']) && !empty($_POST['spatial_validity']) && !empty($_POST['start_decrease']) && !empty($_POST['fully_gone'])) {
-        if(intval($_POST['seuil_1']) > intval($_POST['seuil_2'])) {
-            exit('Le seuil 1 doit être en-deça du second seuil.');
-        }
-        if(intval($_POST['seuil_2']) > intval($_POST['seuil_3'])) {
-            exit('Le seuil 2 doit être en-deça du troisième seuil.');
-        }
-
-        if(intval($_POST['start_decrease']) > intval($_POST['fully_gone'])) {
-            exit('La durée avant le début de la diminution de l\'opacité doit être en-deça de celle correspondant à l\'opacité minimale.');
-        }
-
-        $types[$_POST['id']] = array('name' => $_POST['name'], 'unit' => $_POST['unit'], 'seuil_1' => intval($_POST['seuil_1']), 'seuil_2' => intval($_POST['seuil_2']), 'seuil_3' => intval($_POST['seuil_3']), 'spatial_validity' => intval($_POST['spatial_validity']), 'start_decrease' => intval($_POST['start_decrease']), 'fully_gone' => intval($_POST['fully_gone']));
-        file_put_contents('data/types.data', gzdeflate(json_encode($types)));
-        header('location: ?settings=');
-        exit();
-    }
-
 
     $tpl->assign('title', 'CitizenAir - Préférences');
     $tpl->assign('title_complement', ' - <a href="?settings=">Préférences</a>');
     $tpl->assign('menu', '<a href="index.php">Carte</a> | <a href="?live=">Capteur en live</a> | <a href="?export=">Export</a> | <a href="?about=">À propos</a>');
 
-    if(!empty($_GET['settings'])) {
-        $tpl->assign('settings', $_GET['settings']);
+    if(empty($_SESSION['login'])) {
+        if(is_file('password')) {
+            $tpl->assign('configured', 1);
+        }
+        else {
+            $tpl->assign('configured', 0);
+        }
+        $tpl->assign('login', true);
+        $tpl->draw('settings');
     }
     else {
-        $tpl->assign('settings', false);
-    }
+        if($_GET['settings'] == 'delete_device' && !empty($_GET['key'])) {
+            if(array_key_exists($_GET['key'], $api_keys)) {
+                unset($api_keys[$_GET['key']]);
+                file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
+                header('location: ?settings=');
+                exit();
+            }
+        }
 
-    if(!empty($_GET['key']) && array_key_exists($_GET['key'], $api_keys)) {
-        $tpl->assign('device_key', $_GET['key']);
-        $tpl->assign('api_keys', $api_keys);
-    }
+        if($_GET['settings'] == 'delete_type' && !empty($_GET['id'])) {
+            if(array_key_exists($_GET['id'], $types)) {
+                unset($types[$_GET['id']]);
+                file_put_contents('data/types.data', gzdeflate(json_encode($types)));
+                header('location: ?settings=');
+                exit();
+            }
+        }
 
-    if(!empty($_GET['id']) && array_key_exists($_GET['id'], $types)) {
-        $tpl->assign('type_id', $_GET['id']);
+        if(!empty($_POST['device'])) {
+            $new_key = get_key($api_keys, $_POST['device']);
+            if(!empty($_POST['key'])) {
+                rename('data/'.$_POST['key'].'.data', 'data/'.$new_key.'.data');
+                unset($api_keys[$_POST['key']]);
+            }
+            $api_keys[$new_key] = $_POST['device'];
+            file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
+            header('location: ?settings=');
+            exit();
+        }
+
+        if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1']) && !empty($_POST['seuil_2']) && !empty($_POST['seuil_3']) && !empty($_POST['spatial_validity']) && !empty($_POST['start_decrease']) && !empty($_POST['fully_gone'])) {
+            if(intval($_POST['seuil_1']) > intval($_POST['seuil_2'])) {
+                exit('Le seuil 1 doit être en-deça du second seuil.');
+            }
+            if(intval($_POST['seuil_2']) > intval($_POST['seuil_3'])) {
+                exit('Le seuil 2 doit être en-deça du troisième seuil.');
+            }
+
+            if(intval($_POST['start_decrease']) > intval($_POST['fully_gone'])) {
+                exit('La durée avant le début de la diminution de l\'opacité doit être en-deça de celle correspondant à l\'opacité minimale.');
+            }
+
+            $types[$_POST['id']] = array('name' => $_POST['name'], 'unit' => $_POST['unit'], 'seuil_1' => intval($_POST['seuil_1']), 'seuil_2' => intval($_POST['seuil_2']), 'seuil_3' => intval($_POST['seuil_3']), 'spatial_validity' => intval($_POST['spatial_validity']), 'start_decrease' => intval($_POST['start_decrease']), 'fully_gone' => intval($_POST['fully_gone']));
+            file_put_contents('data/types.data', gzdeflate(json_encode($types)));
+            header('location: ?settings=');
+            exit();
+        }
+
+        if(!empty($_GET['settings'])) {
+            $tpl->assign('settings', $_GET['settings']);
+        }
+        else {
+            $tpl->assign('settings', false);
+        }
+
+        if(!empty($_GET['key']) && array_key_exists($_GET['key'], $api_keys)) {
+            $tpl->assign('device_key', $_GET['key']);
+            $tpl->assign('api_keys', $api_keys);
+        }
+
+        if(!empty($_GET['id']) && array_key_exists($_GET['id'], $types)) {
+            $tpl->assign('type_id', $_GET['id']);
+            $tpl->assign('types', $types);
+        }
+
+        $tpl->assign('capteurs', $api_keys);
         $tpl->assign('types', $types);
+
+        $tpl->draw('settings');
     }
-
-    $tpl->assign('capteurs', $api_keys);
-    $tpl->assign('types', $types);
-
-    $tpl->draw('settings');
 }
 elseif(isset($_GET['live'])) {
     $tpl->assign('menu', '<a href="#legend" onclick="event.preventDefault(); toggleLegend(false);">Choix du capteur</a> | <a href="index.php">Carte</a> | <a href="?export=">Export</a> | <a href="?about=">À propos</a>');
