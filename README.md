@@ -73,7 +73,7 @@ along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.
 ```
 Tous les scripts devraient contenir cette note de licence. Si ce n'est pas le cas, n'hésitez pas à nous deamnder. Veuillez noter que les fichiers pour lesquels il est difficile de déterminer les informations sur la licence (comme les images) sont aussi distribués sous ces termes.
 
-## Licence de Leaflet (fichiers leaflet.css, leaflet.js)
+## Licence de Leaflet (fichiers `leaflet.css`, `leaflet.js`)
 ```
 Copyright (c) 2010-2013, Vladimir Agafonkin
 Copyright (c) 2010-2011, CloudMade
@@ -98,6 +98,18 @@ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRU
 HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
 TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+```
+
+## Licence de RainTPL (fichier `rain.tpl.class.php`)
+```
+/**
+ *  RainTPL
+ *  -------
+ *  Realized by Federico Ulfo & maintained by the Rain Team
+ *  Distributed under GNU/LGPL 3 License
+ *
+ *  @version 2.7.2
+ */
 ```
 
 ## TODO
