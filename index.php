@@ -15,71 +15,158 @@
  * along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once('inc/header.php');
+function get_key($api_keys, $device) {
+    $key = substr(md5($device.time()), 0, 5);
 
-if(isset($_GET['live']) && in_array($_GET['live'], $api_keys)) {
-    $live = htmlspecialchars($_GET['live']);
-}
-
-if(!isset($_GET['export'])) {
-    $tpl .= "<div id=\"legend\" class=\"left\">
-                    <h2>".((empty($live)) ? 'Légende :' : 'Capteur à afficher :')."</h2>";
-
-    if(!isset($_GET['live'])) {
-        foreach($types as $type) {
-            $tpl .= '<div class="legend-item"><h2>'.$type['name'].'</h2><table><tr><td>Vert</td><td>&lt;'.$type['seuil_1'].' '.$type['unit'].'</td></tr><tr><td>Orange</td><td>Entre '.$type['seuil_1'].' et '.$type['seuil_2'].' '.$type['unit'].'</td></tr><tr><td>Rouge</td><td>Entre '.$type['seuil_2'].' et '.$type['seuil_3'].' '.$type['unit'].'</td></tr><tr><td>Noir</td><td>&gt;'.$type['seuil_3'].' '.$type['unit'].'</td></tr></table></div>';
-        }
+    if(!array_key_exists($key, $api_keys)) {
+        return $key;
     }
     else {
-        $tpl .= '<ul>';
-        foreach($api_keys as $capteur) {
-            $tpl .= '<li><a href="?live='.htmlspecialchars($capteur).'">'.htmlspecialchars($capteur).'</a></li>';
+        return get_key($api_keys, $device.$key);
+    }
+}
+
+if((!is_file('api.keys') || !is_file('data/types.data')) && !isset($_GET['settings'])) {
+    header('location: ?settings=');
+    exit();
+}
+
+require_once('rain.tpl.class.php');
+raintpl::$tpl_dir = 'tpl/';
+raintpl::$cache_dir = 'tmp/';
+$tpl = new raintpl();
+
+if(is_file('api.keys')) {
+    $api_keys = json_decode(gzinflate(file_get_contents('api.keys')), true);
+}
+else {
+    $api_keys = array();
+}
+
+if(is_file('data/types.data')) {
+    $types = json_decode(gzinflate(file_get_contents('data/types.data')), true);
+}
+else {
+    $types = array();
+}
+
+if(isset($_GET['settings'])) {
+    if($_GET['settings'] == 'delete_device' && !empty($_GET['key'])) {
+        if(array_key_exists($_GET['key'], $api_keys)) {
+            unset($api_keys[$_GET['key']]);
+            file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
+            header('location: ?settings=');
+            exit();
         }
-        $tpl .= '</ul>';
     }
-    $tpl .= "</div>";
+
+    if($_GET['settings'] == 'delete_type' && !empty($_GET['id'])) {
+        if(array_key_exists($_GET['id'], $types)) {
+            unset($types[$_GET['id']]);
+            file_put_contents('data/types.data', gzdeflate(json_encode($types)));
+            header('location: ?settings=');
+            exit();
+        }
+    }
+
+    if(!empty($_POST['device'])) {
+        $new_key = get_key($api_keys, $_POST['device']);
+        if(!empty($_POST['key'])) {
+            rename('data/'.$_POST['key'].'.data', 'data/'.$new_key.'.data');
+            unset($api_keys[$_POST['key']]);
+        }
+        $api_keys[$new_key] = $_POST['device'];
+        file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
+        header('location: ?settings=');
+        exit();
+    }
+
+    if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1']) && !empty($_POST['seuil_2']) && !empty($_POST['seuil_3']) && !empty($_POST['spatial_validity']) && !empty($_POST['start_decrease']) && !empty($_POST['fully_gone'])) {
+        if(intval($_POST['seuil_1']) > intval($_POST['seuil_2'])) {
+            exit('Le seuil 1 doit être en-deça du second seuil.');
+        }
+        if(intval($_POST['seuil_2']) > intval($_POST['seuil_3'])) {
+            exit('Le seuil 2 doit être en-deça du troisième seuil.');
+        }
+
+        if(intval($_POST['start_decrease']) > intval($_POST['fully_gone'])) {
+            exit('La durée avant le début de la diminution de l\'opacité doit être en-deça de celle correspondant à l\'opacité minimale.');
+        }
+
+        $types[$_POST['id']] = array('name' => $_POST['name'], 'unit' => $_POST['unit'], 'seuil_1' => intval($_POST['seuil_1']), 'seuil_2' => intval($_POST['seuil_2']), 'seuil_3' => intval($_POST['seuil_3']), 'spatial_validity' => intval($_POST['spatial_validity']), 'start_decrease' => intval($_POST['start_decrease']), 'fully_gone' => intval($_POST['fully_gone']));
+        file_put_contents('data/types.data', gzdeflate(json_encode($types)));
+        header('location: ?settings=');
+        exit();
+    }
+
+
+    $tpl->assign('title', 'CitizenAir - Préférences');
+    $tpl->assign('title_complement', ' - <a href="?settings=">Préférences</a>');
+    $tpl->assign('menu', '<a href="index.php">Carte</a> | <a href="?live=">Capteur en live</a> | <a href="?export=">Export</a> | <a href="?about=">À propos</a>');
+
+    if(!empty($_GET['settings'])) {
+        $tpl->assign('settings', $_GET['settings']);
+    }
+    else {
+        $tpl->assign('settings', false);
+    }
+
+    if(!empty($_GET['key']) && array_key_exists($_GET['key'], $api_keys)) {
+        $tpl->assign('device_key', $_GET['key']);
+        $tpl->assign('api_keys', $api_keys);
+    }
+
+    if(!empty($_GET['id']) && array_key_exists($_GET['id'], $types)) {
+        $tpl->assign('type_id', $_GET['id']);
+        $tpl->assign('types', $types);
+    }
+
+    $tpl->assign('capteurs', $api_keys);
+    $tpl->assign('types', $types);
+
+    $tpl->draw('settings');
 }
+elseif(isset($_GET['live'])) {
+    $tpl->assign('menu', '<a href="#legend" onclick="event.preventDefault(); toggleLegend(false);">Choix du capteur</a> | <a href="index.php">Carte</a> | <a href="?export=">Export</a> | <a href="?about=">À propos</a>');
+    $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens Capteurs</a>');
+    $tpl->assign('capteurs', $api_keys);
 
-$tpl .= "<div id=\"map\" ".((isset($_GET['live'])) ? 'class="live"' : '')." ".(isset($_GET['export']) ? 'class="export"' : '').">
-            <div id=\"need-js\"><p>Vous devez activer JavaScript pour utiliser ce site web.</p></div>";
-
-if(isset($_GET['live']) && empty($live)) {
-    $tpl .= "<div class=\"table\"><p>Choisissez le capteur à suivre :</p>
-                <ul>";
-    foreach($api_keys as $capteur) {
-        $tpl .= '<li><a href="?live='.htmlspecialchars($capteur).'">'.htmlspecialchars($capteur).'</a></li>';
+    if(in_array($_GET['live'], $api_keys)) {
+        $live = htmlspecialchars($_GET['live']);
+        $tpl->assign('title_complement', ' - Suivi du capteur '.$live);
+        $tpl->assign('title', 'CitizenAir - Suivi du capteur '.$live);
+        $tpl->assign('live', $live);
     }
-    $tpl .= "</ul>
-            </div>";
+    else {
+        $tpl->assign('title', 'CitizenAir - Capteur en live');
+        $tpl->assign('title_complement', ' - Capteur en live');
+    }
+
+    $tpl->draw('live');
 }
-
-if(isset($_GET['export'])) {
-    $tpl .= "<form method=\"get\" action=\"api.php\" id=\"export_form\">
-        <fieldset>
-        <p><label for=\"capteur\">Capteur : </label><select name=\"capteur\" id=\"capteur\"><option value=\"\" selected>Tous</option>";
-    foreach($api_keys as $capteur) {
-        $tpl .= '<option value="'.$capteur.'">'.$capteur.'</option>';
-    }
-    $tpl .= "</select></p>
-        <p><label for=\"type\">Type : </label><select name=\"type\" id=\"type\"><option value=\"\" selected>Tous</option>";
-    foreach($types as $id=>$type) {
-        $tpl .= '<option value="'.$id.'">'.$type['name'].'</option>';
-    }
-    $tpl .= "</select></p>
-        <p><label for=\"time_min\">Daté entre le </label> <input type=\"text\" name=\"lat_min\" id=\"lat_min\"/><label for=\"lat_max\"> et le </label><input type=\"text\" name=\"lat_max\" id=\"lat_max\"/> (format <a href=\"https://fr.wikipedia.org/wiki/Heure_Unix\">timestamp Unix</a>)</p>
-        <p><label for=\"lat_min\">Latitude entre </label> <input type=\"text\" name=\"lat_min\" id=\"lat_min\"/><label for=\"lat_max\"> et </label><input type=\"text\" name=\"lat_max\" id=\"lat_max\"/></p>
-        <p><label for=\"long_min\">Longitude entre </label> <input type=\"text\" name=\"lat_min\" id=\"lat_min\"/><label for=\"lat_max\"> et </label><input type=\"text\" name=\"lat_max\" id=\"lat_max\"/></p>
-        <p><label for=\"format\">Format : </label><select name=\"format\" id=\"format\"><option value=\"csv\">CSV</option><option value=\"json\" selected>JSON</option></select></p>
-        <p><label for=\"visu\">Inclure les données pour la visualisation ? </label><select name=\"visu\" id=\"visu\"><option value=\"0\">Non</option><option value=\"1\" selected>Oui</option></select></p>
-        </fieldset>
-        <p class=\"center\"><input type=\"submit\" value=\"Exporter\"/><input type=\"hidden\" name=\"do\" value=\"get\"/></p>
-        </form>
-        <p><em>Note :</em> Tous les champs sont optionnels et ne servent qu'à restreindre les résultats.</p>";
+elseif(isset($_GET['export'])) {
+    $tpl->assign('title', 'CitizenAir - Export');
+    $tpl->assign('title_complement', ' - Export des données');
+    $tpl->assign('menu', '<a href="index.php">Carte</a> | <a href="?live=">Capteur en live</a> | <a href="?about=">À propos</a>');
+    $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens Capteurs</a>');
+    $tpl->assign('no_js', true);
+    $tpl->assign('capteurs', $api_keys);
+    $tpl->assign('types', $types);
+    $tpl->draw('export');
 }
-
-$tpl .= "</div>";
-
-require_once('inc/footer.php');
-
-echo $tpl;
-?>
+elseif(isset($_GET['about'])) {
+    $tpl->assign('title', 'CitizenAir - À propos');
+    $tpl->assign('title_complement', ' - À propos');
+    $tpl->assign('menu', '<a href="index.php">Carte</a> | <a href="?live=">Capteur en live</a> | <a href="?export=">Export</a>');
+    $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens Capteurs</a>');
+    $tpl->assign('no_js', true);
+    $tpl->draw('about');
+}
+else {
+    $tpl->assign('title', 'CitizenAir');
+    $tpl->assign('title_complement', '');
+    $tpl->assign('menu', '<a href="#legend" onclick="event.preventDefault(); toggleLegend(false);">Légende</a> | <a href="?live=">Capteur en live</a> | <a href="?export=">Export</a> | <a href="?about=">À propos</a>');
+    $tpl->assign('legend_items', $types);
+    $tpl->assign('credits', '<a title="A JS library for interactive maps" href="http://leafletjs.com">Leaflet</a> | Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a> | <a href="http://www.citoyenscapteurs.net/">Citoyens Capteurs</a>');
+    $tpl->draw('index');
+}

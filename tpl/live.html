@@ -1,0 +1,25 @@
+{include="header"}
+<div id="legend" class="left">
+    <h2>Choix du capteur :</h2>
+    <ul>
+        {loop="$capteurs"}
+            <li><a href="?live={function="htmlspecialchars($value)"}">{function="htmlspecialchars($value)"}</a></li>
+        {/loop}
+    </ul>
+</div>
+<div id="map">
+    <div class="live">
+        <p id="need-js">
+        Vous devez activer JavaScript pour utiliser ce site web.
+        </p>
+        {if="!isset($live)"}
+            <p>Choisissez le capteur à suivre :</p>
+            <ul>
+                {loop="$capteurs"}
+                    <li><a href="?live={function="htmlspecialchars($value)"}">{function="htmlspecialchars($value)"}</a></li>
+                {/loop}
+            </ul>
+        {/if}
+    </div>
+</div>
+{include="footer"}

@@ -1,0 +1,33 @@
+{include="header"}
+<div id="legend" class="left">
+    <h2>Légende :</h2>
+    {loop="$legend_items"}
+    <div class="legend-item">
+        <h2>{$value['name']}</h2>
+        <table>
+            <tr>
+                <td>Vert</td>
+                <td>&lt;{function="htmlspecialchars($value['seuil_1'])"} {function="htmlspecialchars($value['unit'])"}</td>
+            </tr>
+            <tr>
+                <td>Orange</td>
+                <td>Entre {function="htmlspecialchars($value['seuil_1'])"} et {function="htmlspecialchars($value['seuil_2'])"} {function="htmlspecialchars($value['unit'])"}</td>
+            </tr>
+            <tr>
+                <td>Rouge</td>
+                <td>Entre {function="htmlspecialchars($value['seuil_2'])"} et {function="htmlspecialchars($value['seuil_3'])"} {function="htmlspecialchars($value['unit'])"}</td>
+            </tr>
+            <tr>
+                <td>Noir</td>
+                <td>&gt;{function="htmlspecialchars($value['seuil_3'])"} {function="htmlspecialchars($value['unit'])"}</td>
+            </tr>
+        </table>
+    </div>
+    {/loop}
+</div>
+<div id="map">
+    <p id="need-js">
+    Vous devez activer JavaScript pour utiliser ce site web.
+    </p>
+</div>
+{include="footer"}

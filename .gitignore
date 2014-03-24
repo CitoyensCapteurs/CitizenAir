@@ -1,3 +1,4 @@
 api.keys
 data/*.data
 .htpasswd
+tmp/*

@@ -17,6 +17,7 @@
 html {
     text-align: center;
     font-family: sans-serif;
+    color: #333;
 }
 
 html, body {
@@ -28,7 +29,7 @@ html, body {
 }
 
 a:link, a:visited, a:hover, a:active {
-    color: white;
+    color: #EEE;
 }
 
 li {
@@ -36,7 +37,7 @@ li {
 }
 
 header {
-    color: white;
+    color: #EEE;
 }
 
 h1 {
@@ -123,8 +124,10 @@ header .left {
 
 footer {
     background-color: black;
-    color: white;
+    color: #EEE;
     width: 100%;
+    position: absolute;
+    bottom: 0;
 }
 
 footer p {
@@ -145,7 +148,7 @@ footer p {
 
 .settings h2 {
     background-color: #662c90;
-    color: white;
+    color: #EEE;
     padding: 0.5em;
     width: 50%;
     margin-top: 1em;
@@ -190,9 +193,28 @@ footer p {
     display: table-cell;
 }
 
-#export_form {
+#export_form, #about {
     width: 66%;
     margin: auto;
     margin-top: 1em;
     text-align: left;
+}
+
+#export_form a:link, #export_form a:visited, #export_form a:hover, #export_form a:active {
+    color: #333;
+}
+
+#about a:link, #about a:visited, #about a:hover, #about a:active {
+    color: #333;
+}
+
+.contact_e-mail:after {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    content: "tcatnoc";
+}
+.contact_e-mail:before {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    content: "ten.sruetpacsneyotic";
 }

@@ -100,8 +100,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ## TODO
 
-* points plus gros et qui diminuent de taille en zoomant
 * timeline : 1 jour / 1 semaine / 1 mois
 * Page pour supprimer les mesures
-* Modifier les types dans les mesures pour ne pas tout casser si modif
-* RainTPL + refactor
+* Choix du capteur
+* Légende

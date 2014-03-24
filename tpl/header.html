@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>{$title}</title>
+        {if="!isset($no_js)"}
+            <link rel="stylesheet" href="css/leaflet.css">
+        {/if}
+        <link rel="stylesheet" href="css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header id="title">
+            <p class="left">{$menu}</p>
+            <h1 class="white-links"><a href="index.php">CitizenAir</a>{$title_complement}</h1>
+        </header>
+        <div id="main">

@@ -157,12 +157,24 @@ function fitBounds(measures) {
     window.map.fitBounds(bounds); //0.00015 = margin because of markers size
 }
 
+function params() { //Get all the parameters in the URL	
+    var t = location.search.substring(1).split('&');
+    var params = [];
+
+    for (var i=0; i<t.length; i++)
+    {
+        var x = t[i].split('=');
+        params[x[0]] = x[1];
+    }
+    return params;
+}
 
 // ==========
 // AJAX query
 // ==========
 
 var markers = new Array();
+var max_radius = new Array();
 
 function ajaxQuery() {
     var xhr;
@@ -209,6 +221,7 @@ function ajaxQuery() {
                                     marker.addTo(window.map);
                                     marker.bindPopup("Mesure effectuée " + relativeDate(measures[measure].timestamp) + ".<br/>" + measures[measure].type_name + " : " + measures[measure].measure + measures[measure].unit + "<br/>Capteur : " + measures[measure].capteur);
                                     window.markers.push(marker);
+                                    window.max_radius.push(measures[measure].spatial_validity/2);
                                 }
                             }
                             fitBounds(measures);
@@ -255,7 +268,18 @@ window.onresize = function() {
 } // Same thing on window resizing
 
 window.onload = function() {
+    var parameters = params();
     window.live = false;
+    for(GET in parameters) {
+        if(GET != '') {
+            switch(GET)
+            {
+                case 'live':
+                    window.live = parameters['live'];
+                    break;
+            }
+        }
+    }
     window.isExport = false;
     window.m = document.getElementById('map');
     window.e = document.getElementById("legend");
@@ -265,10 +289,6 @@ window.onload = function() {
 
     if(window.location.hash == '#legend') {
         toggleLegend(true);
-    }
-
-    if(document.getElementsByClassName('live').length > 0) {
-        window.live = true;
     }
 
     window.m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) - Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0) +  'px'; // Set dynamically the height of the map
@@ -291,6 +311,13 @@ window.onload = function() {
         L.tileLayer(window.tiles_provider, {
             maxZoom: 19
         }).addTo(window.map);
+
+        map.on('zoomend', function() {
+            var currentZoom = map.getZoom();
+            for(marker in window.markers) {
+                window.markers[marker].setRadius((map.getMaxZoom() - map.getZoom()) * 5 + max_radius[marker]);
+            }
+        });
     }
 
     ajaxQuery();
