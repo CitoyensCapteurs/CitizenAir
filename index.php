@@ -86,10 +86,32 @@ if(isset($_GET['settings'])) {
         $tpl->draw('settings');
     }
     else {
+        if($_GET['settings'] == 'delete_measure' && !empty($_GET['device']) && isset($_GET['id'])) {
+            if(is_file('data/'.$_GET['device'].'.data')) {
+                $measures = json_decode(gzinflate(file_get_contents('data/'.$_GET['device'].'.data')), true);
+                if(array_key_exists($_GET['id'], $measures)) {
+                    unset($measures[$_GET['id']]);
+                    if(empty($measures)) {
+                        unlink('data/'.$_GET['device'].'.data');
+                    }
+                    else {
+                        file_put_contents('data/'.$_GET['device'].'.data', gzdeflate(json_encode($measures)));
+                    }
+                }
+            }
+            header('location: ?settings=');
+            exit();
+        }
+
         if($_GET['settings'] == 'delete_device' && !empty($_GET['key'])) {
             if(array_key_exists($_GET['key'], $api_keys)) {
                 unset($api_keys[$_GET['key']]);
                 file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
+
+                if(is_file('data/'.$_GET['key'].'.data')) {
+                    unlink('data/'.$_GET['key'].'.data');
+                }
+
                 header('location: ?settings=');
                 exit();
             }
@@ -99,6 +121,24 @@ if(isset($_GET['settings'])) {
             if(array_key_exists($_GET['id'], $types)) {
                 unset($types[$_GET['id']]);
                 file_put_contents('data/types.data', gzdeflate(json_encode($types)));
+
+                foreach($api_keys as $api_key=>$value) {
+                    if(is_file('data/'.$api_key.'.data')) {
+                        $measures = json_decode(gzinflate(file_get_contents('data/'.$api_key.'.data')), true);
+                        foreach($measures as $key=>$measure) {
+                            if($measure['type'] == $_GET['id']) {
+                                unset($measures[$key]);
+                            }
+                        }
+                        if(empty($measures)) {
+                            unlink('data/'.$api_key.'.data');
+                        }
+                        else {
+                            file_put_contents('data/'.$api_key.'.data', gzdeflate(json_encode($measures)));
+                        }
+                    }
+                }
+
                 header('location: ?settings=');
                 exit();
             }
@@ -128,6 +168,26 @@ if(isset($_GET['settings'])) {
                 exit('La durée avant le début de la diminution de l\'opacité doit être en-deça de celle correspondant à l\'opacité minimale.');
             }
 
+            if(!empty($_POST['old_id'])) {
+                unset($types[$_POST['old_id']]);
+                foreach($api_keys as $api_key=>$value) {
+                    if(is_file('data/'.$api_key.'.data')) {
+                        $measures = json_decode(gzinflate(file_get_contents('data/'.$api_key.'.data')), true);
+                        foreach($measures as $key=>$measure) {
+                            if($measure['type'] == $_POST['old_id']) {
+                                $measures[$key]['type'] = $_POST['id'];
+                            }
+                        }
+                        if(empty($measures)) {
+                            unlink('data/'.$api_key.'.data');
+                        }
+                        else {
+                            file_put_contents('data/'.$api_key.'.data', gzdeflate(json_encode($measures)));
+                        }
+                    }
+                }
+            }
+
             $types[$_POST['id']] = array('name' => $_POST['name'], 'unit' => $_POST['unit'], 'seuil_1' => intval($_POST['seuil_1']), 'seuil_2' => intval($_POST['seuil_2']), 'seuil_3' => intval($_POST['seuil_3']), 'spatial_validity' => intval($_POST['spatial_validity']), 'start_decrease' => intval($_POST['start_decrease']), 'fully_gone' => intval($_POST['fully_gone']));
             file_put_contents('data/types.data', gzdeflate(json_encode($types)));
             header('location: ?settings=');
@@ -153,6 +213,14 @@ if(isset($_GET['settings'])) {
 
         $tpl->assign('capteurs', $api_keys);
         $tpl->assign('types', $types);
+
+        $datafiles = [];
+        foreach($api_keys as $key=>$value) {
+            if(is_file('data/'.$key.'.data')) {
+                $datafiles[$key] = json_decode(gzinflate(file_get_contents('data/'.$key.'.data')), true);
+            }
+        }
+        $tpl->assign('datafiles', $datafiles);
 
         $tpl->draw('settings');
     }
