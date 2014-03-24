@@ -105,4 +105,3 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * Page pour supprimer les mesures
 * Modifier les types dans les mesures pour ne pas tout casser si modif
 * RainTPL + refactor
-* TODO divers dans les fichiers

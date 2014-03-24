@@ -78,7 +78,7 @@ header .left {
     overflow-y: auto;
     margin-left: -100%;
     border-right: 1px solid black;
-    color: #333; /* TODO */
+    color: #333;
 }
 
 #legend h2 {
@@ -88,7 +88,7 @@ header .left {
     margin-right: 0.6em;
 }
 
-#legend h2:first-child { /* TODO */
+#legend > h2:first-child {
     text-align: center;
     text-decoration: underline;
 }

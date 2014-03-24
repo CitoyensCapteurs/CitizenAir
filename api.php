@@ -125,7 +125,12 @@ if($_GET['do'] == 'get') {
     // Types de mesures
     $measures_types = $types;
     if(!empty($_GET['type'])) {
-        $measures_types = explode(',', $_GET['type']); // TODO : incohérent
+        $filter_types = explode(',', $_GET['type']);
+        foreach($measures_types as $type=>$type_full) {
+            if(!in_array($type, $filter_types)) {
+                unset($measures_types[$type]);
+            }
+        }
     }
 
     // Timestamp
