@@ -13,7 +13,7 @@ Visualisation web pour les données issues de http://jnum.parisdescartes.fr/atel
 
 ## Configuration
 
-Toute la configuration se fait par la page _settings.php_.Elle permet notamment :
+Toute la configuration se fait par la page `index.php?settings=`.Elle permet notamment :
 * D'ajouter de nouveaux types de mesures, en spécifiant leurs paramètres finement.
 * De gérer les capteurs autorisés, identifiés par une clé unique de 5 caractères. Cette clé sert à envoyer les données à la visualisation.
 
