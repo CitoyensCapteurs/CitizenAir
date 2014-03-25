@@ -1,5 +1,5 @@
 {include="header"}
-<form method="get" action="api.php" id="export_form">
+<form method="get" action="api.php" id="export_form" class="black_links">
     <fieldset>
         <p>
             <label for="capteur">Capteur : </label>
@@ -28,4 +28,6 @@
     <p class="center"><input type="submit" value="Exporter"/><input type="hidden" name="do" value="get"/></p>
 </form>
 <p><em>Note :</em> Tous les champs sont optionnels et ne servent qu'à restreindre les résultats.</p>
+<p class="black_links">Les données des capteurs téléchargeables au format <a href="https://fr.wikipedia.org/wiki/JSON">JSON</a> et <a href="https://fr.wikipedia.org/wiki/Comma-separated_values">CSV</a> sont sous licence <a href="http://opendatacommons.org/licenses/by/">Open Data Commons By</a>.</p>
+
 {include="footer"}

@@ -32,6 +32,10 @@ a:link, a:visited, a:hover, a:active {
     color: #EEE;
 }
 
+.black_links a:link, .black_links a:visited, .black_links a:hover, .black_links a:active {
+    color: #333;
+}
+
 li {
     list-style-type: none;
 }
@@ -113,10 +117,6 @@ header .left {
     list-style-type: square;
 }
 
-#legend a:link, #legend a:visited, #legend a:hover, #legend a:active {
-    color: black;
-}
-
 .legend-item {
     margin-left: 0.5em;
     margin-right: 0.6em;
@@ -140,10 +140,6 @@ footer p {
     padding: 0.4em;
     font-size: 0.7em;
     text-align: right;
-}
-
-.settings a:link, .settings a:visited, .settings a:hover, .settings a:active {
-    color: black;
 }
 
 .settings * {
@@ -203,14 +199,6 @@ footer p {
     margin: auto;
     margin-top: 1em;
     text-align: left;
-}
-
-#export_form a:link, #export_form a:visited, #export_form a:hover, #export_form a:active {
-    color: #333;
-}
-
-#about a:link, #about a:visited, #about a:hover, #about a:active {
-    color: #333;
 }
 
 .contact_e-mail:after {

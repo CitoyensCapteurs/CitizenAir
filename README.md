@@ -55,7 +55,14 @@ La même page, _api.php_ permet également de récupérer les données stockées
 
 La visualisation web disponible (page _index.php_) n'est qu'une interface pour représenter les données stockées. Elle utilise l'API décrite précédemment. Elle permet de visualiser directement sur une carte OpenStreeMaps les mesures effectuées, avec une légende et toutes les informations utiles.
 
-## Licence
+## Licences
+
+Ce projet est un _fully open source project_ :
+* Les sources de l'application se trouvent sur [Github](https://github.com/CitoyensCapteurs/CitizenAir) sous licence [GNU GPL v3](https://www.gnu.org/copyleft/gpl.html)
+* Les sources et tutoriaux de montage des capteurs disponibles sur [le wiki de l'association](http://wiki.citoyenscapteurs.net/) sont placés sous licence [Open Hardware License du CERN](http://www.ohwr.org/projects/cernohl/wiki)
+* Les données des capteurs téléchargeables au format [JSON](https://fr.wikipedia.org/wiki/JSON) et [CSV](https://fr.wikipedia.org/wiki/Comma-separated_values) sont sous licence [Open Data Commons By](http://opendatacommons.org/licenses/by/)
+
+### Licence du code
 
 ```
 CitizenAir is free software: you can redistribute it and/or modify
@@ -71,9 +78,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.
 ```
-Tous les scripts devraient contenir cette note de licence. Si ce n'est pas le cas, n'hésitez pas à nous deamnder. Veuillez noter que les fichiers pour lesquels il est difficile de déterminer les informations sur la licence (comme les images) sont aussi distribués sous ces termes.
+Tous les scripts devraient contenir cette note de licence. Si ce n'est pas le cas, n'hésitez pas à nous demander. Veuillez noter que les fichiers pour lesquels il est difficile de déterminer les informations sur la licence (comme les images) sont aussi distribués sous ces termes.
 
-## Licence de Leaflet (fichiers `leaflet.css`, `leaflet.js`)
+### Licence de Leaflet (fichiers `leaflet.css`, `leaflet.js`)
 ```
 Copyright (c) 2010-2013, Vladimir Agafonkin
 Copyright (c) 2010-2011, CloudMade
@@ -100,7 +107,7 @@ TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF TH
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 
-## Licence de RainTPL (fichier `rain.tpl.class.php`)
+### Licence de RainTPL (fichier `rain.tpl.class.php`)
 ```
 /**
  *  RainTPL
@@ -117,3 +124,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * timeline : 1 jour / 1 semaine / 1 mois
 * Logos
 * Tests et recherches de bugs graphiques
+
+## TODO v2
+
+* Nominatim reverse geolocation pour le choix de l'export
+* Dropper les timestamps sur l'UI
