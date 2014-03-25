@@ -69,6 +69,10 @@ header .left {
     margin-left: 1em;
 }
 
+#main {
+    padding-bottom: 1em;
+}
+
 #map {
     height: 450px;
     transition: margin-left 0.5s ease 0s;
@@ -131,7 +135,7 @@ footer {
     background-color: black;
     color: #EEE;
     width: 100%;
-    position: absolute;
+    position: fixed;
     bottom: 0;
 }
 
@@ -199,6 +203,10 @@ footer p {
     margin: auto;
     margin-top: 1em;
     text-align: left;
+}
+
+#about li {
+    list-style-type: square;
 }
 
 .contact_e-mail:after {

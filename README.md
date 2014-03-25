@@ -62,6 +62,10 @@ Ce projet est un _fully open source project_ :
 * Les sources et tutoriaux de montage des capteurs disponibles sur [le wiki de l'association](http://wiki.citoyenscapteurs.net/) sont placés sous licence [Open Hardware License du CERN](http://www.ohwr.org/projects/cernohl/wiki)
 * Les données des capteurs téléchargeables au format [JSON](https://fr.wikipedia.org/wiki/JSON) et [CSV](https://fr.wikipedia.org/wiki/Comma-separated_values) sont sous licence [Open Data Commons By](http://opendatacommons.org/licenses/by/)
 
+![OpenData](https://raw.githubusercontent.com/CitoyensCapteurs/CitizenAir/master/tpl/img/od.png)
+![OpenHardware](https://raw.githubusercontent.com/CitoyensCapteurs/CitizenAir/master/tpl/img/ohr.png)
+![GPLv3](https://raw.githubusercontent.com/CitoyensCapteurs/CitizenAir/master/tpl/img/gpl.png)
+
 ### Licence du code
 
 ```
