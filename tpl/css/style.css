@@ -28,6 +28,11 @@ html, body {
     text-align: center;
 }
 
+.table-caption {
+    display: table-caption;
+    margin: 0.5em;
+}
+
 a:link, a:visited, a:hover, a:active {
     color: #EEE;
 }
@@ -122,6 +127,10 @@ header .left {
 }
 
 .legend-item {
+    display: table-row;
+}
+
+.legend-item > * {
     margin-left: 0.5em;
     margin-right: 0.6em;
     margin-bottom: 0.5em;
