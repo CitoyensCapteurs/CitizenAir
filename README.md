@@ -82,7 +82,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.
 ```
-Tous les scripts devraient contenir cette note de licence. Si ce n'est pas le cas, n'hésitez pas à nous demander. Veuillez noter que les fichiers pour lesquels il est difficile de déterminer les informations sur la licence (comme les images) sont aussi distribués sous ces termes.
+Tous les scripts devraient contenir cette note de licence. Si ce n'est pas le cas, n'hésitez pas à nous demander. Veuillez noter que les fichiers pour lesquels il est difficile de déterminer les informations sur la licence (comme les images) sont aussi distribués sous ces termes, à l'exception des images _tpl/img/ohr.png_, _tpl/img/gpl.png_, _tpl/img/od.png_, _tpl/img/flattr.png_ et _tpl/img/paypal.gif_.
 
 ### Licence de Leaflet (fichiers `leaflet.css`, `leaflet.js`)
 ```
