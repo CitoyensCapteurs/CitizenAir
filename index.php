@@ -26,6 +26,11 @@ function get_key($api_keys, $device) {
     }
 }
 
+function br2nl($string)
+{
+    return str_replace('<br />', "\n", $string);
+}
+
 if((!is_file('api.keys') || !is_file('data/types.data')) && !isset($_GET['settings'])) {
     header('location: ?settings=');
     exit();
@@ -156,7 +161,7 @@ if(isset($_GET['settings'])) {
             exit();
         }
 
-        if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1']) && !empty($_POST['seuil_2']) && !empty($_POST['seuil_3']) && !empty($_POST['spatial_validity']) && !empty($_POST['start_decrease']) && !empty($_POST['fully_gone'])) {
+        if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1']) && !empty($_POST['seuil_2']) && !empty($_POST['seuil_3']) && !empty($_POST['spatial_validity']) && !empty($_POST['start_decrease']) && !empty($_POST['fully_gone']) && !empty($_POST['description'])) {
             if(intval($_POST['seuil_1']) > intval($_POST['seuil_2'])) {
                 exit('Le seuil 1 doit être en-deça du second seuil.');
             }
@@ -188,7 +193,7 @@ if(isset($_GET['settings'])) {
                 }
             }
 
-            $types[$_POST['id']] = array('name' => $_POST['name'], 'unit' => $_POST['unit'], 'seuil_1' => intval($_POST['seuil_1']), 'seuil_2' => intval($_POST['seuil_2']), 'seuil_3' => intval($_POST['seuil_3']), 'spatial_validity' => intval($_POST['spatial_validity']), 'start_decrease' => intval($_POST['start_decrease']), 'fully_gone' => intval($_POST['fully_gone']));
+            $types[$_POST['id']] = array('name' => $_POST['name'], 'unit' => $_POST['unit'], 'seuil_1' => intval($_POST['seuil_1']), 'seuil_2' => intval($_POST['seuil_2']), 'seuil_3' => intval($_POST['seuil_3']), 'spatial_validity' => intval($_POST['spatial_validity']), 'start_decrease' => intval($_POST['start_decrease']), 'fully_gone' => intval($_POST['fully_gone']), 'description' => preg_replace("/(\r\n|\n|\r)/", "<br />", $_POST['description']));
             file_put_contents('data/types.data', gzdeflate(json_encode($types)));
             header('location: ?settings=');
             exit();
@@ -259,6 +264,11 @@ elseif(isset($_GET['about'])) {
     $tpl->assign('menu', '<a href="index.php">Carte</a> | <a href="?live=">Capteur en live</a> | <a href="?export=">Export</a>');
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens Capteurs</a>');
     $tpl->assign('no_js', true);
+
+    if(!empty($_GET['about']) && array_key_exists($_GET['about'], $types)) {
+        $tpl->assign('desc', $types[$_GET['about']]['description']);
+    }
+
     $tpl->draw('about');
 }
 else {

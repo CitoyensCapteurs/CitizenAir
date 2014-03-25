@@ -1,18 +1,21 @@
 {include="header"}
 <div id="about">
-    <!-- TODO : logos -->
-    <h2>CitizenAir</h2>
-    <p>Le projet CitizenAir vise à mettre à la disposition des citoyens des outils de mesure précis de la qualité de l'air. Il propose en association avec des acteurs émanant des milieux scientifiques et techniques de forger des outils, des prototypes, des dispositifs de visualisation, des méthodologies visant à conférer une « capacité active » aux citoyens pour interpréter leur environnement, le capter et le mesurer et <em>in fine</em> agir sur lui. Voir <a href="http://www.citoyenscapteurs.net/">http://www.citoyenscapteurs.net/</a>.</p>
+    {if="isset($desc)"}
+        {$desc}
+    {else}
+        <h2>CitizenAir</h2>
+        <p>Le projet CitizenAir vise à mettre à la disposition des citoyens des outils de mesure précis de la qualité de l'air. Il propose en association avec des acteurs émanant des milieux scientifiques et techniques de forger des outils, des prototypes, des dispositifs de visualisation, des méthodologies visant à conférer une « capacité active » aux citoyens pour interpréter leur environnement, le capter et le mesurer et <em>in fine</em> agir sur lui. Voir <a href="http://www.citoyenscapteurs.net/">http://www.citoyenscapteurs.net/</a>.</p>
 
-    <h2>L'association Labo Citoyen - Citoyens Capteurs</h2>
-    <p>Réseau de savoirs et de compétences, l'association Citoyens Capteurs - Labo Citoyen s'inspire de la Science Citoyenne et vise à mettre en place des circuits courts, décentralisés, agiles et transparents d'innovation technologique pour outiller la citoyenneté, promouvoir l'intérêt général, contribuer à la préservation de l'environnement et produire un savoir local et participatif.</p>
-    <p><a href="http://wiki.citoyenscapteurs.net/">http://wiki.citoyenscapteurs.net/</a> - <span class="contact_e-mail">@</span></p>
+        <h2>L'association Labo Citoyen - Citoyens Capteurs</h2>
+        <p>Réseau de savoirs et de compétences, l'association Citoyens Capteurs - Labo Citoyen s'inspire de la Science Citoyenne et vise à mettre en place des circuits courts, décentralisés, agiles et transparents d'innovation technologique pour outiller la citoyenneté, promouvoir l'intérêt général, contribuer à la préservation de l'environnement et produire un savoir local et participatif.</p>
+        <p><a href="http://wiki.citoyenscapteurs.net/">http://wiki.citoyenscapteurs.net/</a> - <span class="contact_e-mail">@</span></p>
 
-    <h2>Les partenaires du projets</h2>
-        <h3>hackEns</h3>
-        <!-- TODO -->
-        <h3>Fabelier - A *Lab to make things</h3>
-        <p>Nous sommes un hackerspace basé à Paris, orienté sur le développement web et la bidouille électronique. La rencontre des deux mondes. Notre but : permettre à tout bricoleur, hacker ou curieux, de rendre concret son idée. Cela passe par la construction de plusieurs machines, dont les fameuses RepRap, mais aussi une graveuse de PCB et des murs plein d'outils. Ce lab, composé de membres aux compétences variées, est aussi un lieu d'entraide. Nous sommes hébergés et aidés par le Centre de Recherche Interdisciplinaire (CRI), dans le quartier du Marais, en plein centre de Paris.</p>
-        <p>Vous pouvez venir nous voir tous les mercredi soir, sans prévenir. Plus d'infos sur cette page de notre site : <a href="http://fabelier.org/where/">fabelier.org/where</a></p>
+        <h2>Les partenaires du projets</h2>
+            <h3>hackEns</h3>
+            <!-- TODO -->
+            <h3>Fabelier - A *Lab to make things</h3>
+            <p>Nous sommes un hackerspace basé à Paris, orienté sur le développement web et la bidouille électronique. La rencontre des deux mondes. Notre but : permettre à tout bricoleur, hacker ou curieux, de rendre concret son idée. Cela passe par la construction de plusieurs machines, dont les fameuses RepRap, mais aussi une graveuse de PCB et des murs plein d'outils. Ce lab, composé de membres aux compétences variées, est aussi un lieu d'entraide. Nous sommes hébergés et aidés par le Centre de Recherche Interdisciplinaire (CRI), dans le quartier du Marais, en plein centre de Paris.</p>
+            <p>Vous pouvez venir nous voir tous les mercredi soir, sans prévenir. Plus d'infos sur cette page de notre site : <a href="http://fabelier.org/where/">fabelier.org/where</a></p>
+    {/if}
 </div>
 {include="footer"}

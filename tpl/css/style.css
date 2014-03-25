@@ -36,6 +36,11 @@ li {
     list-style-type: none;
 }
 
+textarea {
+    width: 50%;
+    min-height: 12em;
+}
+
 header {
     color: #EEE;
 }

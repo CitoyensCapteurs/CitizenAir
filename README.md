@@ -115,5 +115,5 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ## TODO
 
 * timeline : 1 jour / 1 semaine / 1 mois
-* Choix du capteur
-* Légende cf e-mail
+* Logos
+* Tests et recherches de bugs graphiques
