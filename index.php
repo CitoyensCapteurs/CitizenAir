@@ -232,7 +232,7 @@ if(isset($_GET['settings'])) {
 }
 elseif(isset($_GET['live'])) {
     $tpl->assign('menu', '<a href="#legend" onclick="event.preventDefault(); toggleLegend(false);">Choix du capteur</a> | <a href="index.php">Carte</a> | <a href="?export=">Export</a> | <a href="?about=">À propos</a>');
-    $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens Capteurs</a>');
+    $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->assign('capteurs', $api_keys);
 
     if(in_array($_GET['live'], $api_keys)) {
@@ -252,7 +252,7 @@ elseif(isset($_GET['export'])) {
     $tpl->assign('title', 'CitizenAir - Export');
     $tpl->assign('title_complement', ' - Export des données');
     $tpl->assign('menu', '<a href="index.php">Carte</a> | <a href="?live=">Capteur en live</a> | <a href="?about=">À propos</a>');
-    $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens Capteurs</a>');
+    $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->assign('no_js', true);
     $tpl->assign('capteurs', $api_keys);
     $tpl->assign('types', $types);
@@ -262,7 +262,7 @@ elseif(isset($_GET['about'])) {
     $tpl->assign('title', 'CitizenAir - À propos');
     $tpl->assign('title_complement', ' - À propos');
     $tpl->assign('menu', '<a href="index.php">Carte</a> | <a href="?live=">Capteur en live</a> | <a href="?export=">Export</a>');
-    $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens Capteurs</a>');
+    $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->assign('no_js', true);
 
     if(!empty($_GET['about']) && array_key_exists($_GET['about'], $types)) {
@@ -276,6 +276,6 @@ else {
     $tpl->assign('title_complement', '');
     $tpl->assign('menu', '<a href="#legend" onclick="event.preventDefault(); toggleLegend(false);">Légende</a> | <a href="?live=">Capteur en live</a> | <a href="?export=">Export</a> | <a href="?about=">À propos</a>');
     $tpl->assign('legend_items', $types);
-    $tpl->assign('credits', '<a title="A JS library for interactive maps" href="http://leafletjs.com">Leaflet</a> | Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a> | <a href="http://www.citoyenscapteurs.net/">Citoyens Capteurs</a>');
+    $tpl->assign('credits', '<a title="A JS library for interactive maps" href="http://leafletjs.com">Leaflet</a> | Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC&nbsp;BY&nbsp;SA</a> | <a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->draw('index');
 }

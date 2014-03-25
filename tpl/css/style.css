@@ -67,7 +67,13 @@ h1 a {
 
 .left {
     text-align: left;
-    position: absolute;
+    float: left;
+}
+
+@media (max-width: 900px) {
+    .left {
+        width: 100%;
+    }
 }
 
 header .left {

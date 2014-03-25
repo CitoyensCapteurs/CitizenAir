@@ -3,7 +3,7 @@
     {if="!empty($login)"}
         {if="$configured == 0"}<p>Choisissez le mot de passe à utiliser pour protéger les préférences.</p>{/if}
         <form method="post" action="?settings=">
-            <p><label for="password">Mot de passe {if="$configured == 0"}(apparaîtra en clair){/if}: </label><input {if="$configured == 1"}type="password"{else}type="text"{/if} name="password" id="password"/></p>
+            <p><label for="password">Mot de passe{if="$configured == 0"} (apparaîtra en clair){/if}&nbsp;: </label><input {if="$configured == 1"}type="password"{else}type="text"{/if} name="password" id="password"/></p>
             <p><input type="submit" value="{if="$configured == 1"}Connexion{else}Enregistrer{/if}"/></p>
         </form>
     {else}
@@ -103,7 +103,7 @@
             {/if}
         {elseif="$settings == 'add_device' || ($settings == 'edit_device' && !empty($device_key))"}
             <form method="post" action="?settings=">
-                <p><label for="device">Nom : </label><input type="text" name="device" id="device" {if="!empty($device_key)"}value="{function="htmlspecialchars($api_keys[$device_key])"}"{/if}/></p>
+                <p><label for="device">Nom&nbsp;: </label><input type="text" name="device" id="device" {if="!empty($device_key)"}value="{function="htmlspecialchars($api_keys[$device_key])"}"{/if}/></p>
                 <p>
                     <input type="submit" value="Sauver"/> ou <a href="?settings=">Retour</a>
                     {if="!empty($device_key)"}<input type="hidden" name="key" value="{function="htmlspecialchars($device_key)"}"/>{/if}
@@ -111,16 +111,16 @@
             </form>
         {elseif="$settings == 'add_type' || ($settings == 'edit_type' && !empty($type_id))"}
             <form method="post" action="?settings=">
-                <p><label for="id">ID : </label><input types="text" name="id" id="id" {if="!empty($type_id)"}value="{function="htmlspecialchars($type_id)"}"{/if}/></p>
-                <p><label for="name">Nom (HTML possible) : </label><input types="text" name="name" id="name" {if="!empty($type_id)"}value="{$types[$type_id]['name']}"{/if}/></p>
-                <p><label for="unit">Unité (HTML possible) : </label><input types="text" name="unit" id="unit" {if="!empty($type_id)"}value="{$types[$type_id]['unit']}"{/if}/></p>
-                <p><label for="seuil_1">Seuil 1 : </label><input types="number" name="seuil_1" id="seuil_1" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['seuil_1'])"}"{/if}/></p>
-                <p><label for="seuil_2">Seuil 2 : </label><input types="number" name="seuil_2" id="seuil_2" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['seuil_2'])"}"{/if}/></p>
-                <p><label for="seuil_3">Seuil 3 : </label><input types="number" name="seuil_3" id="seuil_3" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['seuil_3'])"}"{/if}/></p>
-                <p><label for="spatial_validity">Validité spatiale (diamètre, en mètres) : </label><input types="number" name="spatial_validity" id="spatial_validity" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['spatial_validity'])"}"{/if}/></p>
-                <p><label for="start_decrease">Durée avant baisse de l'opacité (en secondes) : </label><input types="number" name="start_decrease" id="start_decrease" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['start_decrease'])"}"{/if}/></p>
-                <p><label for="fully_gone">Durée avant opacité min. (en secondes) : </label><input types="number" name="fully_gone" id="fully_gone" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['fully_gone'])"}"{/if}/></p>
-                <p><label for="description">Description (HTML possible) : </label><textarea name="description" id="description">{if="!empty($type_id)"}{function="br2nl($types[$type_id]['description'])"}{/if}</textarea></p>
+                <p><label for="id">ID&nbsp;: </label><input types="text" name="id" id="id" {if="!empty($type_id)"}value="{function="htmlspecialchars($type_id)"}"{/if}/></p>
+                <p><label for="name">Nom (HTML possible)&nbsp;: </label><input types="text" name="name" id="name" {if="!empty($type_id)"}value="{$types[$type_id]['name']}"{/if}/></p>
+                <p><label for="unit">Unité (HTML possible)&nbsp;: </label><input types="text" name="unit" id="unit" {if="!empty($type_id)"}value="{$types[$type_id]['unit']}"{/if}/></p>
+                <p><label for="seuil_1">Seuil 1&nbsp;: </label><input types="number" name="seuil_1" id="seuil_1" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['seuil_1'])"}"{/if}/></p>
+                <p><label for="seuil_2">Seuil 2&nbsp;: </label><input types="number" name="seuil_2" id="seuil_2" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['seuil_2'])"}"{/if}/></p>
+                <p><label for="seuil_3">Seuil 3&nbsp;: </label><input types="number" name="seuil_3" id="seuil_3" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['seuil_3'])"}"{/if}/></p>
+                <p><label for="spatial_validity">Validité spatiale (diamètre, en mètres)&nbsp;: </label><input types="number" name="spatial_validity" id="spatial_validity" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['spatial_validity'])"}"{/if}/></p>
+                <p><label for="start_decrease">Durée avant baisse de l'opacité (en secondes)&nbsp;: </label><input types="number" name="start_decrease" id="start_decrease" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['start_decrease'])"}"{/if}/></p>
+                <p><label for="fully_gone">Durée avant opacité min. (en secondes)&nbsp;: </label><input types="number" name="fully_gone" id="fully_gone" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['fully_gone'])"}"{/if}/></p>
+                <p><label for="description">Description (HTML possible)&nbsp;: </label><textarea name="description" id="description">{if="!empty($type_id)"}{function="br2nl($types[$type_id]['description'])"}{/if}</textarea></p>
                 <p>
                     <input type="submit" value="Sauver"/>{if="!empty($type_id)"}<input type="hidden" name="old_id" value="{$type_id}"/>{/if} ou <a href="?settings=">Retour</a>
                 </p>

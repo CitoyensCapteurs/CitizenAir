@@ -130,7 +130,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * timeline : 1 jour / 1 semaine / 1 mois
 * Logos
-* Tests et recherches de bugs graphiques
+* Tests et recherches de bugs graphiques :
+    * Tester sur smartphone
+    * Menu "Choix du capteur"
 
 ## TODO v2
 

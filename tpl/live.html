@@ -1,6 +1,6 @@
 {include="header"}
 <div id="legend" class="left">
-    <h2>Choix du capteur :</h2>
+    <h2>Choix du capteur&nbsp;:</h2>
     <ul>
         {loop="$capteurs"}
             <li><a href="?live={function="htmlspecialchars($value)"}">{function="htmlspecialchars($value)"}</a></li>
@@ -13,7 +13,7 @@
         Vous devez activer JavaScript pour utiliser ce site web.
         </p>
         {if="!isset($live)"}
-            <p>Choisissez le capteur à suivre :</p>
+            <p>Choisissez le capteur à suivre&nbsp;:</p>
             <ul>
                 {loop="$capteurs"}
                     <li><a href="?live={function="htmlspecialchars($value)"}">{function="htmlspecialchars($value)"}</a></li>
