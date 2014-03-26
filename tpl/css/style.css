@@ -71,7 +71,7 @@ h1 a {
 }
 
 @media (max-width: 900px) {
-    .left {
+    header.left, footer.left {
         width: 100%;
     }
 }
