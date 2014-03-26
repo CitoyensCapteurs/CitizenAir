@@ -36,7 +36,6 @@ class filterMeasures {
     }
 
     function filter($test) {
-        $test = $test[0];
         return array_key_exists($test['type'], $this->types)
             && ($this->longitude_min === false || $this->latitude_min <= $test['latitude']) && ($this->longitude_max === false || $this->latitude_max >= $test['latitude'])
             && ($this->latitude_min === false || $this->latitude_min <= $test['latitude']) && ($this->latitude_max === false || $this->latitude_max >= $test['latitude'])
@@ -172,10 +171,13 @@ if($_GET['do'] == 'get') {
     }
 
 // Filtrage
-    $data = array_filter($data, array(new filterMeasures($measures_types, $latitude_min, $latitude_max, $longitude_min, $longitude_max, $timestamp_min, $timestamp_max), 'filter'));
+    $data_filtered = array();
+    foreach($data as $key => $array) {
+        $data_filtered[$key] = array_filter($array, array(new filterMeasures($measures_types, $latitude_min, $latitude_max, $longitude_min, $longitude_max, $timestamp_min, $timestamp_max), 'filter'));
+    }
 // Completion des données
     $dataset = array();
-    foreach($data as $capteur=>$measures) {
+    foreach($data_filtered as $capteur=>$measures) {
         foreach($measures as $measure) {
             $dataset[] = array(
                 'capteur' => $capteur,
@@ -218,8 +220,8 @@ if($_GET['do'] == 'get') {
         fclose($out);
     }
     else {
-        header("Content-Type:application/json"); 
-        header("Content-Disposition:attachment;filename=citizenair.json"); 
+        //header("Content-Type:application/json"); 
+        //header("Content-Disposition:attachment;filename=citizenair.json"); 
 
         echo(json_encode($dataset));
     }
