@@ -129,7 +129,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ## TODO
 
 * timeline : 1 jour / 1 semaine / 1 mois
-* Tester sur smartphone
 
 ## TODO v2
 

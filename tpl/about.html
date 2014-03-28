@@ -3,27 +3,29 @@
     {if="isset($desc)"}
         {$desc}
     {else}
-        <h2>CitizenAir</h2>
-        <p>Le projet CitizenAir vise à mettre à la disposition des citoyens des outils de mesure précis de la qualité de l'air. Il propose en association avec des acteurs émanant des milieux scientifiques et techniques de forger des outils, des prototypes, des dispositifs de visualisation, des méthodologies visant à conférer une « capacité active » aux citoyens pour interpréter leur environnement, le capter et le mesurer et <em>in fine</em> agir sur lui. Voir <a href="http://www.citoyenscapteurs.net/">http://www.citoyenscapteurs.net/</a>.</p>
+        {if="!isset($participez)"}
+            <h2>CitizenAir</h2>
+            <p>Le projet CitizenAir vise à mettre à la disposition des citoyens des outils de mesure précise de la qualité de l'air. Il propose en association avec des acteurs émanant des milieux scientifiques et techniques de forger des outils, des prototypes, des dispositifs de visualisation, des méthodologies visant à conférer une « capacité active » aux citoyens pour interpréter leur environnement, le capter et le mesurer et <em>in fine</em> agir sur lui. Voir <a href="http://www.citoyenscapteurs.net/">http://www.citoyenscapteurs.net/</a>.</p>
 
-        <p>Ce projet est un <em>fully open source project</em>&nbsp;:</p>
-        <ul>
-            <li>Les sources de l'application se trouvent sur <a href="https://github.com/CitoyensCapteurs/CitizenAir">GitHub</a> sous licence <a href="https://www.gnu.org/copyleft/gpl.html">GNU GPL v3</a>.</li>
-            <li>Les sources et tutoriaux de montage des capteurs disponibles sur <a href="http://wiki.citoyenscapteurs.net/">le wiki de l'association</a> sont placés sous licence <a href="http://www.ohwr.org/projects/cernohl/wiki">Open Hardware License du CERN</a>.</li>
-            <li>Les données des capteurs téléchargeables au format <a href="https://fr.wikipedia.org/wiki/JSON">JSON</a> et <a href="https://fr.wikipedia.org/wiki/Comma-separated_values">CSV</a> sont sous licence <a href="http://opendatacommons.org/licenses/by/">Open Data Commons By</a>.</li>
-        </ul>
+            <p>Ce projet est un <em>fully open source project</em>&nbsp;:</p>
+            <ul>
+                <li>Les sources de l'application se trouvent sur <a href="https://github.com/CitoyensCapteurs/CitizenAir">GitHub</a> sous licence <a href="https://www.gnu.org/copyleft/gpl.html">GNU GPL v3</a>.</li>
+                <li>Les sources et tutoriaux de montage des capteurs disponibles sur <a href="http://wiki.citoyenscapteurs.net/">le wiki de l'association</a> sont placés sous licence <a href="http://www.ohwr.org/projects/cernohl/wiki">Open Hardware License du CERN</a>.</li>
+                <li>Les données des capteurs téléchargeables au format <a href="https://fr.wikipedia.org/wiki/JSON">JSON</a> et <a href="https://fr.wikipedia.org/wiki/Comma-separated_values">CSV</a> sont sous licence <a href="http://opendatacommons.org/licenses/by/">Open Data Commons By</a>.</li>
+            </ul>
 
-        <p class="center"><img src="img/od.png" alt="OpenData" title="OpenData"/> <img src="tpl/img/ohr.png" alt="OpenHardWare" title="OpenHardware"/> <img src="tpl/img/gpl.png" alt="GPLv3" title="GPLv3"/></p>
+            <p class="center"><img src="img/od.png" alt="OpenData" title="OpenData"/> <img src="tpl/img/ohr.png" alt="OpenHardWare" title="OpenHardware"/> <img src="tpl/img/gpl.png" alt="GPLv3" title="GPLv3"/></p>
 
 
-        <h2>L'association Labo Citoyen - Citoyens Capteurs</h2>
-        <p>Réseau de savoirs et de compétences, l'association Citoyens Capteurs - Labo Citoyen s'inspire de la Science Citoyenne et vise à mettre en place des circuits courts, décentralisés, agiles et transparents d'innovation technologique pour outiller la citoyenneté, promouvoir l'intérêt général, contribuer à la préservation de l'environnement et produire un savoir local et participatif.</p>
-        <p><a href="http://wiki.citoyenscapteurs.net/">http://wiki.citoyenscapteurs.net/</a> - <span class="contact_e-mail">@</span></p>
-        <p class="center"><img src="img/logo-CC.jpg" alt="Logo"/></p>
+            <h2>L'association Labo Citoyen - Citoyens Capteurs</h2>
+            <p>Réseau de savoirs et de compétences, l'association Citoyens Capteurs - Labo Citoyen s'inspire de la Science Citoyenne et vise à mettre en place des circuits courts, décentralisés, agiles et transparents d'innovation technologique pour outiller la citoyenneté, promouvoir l'intérêt général, contribuer à la préservation de l'environnement et produire un savoir local et participatif.</p>
+            <p><a href="http://wiki.citoyenscapteurs.net/">http://wiki.citoyenscapteurs.net/</a> - <span class="contact_e-mail">@</span></p>
+            <p class="center"><img src="img/logo-CC.jpg" alt="Logo"/></p>
+        {/if}
 
         <h2>Participez !</h2>
         <p>Vous souhaitez contribuer au projet CitizenAir et vous disposez de capteur communicant ? Contactez nous que nous vous donnions accès à l'interface d'enregistrement des capteurs à <span class="contact_e-mail">@</span>.</p>
-        <p>Vous n'avez pas de capteur ? Contactez-nous à contact(at)citoyenscapteurs.net pour que nous puissions vous aider ou rapprocher-vous d'un FabLab (<a href="http://wiki.fablab.is/wiki/Portal:Labs">http://wiki.fablab.is/wiki/Portal:Labs</a>) ou d'un Hackerspace (<a href="http://hackerspaces.org/wiki/List_of_Hacker_Spaces">http://hackerspaces.org/wiki/List_of_Hacker_Spaces</a>) pour participer au montage de votre propre capteur selon les instructions en ligne sur <a href="http://wiki.citoyenscapteurs.net/doku.php">http://wiki.citoyenscapteurs.net/doku.php</a>.</p>
+        <p>Vous n'avez pas de capteur ? Contactez-nous à <span class="contact_e-mail">@</span> pour que nous puissions vous aider ou rapprochez-vous d'un <a href="http://wiki.fablab.is/wiki/Portal:Labs">FabLab</a> ou d'un <a href="http://hackerspaces.org/wiki/List_of_Hacker_Spaces">hackerspace</a> pour participer au montage de votre propre capteur selon les instructions <a href="http://wiki.citoyenscapteurs.net/doku.php">en ligne</a>.</p>
 
         <p>Vous souhaitez soutenir le développement d'un réseau de capteurs citoyens ? Faites un don à l'association “Labo Citoyen-Citoyens Capteurs” !</p>
         <div class="center">
@@ -41,17 +43,19 @@
             <p><em>Note&nbsp;:</em> Vous pouvez utiliser un autre moyen de votre choix. Dans ce cas, nous contacter à <span class="contact_e-mail">@</span>.</p>
         </div>
 
-        <h2>Les partenaires du projets</h2>
-            <h3>hackEns</h3>
-            <!-- TODO -->
-            <p class="center"><img src="img/logo-hackens.png" alt="Logo"/></p>
+        {if="!isset($participez)"}
+            <h2>Les partenaires du projets</h2>
+                <h3>hackEns</h3>
+                <!-- TODO -->
+                <p class="center"><img src="img/logo-hackens.png" alt="Logo"/></p>
 
-            <h3>Fabelier - A *Lab to make things</h3>
-            <p>Nous sommes un hackerspace basé à Paris, orienté sur le développement web et la bidouille électronique. La rencontre des deux mondes. Notre but&nbsp;: permettre à tout bricoleur, hacker ou curieux, de rendre concret son idée. Cela passe par la construction de plusieurs machines, dont les fameuses RepRap, mais aussi une graveuse de PCB et des murs plein d'outils. Ce lab, composé de membres aux compétences variées, est aussi un lieu d'entraide. Nous sommes hébergés et aidés par le Centre de Recherche Interdisciplinaire (CRI), dans le quartier du Marais, en plein centre de Paris.</p>
-            <p>Vous pouvez venir nous voir tous les mercredi soir, sans prévenir. Plus d'infos sur cette page de notre site&nbsp;: <a href="http://fabelier.org/where/">fabelier.org/where</a></p>
-            <p class="center"><img src="img/logo-fabelier.png" alt="Logo"/></p>
+                <h3>Fabelier - A *Lab to make things</h3>
+                <p>Nous sommes un hackerspace basé à Paris, orienté sur le développement web et la bidouille électronique. La rencontre des deux mondes. Notre but&nbsp;: permettre à tout bricoleur, hacker ou curieux, de rendre concret son idée. Cela passe par la construction de plusieurs machines, dont les fameuses RepRap, mais aussi une graveuse de PCB et des murs plein d'outils. Ce lab, composé de membres aux compétences variées, est aussi un lieu d'entraide. Nous sommes hébergés et aidés par le Centre de Recherche Interdisciplinaire (CRI), dans le quartier du Marais, en plein centre de Paris.</p>
+                <p>Vous pouvez venir nous voir tous les mercredis soir, sans prévenir. Plus d'infos sur notre site&nbsp;: <a href="http://fabelier.org/where/">fabelier.org/where</a></p>
+                <p class="center"><img src="img/logo-fabelier.png" alt="Logo"/></p>
 
-            <h3>Merci à Eric Cherel, directeur de la DISI-Paris 5 et aux organisateurs de la <a href="http://jnum.parisdescartes.fr/programme/">Journée Numérique 2014-Sorbonne Paris Cité</a></h3>
+                <h3>Merci à Eric Cherel, directeur de la DISI-Paris 5 et aux organisateurs de la <a href="http://jnum.parisdescartes.fr/programme/">Journée Numérique 2014-Sorbonne Paris Cité</a></h3>
+        {/if}
     {/if}
 </div>
 {include="footer"}
