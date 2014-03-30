@@ -162,10 +162,10 @@ if(isset($_GET['settings'])) {
         }
 
         if(!empty($_POST['name']) && !empty($_POST['unit']) && !empty($_POST['seuil_1']) && !empty($_POST['seuil_2']) && !empty($_POST['seuil_3']) && !empty($_POST['spatial_validity']) && !empty($_POST['start_decrease']) && !empty($_POST['fully_gone']) && !empty($_POST['description'])) {
-            if(intval($_POST['seuil_1']) > intval($_POST['seuil_2'])) {
+            if(floatval($_POST['seuil_1']) > floatval($_POST['seuil_2'])) {
                 exit('Le seuil 1 doit être en-deça du second seuil.');
             }
-            if(intval($_POST['seuil_2']) > intval($_POST['seuil_3'])) {
+            if(floatval($_POST['seuil_2']) > floatval($_POST['seuil_3'])) {
                 exit('Le seuil 2 doit être en-deça du troisième seuil.');
             }
 
@@ -193,7 +193,7 @@ if(isset($_GET['settings'])) {
                 }
             }
 
-            $types[$_POST['id']] = array('name' => $_POST['name'], 'unit' => $_POST['unit'], 'seuil_1' => intval($_POST['seuil_1']), 'seuil_2' => intval($_POST['seuil_2']), 'seuil_3' => intval($_POST['seuil_3']), 'spatial_validity' => intval($_POST['spatial_validity']), 'start_decrease' => intval($_POST['start_decrease']), 'fully_gone' => intval($_POST['fully_gone']), 'description' => preg_replace("/(\r\n|\n|\r)/", "<br />", $_POST['description']));
+            $types[$_POST['id']] = array('name' => $_POST['name'], 'unit' => $_POST['unit'], 'seuil_1' => floatval($_POST['seuil_1']), 'seuil_2' => floatval($_POST['seuil_2']), 'seuil_3' => floatval($_POST['seuil_3']), 'spatial_validity' => intval($_POST['spatial_validity']), 'start_decrease' => intval($_POST['start_decrease']), 'fully_gone' => intval($_POST['fully_gone']), 'description' => preg_replace("/(\r\n|\n|\r)/", "<br />", $_POST['description']));
             file_put_contents('data/types.data', gzdeflate(json_encode($types)));
             header('location: ?settings=');
             exit();

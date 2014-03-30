@@ -95,7 +95,7 @@ if($_GET['do'] == 'add' && !empty($_GET['type']) && isset($_GET['measure']) && i
 
     $data[] = array(
         'type' => $_GET['type'],
-        'measure' => intval($_GET['measure']),
+        'measure' => floatval($_GET['measure']),
         'timestamp' => intval($_GET['timestamp']),
         'longitude' => floatval($_GET['long']),
         'latitude' => floatval($_GET['lat']),
