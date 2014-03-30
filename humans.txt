@@ -1,0 +1,24 @@
+/* TEAM */
+    Name : Phyks
+    Site : http://www.phyks.me
+    E-mail : phyks@phyks.me
+    Various : Member of hackEns (http://hackens.org)
+    Location : Paris, France.
+
+    Name : Citoyens Capteurs
+    Site : http://citoyenscapteurs.net
+    E-mail : contact@citoyenscapteurs.net
+    Location : Paris, France.
+
+    Name : Fabelier
+    Site : http://fabelier.org/
+    Location : Paris, France.
+
+/* LIBRARIES */
+    * Leaflet (http://leafletjs.com/)
+    * RainTPL (http://www.raintpl.com/)
+
+/* LICENSE */
+    * Code : GPL v3
+    * Devices : OpenHardware License by CERN
+    * Data : Open Data Commons By
