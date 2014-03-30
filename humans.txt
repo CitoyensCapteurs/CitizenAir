@@ -1,9 +1,29 @@
 /* TEAM */
-    Name : Phyks
+    Name : Olivier Blondeau
+    Location : Paris, France
+    Various : Lead
+
+    Name : Laurence Allard
+    Location : Paris, France
+    Various : Lead
+
+    Name : Lucas Verney (Phyks)
     Site : http://www.phyks.me
     E-mail : phyks@phyks.me
-    Various : Member of hackEns (http://hackens.org)
     Location : Paris, France.
+    Various : Visualization + datastore
+
+    Name : Pedro Terra Delboni
+    Location : Paris, France
+    Various : Hardware stuff, sensor
+
+    Names : Kévin Lhoste
+    Location : Paris, France
+    Various : Various help and advices
+
+    Name : Alex Faraino
+    Location : Paris, France
+    Various : Various help and advices
 
     Name : Citoyens Capteurs
     Site : http://citoyenscapteurs.net
@@ -13,6 +33,11 @@
     Name : Fabelier
     Site : http://fabelier.org/
     Location : Paris, France.
+
+    Name : hackEns
+    Site : http://hackens.org
+    E-mail : hackens@ens.fr
+    Location : Paris, France
 
 /* LIBRARIES */
     * Leaflet (http://leafletjs.com/)
