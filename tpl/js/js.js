@@ -116,8 +116,7 @@ function relativeDate(time) {
      * http://ejohn.org/files/pretty.js
      */
     // Translated in French
-    var date = new Date(time || "");
-    var diff = (new Date().getTime() - date.getTime()) / 1000;
+    var diff = (new Date().getTime() - time * 1000) / 1000;
     var day_diff = Math.floor(diff / 86400);
 
     if ( isNaN(day_diff) || day_diff < 0)
@@ -250,7 +249,16 @@ function ajaxQuery() {
 // ==============
 
 window.onresize = function() {
-    m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - header_footer_size + 'px';
+    if(typeof(window.m) === 'undefined') {
+        window.m = document.getElementById('map');
+    }
+    if(typeof(window.header_footer_size) === 'undefined') {
+        window.header_footer_size = Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) + Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0);
+    }
+    if(typeof(window.e) === 'undefined') {
+        window.e = document.getElementById("legend");
+    }
+    window.m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - header_footer_size + 'px';
 
     if(window.isExport !== false) {
         return;
@@ -259,9 +267,9 @@ window.onresize = function() {
     var tmp = '';
     if(e.style.marginLeft == '0px') {
         tmp = m.style.transition;
-        m.style.transition = 'none';
-        m.style.marginLeft = e.offsetWidth + 'px';
-        m.style.transition = tmp;
+        window.m.style.transition = 'none';
+        window.m.style.marginLeft = e.offsetWidth + 'px';
+        window.m.style.transition = tmp;
     }
 
     e.style.height = m.style.height;
