@@ -277,13 +277,12 @@ elseif(isset($_GET['participez'])) {
     $tpl->assign('menu', '<a href="index.php">Carte</a> | <a href="?live=">Capteur en live</a> | <a href="?export=">Export</a> | <a href="?about=">À propos</a>');
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->assign('no_js', true);
-    $tpl->assign('participez', true);
 
     if(!empty($_GET['about']) && array_key_exists($_GET['about'], $types)) {
         $tpl->assign('desc', $types[$_GET['about']]['description']);
     }
 
-    $tpl->draw('about');
+    $tpl->draw('participez');
 }
 else {
     $tpl->assign('title', 'CitizenAir');
