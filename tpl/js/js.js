@@ -85,7 +85,7 @@ function geolocErrorFunction(error) { //Handle errors
             break;
 
         case error.PERMISSION_DENIED:
-            alert("Erreur : L'application n'a pas l'autorisation d'utiliser les ressources de geolocalisation.");
+            console.log("Erreur : L'application n'a pas l'autorisation d'utiliser les ressources de geolocalisation.");
             break;
 
         case error.POSITION_UNAVAILABLE:
