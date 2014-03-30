@@ -132,13 +132,29 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 ```
 
+### Licence de timeline.js (fichier `tpl/js/timeline.js`)
+
+````
+ * --------------------------------------------------------------------------------
+ * "THE NO-ALCOHOL BEER-WARE LICENSE" (Revision 42):
+ * Phyks (webmaster@phyks.me) wrote this file. As long as you retain this notice you
+ * can do whatever you want with this stuff (and you can also do whatever you want
+ * with this stuff without retaining it, but that's not cool...). If we meet some
+ * day, and you think this stuff is worth it, you can buy me a <del>beer</del> soda
+ * in return.
+ * Phyks
+ * ---------------------------------------------------------------------------------
+````
+
+
 ### Pour plus d'infos sur le dev, voir le fichier `humans.txt`
 
 ## TODO
 
+* forcer width legend en JS
 * timeline : 1 jour / 1 semaine / 1 mois
 * capteur fixe et superposition des marqueurs ?
-* Known bugs : légende sur très petite résolution, légende sur Opera
+* Minifier
 
 ## TODO v2
 
