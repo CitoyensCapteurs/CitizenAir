@@ -313,9 +313,6 @@ window.onload = function() {
         // Set the map
         window.map = L.map('map').setView([48.86222, 2.35083], 13);
 
-        // Get location -- DELETED
-        //navigator.geolocation.getCurrentPosition(geolocSuccessFunction, geolocErrorFunction, {enableHighAccuracy:true,  maximumAge:60000, timeout:500});
-
         L.tileLayer(window.tiles_provider, {
             maxZoom: 19
         }).addTo(window.map);

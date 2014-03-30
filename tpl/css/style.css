@@ -136,6 +136,10 @@ header .left {
     margin-bottom: 0.5em;
 }
 
+p.legend-item {
+    margin-top: 2em;
+}
+
 .leaflet-control-attribution {
     display: none;
 }
