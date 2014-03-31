@@ -565,6 +565,18 @@ SVG.draw = function() {
             rect.setAttribute('height', '100%');
             SVG.g.appendChild(rect);
 
+            rect.onclick = (function(x, y) {
+                return function(e) {
+                    var evt = e || window.event;
+
+                    var X = evt.clientX - x;
+                    var Y = this.getBoundingClientRect().bottom - evt.clientY - y;
+                    if(X <= 5 &&  X >= -5 && Y <= 5 && Y >= -5) {
+                        SVG.holder.getElementById(this.getAttribute('id').replace('over', 'point')).onclick();
+                    }
+                }
+            })(x[point], y[point]);
+
             if(SVG.x_callback !== false) {
                 element = document.createElementNS(SVG.ns, 'text');
                 element.setAttribute('class', 'legend_x');
@@ -601,21 +613,3 @@ window.onresize = function() {
         SVG.draw();
     }
 }
-
-old = SVG.parent_holder.onclick;
-SVG.parent_holder.onclick = function(e) {
-    var evt = e || window.event;
-    old();
-
-    [].forEach.call(SVG.holder.querySelectorAll('.over'), function(el) {
-        el.style.display = 'none';
-    });
-
-    if(document.elementFromPoint(evt.clientX, evt.clientY)) {
-        document.elementFromPoint(evt.clientX, evt.clientY).onclick();
-    }
-
-    [].forEach.call(SVG.holder.querySelectorAll('.over'), function(el) {
-        el.style.display = 'block';
-    });
-};
