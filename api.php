@@ -58,12 +58,13 @@ function get_level($measure, $seuil_1, $seuil_2, $seuil_3) {
     }
 }
 
-function sort_array($array, $key) {
+function sort_array(&$array, $key) {
     $sort_keys = array();
 
     foreach ($array as $key2 => $entry) {
         $sort_keys[$key2] = $entry[$key];
     }
+
 
     return array_multisort($sort_keys, SORT_DESC, $array);
 }
