@@ -89,7 +89,7 @@ if($_GET['do'] == 'add' && !empty($_GET['type']) && isset($_GET['measure']) && i
     }
 
     $type = (array_key_exists($_GET['type'], $types)) ? $_GET['type'] : false;
-    if($type === false) {
+    if($type === false || floatval($_GET['measure']) < 0) {
         header('HTTP/1.1 400 Bad Request');
         exit();
     }
