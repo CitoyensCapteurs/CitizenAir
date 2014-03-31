@@ -122,7 +122,9 @@ SVG.init = function (arg) {
     if(arg.x_axis === true) {
         SVG.axis = document.createElementNS(SVG.ns, 'line');
         SVG.axis.setAttribute('x1', SVG.marginLeft);
+        SVG.axis.setAttribute('y1', SVG.parent_holder.offsetHeight / 2 + 1.5);
         SVG.axis.setAttribute('x2', SVG.parent_holder.offsetWidth - 13 - SVG.marginRight);
+        SVG.axis.setAttribute('y2', SVG.parent_holder.offsetHeight / 2 + 1.5);
         SVG.axis.setAttribute('stroke', 'gray');
         SVG.axis.setAttribute('stroke-width', 3);
         SVG.axis.setAttribute('marker-end', 'url("#markerArrow")');
@@ -202,6 +204,10 @@ SVG.newCoordinates = function(value, min, max, minValue, maxValue) {
 }
 
 SVG.scale = function(data) {
+    if(data.length === 0) {
+        return;
+    }
+
     var minX = new Array(), minY = new Array();
     var maxX = new Array(), maxY = new Array();
     var x = 0, y = 0;
