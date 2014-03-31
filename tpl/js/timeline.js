@@ -294,6 +294,15 @@ SVG.addGraph = function (graph, color) {
     SVG.labels[graph] = new Array();
 };
 
+SVG.hasGraph = function (graph) {
+    if(SVG.raw_points[graph] === undefined) {
+        return false;
+    }
+    else {
+        return true;
+    }
+};
+
 SVG.addPoints = function (graph, data) {
     data.sort(function (a, b) {
         if(a.x < b.x) {
@@ -309,14 +318,25 @@ SVG.addPoints = function (graph, data) {
 
     for(point = 0; point < data.length; point++) {
         SVG.raw_points[graph].data.push([data[point].x, data[point].y]);
-        if(data[point].label !== 'undefined') {
+        if(data[point].label !== undefined) {
             SVG.labels[graph].push(data[point].label);
         }
         else {
             SVG.labels[graph].push('');
         }
     }
-}
+};
+
+SVG.clearGraph = function (graph) {
+    if(typeof(graph) === 'undefined') {
+        SVG.raw_points = [];
+        SVG.labels = [];
+    }
+    else {
+        SVG.raw_points[graph].data = new Array();
+        SVG.labels[graph] = new Array();
+    }
+};
 
 SVG.getControlPoints = function (data) {
     // http://www.particleincell.com/wp-content/uploads/2012/06/bezier-spline.js

@@ -129,7 +129,7 @@ function relativeDate(time) {
             diff < 7200 && "il y a 1&nbsp;heure" ||
             diff < 86400 && "il y a " + Math.floor( diff / 3600 ) + "&nbsp;heures") ||
         day_diff == 1 && "hier" ||
-        day_diff < 7 && " il y a " + day_diff + " jours" ||
+        day_diff < 7 && "il y a " + day_diff + " jours" ||
         day_diff < 31 && "il y a " + Math.ceil( day_diff / 7 ) + "&nbsp;semaines" ||
         day_diff < 365 && "il y a " + Math.ceil( day_diff / 30 ) + "&nbsp;mois" ||
         day_diff < 700 && "il y a 1&nbsp;an" ||
@@ -174,6 +174,10 @@ function params() { //Get all the parameters in the URL
 var markers = new Array();
 var max_radius = new Array();
 
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 function ajaxQuery() {
     var xhr;
     var measures = false;
@@ -207,6 +211,7 @@ function ajaxQuery() {
                         alert("Une erreur a été rencontrée pendant la récupération des mesures. Veuillez réessayer.");
                     }
                     else {
+                        SVG.clearGraph();
                         if(live === false) {
                             // Plot data
                             for(var measure in measures) {
@@ -221,11 +226,25 @@ function ajaxQuery() {
                                     window.markers.push(marker);
                                     window.max_radius.push(measures[measure].spatial_validity/2);
                                 }
+                                if(!SVG.hasGraph(measures[measure].capteur)) {
+                                    SVG.addGraph(measures[measure].capteur, '#662C90');
+                                }
+                                SVG.addPoints(measures[measure].capteur, [{'x': measures[measure].timestamp, 'y': measures[measure].measure, 'label': capitalize(relativeDate(measures[measure].timestamp).replace('&nbsp;', ' '))+' : '+measures[measure].measure +' '+measures[measure].unit}]);
                             }
                             fitBounds(measures);
                         }
                         else if(live !== '') {
                             document.getElementsByClassName('live')[0].innerHTML = '<p>' + measures[0].measure + " " + measures[0].unit + ',<br/>' + relativeDate(measures[0].timestamp) + '</p>';
+
+                            for(var measure in measures) {
+                                if(!SVG.hasGraph(measures[measure].capteur)) {
+                                    SVG.addGraph(measures[measure].capteur, '#662C90');
+                                }
+                                SVG.addPoints(measures[measure].capteur, [{'x': measures[measure].timestamp, 'y': measures[measure].measure, 'label': capitalize(relativeDate(measures[measure].timestamp).replace('&nbsp;', ' '))+' : '+measures[measure].measure +' '+measures[measure].unit}]);
+                            }
+                        }
+                        if(measures.length > 1) {
+                            SVG.draw();
                         }
                     }
                 }
@@ -289,6 +308,12 @@ window.onload = function() {
             }
         }
     }
+
+    if(window.live === "") {
+        document.getElementById('svg_holder').style.height = '0%';
+        document.getElementById('svg_holder').style.display = 'none';
+    }
+
     window.isExport = false;
     window.m = document.getElementById('map');
     window.e = document.getElementById("legend");
@@ -298,9 +323,6 @@ window.onload = function() {
 
 
     SVG.init({'id': 'svg_holder', 'height': '25%', 'width': '100%', 'grid': 'both', 'x_axis': true, 'rounded': false, 'x_callback': false});
-    SVG.addGraph('test', 'red');
-    SVG.addPoints('test', [{'x': 0, 'y': 91, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 1, 'y': 83, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 2, 'y': 83, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 3, 'y': 95, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 4, 'y': 93, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 5, 'y': 106, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 6, 'y': 132, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 7, 'y': 124, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 8, 'y': 114, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 9, 'y': 112, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 10, 'y': 125, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 11, 'y': 121, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 12, 'y': 123, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 13, 'y': 118, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 14, 'y': 108, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 15, 'y': 119, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 16, 'y': 110, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 17, 'y': 130, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 18, 'y': 149, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 19, 'y': 148, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 20, 'y': 131, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 21, 'y': 132, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 22, 'y': 110, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 23, 'y': 91, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 24, 'y': 85, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 25, 'y': 86, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 26, 'y': 83, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 27, 'y': 70, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 28, 'y': 72, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 29, 'y': 80, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 30, 'y': 105, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 31, 'y': 75, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 32, 'y': 72, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 33, 'y': 95, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 34, 'y': 94, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 35, 'y': 80, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 36, 'y': 66, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 37, 'y': 101, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 38, 'y': 78, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 39, 'y': 54, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 40, 'y': 57, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 41, 'y': 86, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 42, 'y': 80, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 43, 'y': 97, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 44, 'y': 116, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 45, 'y': 111, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 46, 'y': 85, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 47, 'y': 73, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 48, 'y': 72, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 49, 'y': 74, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 50, 'y': 83, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 51, 'y': 91, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 52, 'y': 109, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 53, 'y': 150, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 54, 'y': 156, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 55, 'y': 141, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 56, 'y': 122, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 57, 'y': 103, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 58, 'y': 104, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 59, 'y': 95, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 60, 'y': 106, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 61, 'y': 109, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 62, 'y': 122, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 63, 'y': 112, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 64, 'y': 132, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 65, 'y': 144, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 66, 'y': 156, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 67, 'y': 176, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 68, 'y': 169, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 69, 'y': 156, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 70, 'y': 151, 'label': '%x : %y µg/m<sup>3</sup>'},{'x': 71, 'y': 137, 'label': '%x : %y µg/m<sup>3</sup>'}]);
-    SVG.draw();
 
     window.m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) - Math.max(document.getElementById('svg_holder').offsetHeight, document.getElementById('svg_holder').clientHeight || 0) - Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0) +  'px'; // Set dynamically the height of the map
     
