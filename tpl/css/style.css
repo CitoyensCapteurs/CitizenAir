@@ -97,6 +97,21 @@ header .left {
     background-color: #333;
 }
 
+@media screen and (max-width: 800px) {
+    #svg_holder {
+        height: 0%;
+        display: none;
+    }
+}
+
+@media screen and (max-height: 600px) {
+    #svg_holder {
+        height: 0%;
+        display: none;
+    }
+}
+
+
 #legend {
     transition: margin-left 0.5s ease 0s;
     height: 100%;
