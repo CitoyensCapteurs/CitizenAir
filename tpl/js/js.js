@@ -226,22 +226,24 @@ function ajaxQuery() {
                                     window.markers.push(marker);
                                     window.max_radius.push(measures[measure].spatial_validity/2);
                                 }
-                                if(!SVG.hasGraph(measures[measure].capteur)) {
-                                    SVG.addGraph(measures[measure].capteur, '#662C90');
-                                }
-                                SVG.addPoints(measures[measure].capteur, [{'x': measures[measure].timestamp, 'y': measures[measure].measure, 'label': capitalize(relativeDate(measures[measure].timestamp).replace('&nbsp;', ' '))+' : '+measures[measure].measure +' '+measures[measure].unit}]);
                             }
                             fitBounds(measures);
                         }
                         else if(live !== '') {
                             document.getElementsByClassName('live')[0].innerHTML = '<p>' + measures[0].measure + " " + measures[0].unit + ',<br/>' + relativeDate(measures[0].timestamp) + '</p>';
+                        }
 
-                            for(var measure in measures) {
-                                if(!SVG.hasGraph(measures[measure].capteur)) {
-                                    SVG.addGraph(measures[measure].capteur, '#662C90');
-                                }
-                                SVG.addPoints(measures[measure].capteur, [{'x': measures[measure].timestamp, 'y': measures[measure].measure, 'label': capitalize(relativeDate(measures[measure].timestamp).replace('&nbsp;', ' '))+' : '+measures[measure].measure +' '+measures[measure].unit}]);
+                        var tmp = [];
+                        for(var measure in measures) {
+                            if(!SVG.hasGraph(measures[measure].capteur)) {
+                                SVG.addGraph(measures[measure].capteur, '#662C90');
+                                tmp[measures[measure].capteur] = [];
                             }
+
+                            tmp[measures[measure].capteur].push({'x': measures[measure].timestamp, 'y': measures[measure].measure, 'label': capitalize(relativeDate(measures[measure].timestamp).replace('&nbsp;', ' '))+' : '+measures[measure].measure +' '+measures[measure].unit});
+                        }
+                        for(var measure in tmp) {
+                            SVG.addPoints(measure, tmp[measure]);
                         }
                         if(measures.length > 1) {
                             SVG.draw();
