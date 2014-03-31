@@ -431,7 +431,7 @@ SVG.draw = function() {
             element.setAttribute('fill', '#333');
             element.setAttribute('stroke', SVG.raw_points[graph].color);
             element.setAttribute('stroke-width', 2);
-            SVG.g.appendChild(element);
+            SVG.g.insertBefore(element, SVG.g.querySelectorAll('.label')[0]);
 
             if(SVG.labels[graph][point] !== '') {
                 var g = document.createElementNS(SVG.ns, 'g');
@@ -473,20 +473,26 @@ SVG.draw = function() {
                 var element_width = element.getBoundingClientRect().width;
                 var element_height = element.getBoundingClientRect().height;
 
-                if(x[point] + element_width / 2 > SVG.parent_holder.offsetWidth) {
+                if(x[point] - element.getBoundingClientRect().width / 2 < 0) {
+                    x_text = x[point] + 20;
+                    y_text = SVG.parent_holder.offsetHeight - y[point] + 5;
+                    path.setAttribute('d', 'M '+(x_text - 5)+' '+(y_text + 5)+' L '+(x_text - 5)+' '+(y_text - element_height/2 + 7.5)+' L '+(x_text - 10)+' '+(y_text - element_height/2 + 5)+' L '+(x_text - 5)+' '+(y_text - element_height/2 + 2.5)+' L '+(x_text - 5)+' '+(y_text - element_height + 5)+' L '+(x_text + element_width + 5)+' '+(y_text - element_height + 5)+' L '+(x_text + element_width + 5)+' '+(y_text + 5)+' Z');
+                }
+                else if(y[point] + element.getBoundingClientRect().height + 12 > SVG.parent_holder.offsetHeight) {
+                    x_text = x[point] + 20;
+                    y_text = SVG.parent_holder.offsetHeight - y[point] + 5;
+                    path.setAttribute('d', 'M '+(x_text - 5)+' '+(y_text + 5)+' L '+(x_text - 5)+' '+(y_text - element_height/2 + 7.5)+' L '+(x_text - 10)+' '+(y_text - element_height/2 + 5)+' L '+(x_text - 5)+' '+(y_text - element_height/2 + 2.5)+' L '+(x_text - 5)+' '+(y_text - element_height + 5)+' L '+(x_text + element_width + 5)+' '+(y_text - element_height + 5)+' L '+(x_text + element_width + 5)+' '+(y_text + 5)+' Z');
+
+                    if(x_text + element_width > SVG.parent_holder.offsetWidth) {
+                        x_text = x[point] - element_width - 20;
+                        y_text = SVG.parent_holder.offsetHeight - y[point] + 5;
+                        path.setAttribute('d', 'M '+(x_text - 5)+' '+(y_text + 5)+' L '+(x_text - 5)+' '+(y_text  - element_height + 5)+' L '+(x_text + element_width + 5)+' '+(y_text - element_height + 5)+' L '+(x_text + element_width + 5)+' '+(y_text - element_height/2 + 2.5)+' L '+(x_text + element_width + 10)+' '+(y_text - element_height/2 + 5)+' L '+(x_text + element_width + 5)+' '+(y_text - element_height/2 + 7.5)+' L '+(x_text + element_width + 5)+' '+(y_text + 5)+' Z');
+                    }
+                }
+                else if(x[point] + element_width / 2 + 12 > SVG.parent_holder.offsetWidth) {
                     x_text = x[point] - element_width - 20;
                     y_text = SVG.parent_holder.offsetHeight - y[point] + 5;
                     path.setAttribute('d', 'M '+(x_text - 5)+' '+(y_text + 5)+' L '+(x_text - 5)+' '+(y_text  - element_height + 5)+' L '+(x_text + element_width + 5)+' '+(y_text - element_height + 5)+' L '+(x_text + element_width + 5)+' '+(y_text - element_height/2 + 2.5)+' L '+(x_text + element_width + 10)+' '+(y_text - element_height/2 + 5)+' L '+(x_text + element_width + 5)+' '+(y_text - element_height/2 + 7.5)+' L '+(x_text + element_width + 5)+' '+(y_text + 5)+' Z');
-                }
-                else if(x[point] - element.getBoundingClientRect().width / 2 < 0) {
-                    x_text = x[point] + 20;
-                    y_text = SVG.parent_holder.offsetHeight - y[point] + 5;
-                    path.setAttribute('d', 'M '+(x_text - 5)+' '+(y_text + 5)+' L '+(x_text - 5)+' '+(y_text - element_height/2 + 7.5)+' L '+(x_text - 10)+' '+(y_text - element_height/2 + 5)+' L '+(x_text - 5)+' '+(y_text - element_height/2 + 2.5)+' L '+(x_text - 5)+' '+(y_text - element_height + 5)+' L '+(x_text + element_width + 5)+' '+(y_text - element_height + 5)+' L '+(x_text + element_width + 5)+' '+(y_text + 5)+' Z');
-                }
-                else if(y[point] + element.getBoundingClientRect().height > SVG.parent_holder.offsetHeight) {
-                    x_text = x[point] + 20;
-                    y_text = SVG.parent_holder.offsetHeight - y[point] + 5;
-                    path.setAttribute('d', 'M '+(x_text - 5)+' '+(y_text + 5)+' L '+(x_text - 5)+' '+(y_text - element_height/2 + 7.5)+' L '+(x_text - 10)+' '+(y_text - element_height/2 + 5)+' L '+(x_text - 5)+' '+(y_text - element_height/2 + 2.5)+' L '+(x_text - 5)+' '+(y_text - element_height + 5)+' L '+(x_text + element_width + 5)+' '+(y_text - element_height + 5)+' L '+(x_text + element_width + 5)+' '+(y_text + 5)+' Z');
                 }
                 else {
                     path.setAttribute('d', 'M '+(x_text - 5)+' '+(y_text + 5)+' L '+(x_text - 5)+' '+(y_text  - element_height + 5)+' L '+(x_text + element_width + 5)+' '+(y_text - element_height + 5)+' L '+(x_text + element_width + 5)+' '+(y_text + 5)+' L '+(x_text + element_width/2 + 2.5)+' '+(y_text + 5)+' L '+(x_text + element_width/2)+' '+(y_text + 10)+' L '+(x_text + element_width/2 - 2.5)+' '+(y_text + 5)+' Z');
