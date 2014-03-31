@@ -64,7 +64,6 @@ if(isset($_GET['settings'])) {
     }
 
     if(!empty($_POST['password'])) {
-        var_dump(file_get_contents('password'));
         if(is_file('password') && file_get_contents('password') == sha1($_POST['password'])) {
             $_SESSION['login'] = true;
             header('location: ?settings=');
