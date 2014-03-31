@@ -149,12 +149,10 @@ function getOpacity(time, start_decrease, fully_gone) {
     }
 }
 
-function fitBounds(measures) {
-    bounds = [];
-    for(measure in measures) {
-        bounds.push([measures[measure]['latitude'], measures[measure]['longitude']]);
-    }
-    window.map.fitBounds(bounds); //0.00015 = margin because of markers size
+function fitBounds() {
+    window.map.invalidateSize();
+    var group = new L.featureGroup(window.markers);
+    window.map.fitBounds(group.getBounds().pad(0,5));
 }
 
 function params() { //Get all the parameters in the URL	
@@ -279,6 +277,7 @@ window.onresize = function() {
     e.style.height = m.style.height;
 } // Same thing on window resizing
 
+window.isExport = false;
 window.onload = function() {
     var parameters = params();
     window.live = false;
@@ -338,6 +337,4 @@ window.onload = function() {
     ajaxQuery();
 };
 
-if(window.isExport === false) {
-    window.setInterval(function() { ajaxQuery(); }, 300000);
-}
+window.setInterval(function() { if(window.isExport === false) { ajaxQuery(); } }, 300000);
