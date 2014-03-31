@@ -137,11 +137,12 @@ function relativeDate(time) {
 }
 
 function getOpacity(time, start_decrease, fully_gone) {
-    if(Date.now() - time < start_decrease) {
+    now = Math.floor(Date.now() / 1000);
+    if(now - time < start_decrease) {
         return 1;
     }
-    else if(Date.now() - time < fully_gone) {
-        return (fully_gone - (Date.now() - time)) / (fully_gone - start_decrease) * 0.85 + 0.15;
+    else if(now - time < fully_gone) {
+        return (fully_gone - (now - time)) / (fully_gone - start_decrease) * 0.85 + 0.15;
     }
     else {
         return 0.15;
