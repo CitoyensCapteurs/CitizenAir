@@ -106,6 +106,10 @@ header .left {
     color: #333;
 }
 
+#legend .table {
+    display: table;
+}
+
 #legend h2 {
     margin-bottom: 0.1em;
     text-align: left;

@@ -1,31 +1,35 @@
 {include="header"}
 <div id="legend" class="left black_links">
-    <h2>Légende&nbsp;:</h2>
-    <p class="table-caption">Les points de couleur pleine représentent les capteurs en activité. L'opacité des points se réduit en fonction du temps écoulé depuis la mesure.</p>
-    {loop="$legend_items"}
-    <div class="legend-item">
-        <h2>{$value['name']}</h2>
-        <table>
-            <tr>
-                <td>Vert</td>
-                <td>&lt;{function="htmlspecialchars($value['seuil_1'])"} {$value['unit']}<br/>Pollution faible</td>
-            </tr>
-            <tr>
-                <td>Orange</td>
-                <td>Entre {function="htmlspecialchars($value['seuil_1'])"} et {function="htmlspecialchars($value['seuil_2'])"} {$value['unit']}<br/>Pollution moyenne</td>
-            </tr>
-            <tr>
-                <td>Rouge</td>
-                <td>Entre {function="htmlspecialchars($value['seuil_2'])"} et {function="htmlspecialchars($value['seuil_3'])"} {$value['unit']}<br/>Pollution élevée</td>
-            </tr>
-            <tr>
-                <td>Noir</td>
-                <td>&gt;{function="htmlspecialchars($value['seuil_3'])"} {$value['unit']}<br/>Pollution très élevée</td>
-            </tr>
-        </table>
-        <p><a href="?about={$key}">En savoir plus sur le {$value['name']}</a></p>
+    <div class="table">
+        <div class="table-caption">
+            <h2>Légende&nbsp;:</h2>
+            <p>Les points de couleur pleine représentent les capteurs en activité. L'opacité des points se réduit en fonction du temps écoulé depuis la mesure.</p>
+        </div>
+        {loop="$legend_items"}
+        <div class="legend-item">
+            <h2>{$value['name']}</h2>
+            <table>
+                <tr>
+                    <td>Vert</td>
+                    <td>&lt;{function="htmlspecialchars($value['seuil_1'])"} {$value['unit']}<br/>Pollution faible</td>
+                </tr>
+                <tr>
+                    <td>Orange</td>
+                    <td>Entre {function="htmlspecialchars($value['seuil_1'])"} et {function="htmlspecialchars($value['seuil_2'])"} {$value['unit']}<br/>Pollution moyenne</td>
+                </tr>
+                <tr>
+                    <td>Rouge</td>
+                    <td>Entre {function="htmlspecialchars($value['seuil_2'])"} et {function="htmlspecialchars($value['seuil_3'])"} {$value['unit']}<br/>Pollution élevée</td>
+                </tr>
+                <tr>
+                    <td>Noir</td>
+                    <td>&gt;{function="htmlspecialchars($value['seuil_3'])"} {$value['unit']}<br/>Pollution très élevée</td>
+                </tr>
+            </table>
+            <p><a href="?about={$key}">En savoir plus sur le {$value['name']}</a></p>
+        </div>
+        {/loop}
     </div>
-    {/loop}
     <p class="center"><a href="index.php" onclick="event.preventDefault(); navigator.geolocation.getCurrentPosition(geolocSuccessFunction, geolocErrorFunction, {enableHighAccuracy:true,  maximumAge:60000, timeout:500});">Voir les capteurs à proximité</a></p>
 </div>
 <div id="map">
