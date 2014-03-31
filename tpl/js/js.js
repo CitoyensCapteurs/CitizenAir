@@ -207,10 +207,7 @@ function ajaxQuery() {
                 if(xhr.status == 200) {
                     measures = JSON.parse(xhr.responseText); // Parse the response
 
-                    if(measures.length == 0) { //If there was an error
-                        alert("Une erreur a été rencontrée pendant la récupération des mesures. Veuillez réessayer.");
-                    }
-                    else {
+                    if(measures.length != 0) {
                         SVG.clearGraph();
                         if(live === false) {
                             // Plot data
