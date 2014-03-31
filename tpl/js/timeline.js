@@ -30,6 +30,7 @@ SVG.g = false;
 SVG.axis = false;
 SVG.raw_points = [];
 SVG.labels = [];
+SVG.click = [];
 SVG.x_callback = false;
 
 /* Initialization :
@@ -292,6 +293,7 @@ SVG.addGraph = function (graph, color) {
     SVG.raw_points[graph].data = new Array();
 
     SVG.labels[graph] = new Array();
+    SVG.click[graph] = new Array();
 };
 
 SVG.hasGraph = function (graph) {
@@ -324,6 +326,12 @@ SVG.addPoints = function (graph, data) {
         else {
             SVG.labels[graph].push('');
         }
+        if(data[point].click !== undefined) {
+            SVG.click[graph].push(data[point].click);
+        }
+        else {
+            SVG.click[graph].push(false);
+        }
     }
 };
 
@@ -331,10 +339,12 @@ SVG.clearGraph = function (graph) {
     if(typeof(graph) === 'undefined') {
         SVG.raw_points = [];
         SVG.labels = [];
+        SVG.click = [];
     }
     else {
         SVG.raw_points[graph].data = new Array();
         SVG.labels[graph] = new Array();
+        SVG.click[graph] = new Array();
     }
 };
 
@@ -451,7 +461,12 @@ SVG.draw = function() {
             element.setAttribute('fill', '#333');
             element.setAttribute('stroke', SVG.raw_points[graph].color);
             element.setAttribute('stroke-width', 2);
+
             SVG.g.insertBefore(element, SVG.g.querySelectorAll('.label')[0]);
+
+            if(SVG.click[graph][point] !== false) {
+                element.onclick = SVG.click[graph][point];
+            }
 
             if(SVG.labels[graph][point] !== '') {
                 var g = document.createElementNS(SVG.ns, 'g');
@@ -586,3 +601,21 @@ window.onresize = function() {
         SVG.draw();
     }
 }
+
+old = SVG.parent_holder.onclick;
+SVG.parent_holder.onclick = function(e) {
+    var evt = e || window.event;
+    old();
+
+    [].forEach.call(SVG.holder.querySelectorAll('.over'), function(el) {
+        el.style.display = 'none';
+    });
+
+    if(document.elementFromPoint(evt.clientX, evt.clientY)) {
+        document.elementFromPoint(evt.clientX, evt.clientY).onclick();
+    }
+
+    [].forEach.call(SVG.holder.querySelectorAll('.over'), function(el) {
+        el.style.display = 'block';
+    });
+};

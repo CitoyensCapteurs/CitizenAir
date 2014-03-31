@@ -237,7 +237,7 @@ function ajaxQuery() {
                                 tmp[measures[measure].capteur] = [];
                             }
 
-                            tmp[measures[measure].capteur].push({'x': measures[measure].timestamp, 'y': measures[measure].measure, 'label': capitalize(relativeDate(measures[measure].timestamp).replace('&nbsp;', ' '))+' : '+measures[measure].measure +' '+measures[measure].unit});
+                            tmp[measures[measure].capteur].push({'x': measures[measure].timestamp, 'y': measures[measure].measure, 'label': capitalize(relativeDate(measures[measure].timestamp).replace('&nbsp;', ' '))+' : '+measures[measure].measure +' '+measures[measure].unit, 'click': function() { window.map.setView([measures[measure].latitude, measures[measure].longitude], 13); }});
                         }
                         for(var measure in tmp) {
                             SVG.addPoints(measure, tmp[measure]);
