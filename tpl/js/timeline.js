@@ -204,7 +204,7 @@ SVG.newCoordinates = function(value, min, max, minValue, maxValue) {
 }
 
 SVG.scale = function(data) {
-    if(data.length === 0) {
+    if(data.keys().length === 0) {
         return;
     }
 
