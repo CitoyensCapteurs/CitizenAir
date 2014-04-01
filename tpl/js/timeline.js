@@ -204,7 +204,11 @@ SVG.newCoordinates = function(value, min, max, minValue, maxValue) {
 }
 
 SVG.scale = function(data) {
-    if(data.keys().length === 0) {
+    var ok = false;
+    for(graph in data) {
+        ok = true;
+    }
+    if(ok === false) {
         return;
     }
 
