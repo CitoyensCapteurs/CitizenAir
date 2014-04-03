@@ -151,7 +151,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ### Pour plus d'infos sur le dev, voir le fichier `humans.txt`
 
-## TODO
+## TODO v2
 
 * timeline : 1 jour / 1 semaine / 1 mois + choix du capteur
 * Couleur du capteur dans la timeline
@@ -160,7 +160,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * Permalink
 * Date absolue quelque part
 
-## TODO v2
+## TODO v3
 
 * Refactor
 * Nominatim reverse geolocation pour le choix de l'export
