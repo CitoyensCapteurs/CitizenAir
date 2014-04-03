@@ -325,14 +325,6 @@ window.onload = function() {
 
     window.m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) - Math.max(document.getElementById('svg_holder').offsetHeight, document.getElementById('svg_holder').clientHeight || 0) - Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0) +  'px'; // Set dynamically the height of the map
     
-    //Dirty patch for webkit -- TODO : check
-    var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-    var isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
-
-    if (isChrome || isSafari) {
-        window.onresize();
-    }
-
     if(document.getElementsByClassName('export').length > 0) {
         window.isExport = true;
         return;

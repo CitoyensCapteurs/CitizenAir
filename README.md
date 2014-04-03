@@ -34,11 +34,12 @@ Lors de la récupération des données, celles-ci sont retournées en JSON par l
 Pour envoyer des données à l'API, il suffit de faire une requête _GET_ sur la page `api.php` en passant les paramètres suivants (tous sont obligatoires) :
 * `do` = `add`, pour envoyer des données
 * `type` = un identifiant de type disponible
-* `measure` = valeur de la mesure (_float_)
+* `value` = valeur de la mesure (_float_)
 * `timestamp` = timestamp UNIX de la mesure
 * `api_key` = clé secrète liée au capteur (voir configuration)
 * `long` = longitude de la mesure (_float_)
 * `lat` = latitude de la mesure (_float_)
+* `force=1` pour passer outre la vérification de la position, par rapport à la dernière mesure (deux mesures d'un même capteur ne doivent pas être séparées de plus de 100km/h * temps entre les mesures, par défaut)
 
 Par exemple :
 ```
@@ -48,13 +49,14 @@ Par exemple :
 ## Récupération des données avec l'API
 
 La même page, `api.php`, permet également de récupérer les données stockées. Il faut alors l'appeler avec le paramètre `do=get` pour récupérer des données (par exemple : `/api.php?do=get`). On peut lui passer les paramètres optionnels suivants :
-* `capteur` = une liste de noms de capteurs (de noms, et non de clés d'API), séparés par des virgules. Si pas de noms passés, il n'y a pas de filtrage sur le capteur.
+* `sensor` = une liste de noms de capteurs (de noms, et non de clés d'API), séparés par des virgules. Si pas de noms passés, il n'y a pas de filtrage sur le capteur.
 * `type` = une liste de types de mesures, séparés par des virgules. Si pas de types passés, il n'y a aucun filtrage sur le type de mesure.
 * `time_min` et `time_max` pour filtrer les mesures réalisées dans l'intervalle de temps spécifié (les deux paramètres ne sont pas obligatoires).
 * `lat_min` et `lat_max` pour filtrer les mesures entre les latitudes spécifiées (les deux paramètres ne sont pas obligatoires).
 * `long_min` et `long_max` pour filtrer les mesures entre les longitudes spécifiées (les deux paramètres ne sont pas obligatoires).
 * `format` qui peut valoir `json` ou `csv` pour choisir le format d'export. Par défaut, le format `json` est utilisé si le paramètre n'est pas spécifié.
 * `visu=1` qui, si spécifié, retourne en plus les données de visualisation liée à chaque mesure (niveau, type de mesures, …)
+* `sort=sensor|latitude|longitude|timestamp|type|value|unit` pour trier les valeurs (optionnel, tri par timestamp par défaut)
 
 
 ## Visualisation web
@@ -155,6 +157,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * Couleur du capteur dans la timeline
 * capteur fixe et superposition des marqueurs ?
 * Minifier
+* Permalink
+* Date absolue quelque part
 
 ## TODO v2
 

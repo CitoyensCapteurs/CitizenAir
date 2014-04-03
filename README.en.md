@@ -32,11 +32,12 @@ When you get the data back, they are returned as JSON string by the `api.php` sc
 To send data to the visualization, you should send a _GET_ request to the `api.php` page, passing the following parameters (all mandatory):
 * `do` = `add`, to send data
 * `type` = a type id
-* `measure` = measurement value (_float_)
+* `value` = measurement value (_float_)
 * `timestamp` = UNIX timestamp of the measurement
 * `api_key` = secret api key linked to the sensor (see configuration)
 * `long` = measurement longitude (_float_)
 * `lat` = measurement latitude (_float_)
+* `force=1` to bypass location check between measurements (two measurements by the same sensor should not be separated by more than 100 km / h * time between the measurements)
 
 For example:
 ```
@@ -46,13 +47,14 @@ For example:
 ## Getting back data with the API
 
 The same script `api.php` allows you to get back stored data. You should then call it with the `do=get` parameter to get back data (for example: `/api.php?do=get`). You can also pass optional parameters to filter the results:
-* `capteur` = a comma-separated list of sensor names. If no names are given, there won't be any filtering on sensor name.
+* `sensor` = a comma-separated list of sensor names. If no names are given, there won't be any filtering on sensor name.
 * `type` = a comma-separated list of type names. If no names are given, there won't be any filtering on type name.
 * `time_min` and `time_max` to filter measurements done between `time_min` and `time_max` (you can provide only one if you want)
 * `lat_min` and `lat_max` to filter measurements done between `lat_min` and `lat_max` (you can provide only one if you want)
 * `long_min` and `long_max` to filter measurements done between `long_min` and `long_max` (you can provide only one if you want)
 * `format` which can be `csv` or `json` to choose export format. By default, `json` is used if this parameter is not specified.
 * `visu=1` which, if specified, will return visualization data such as levels, type name associated to each measurement, …
+* `sort=sensor|latitude|longitude|timestamp|type|value|unit` to sort data (optional, sorting by timestamp by default)
 
 
 ## Web visualization
