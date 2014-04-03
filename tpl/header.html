@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title>{$title}</title>
+        <title>{$head_title}</title>
         {if="!isset($no_js)"}
             <link rel="stylesheet" href="css/leaflet.css">
         {/if}
@@ -11,7 +11,7 @@
     </head>
     <body>
         <header id="title">
-            <p class="left">{$menu}</p>
-            <h1 class="white-links"><a href="index.php">CitizenAir</a>{$title_complement}</h1>
+            <p class="left">{loop="$menu"}{$value}{/loop}</p>
+            <h1 class="white-links"><a href="index.php">CitizenAir</a>{$page_title}</h1>
         </header>
         <div id="main">

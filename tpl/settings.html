@@ -11,7 +11,7 @@
             <p><a href="?settings=logout">Déconnexion</a></p>
             <h2>Liste des capteurs actuellement autorisés</h2>
             <p><a href="?settings=add_device">Ajouter un capteur</a></p>
-            {if="empty($capteurs)"}
+            {if="empty($sensors)"}
                 <p>Aucun capteur disponible.</p>
             {else}
                 <table>
@@ -21,12 +21,12 @@
                         <th>Modifier</th>
                         <th>Supprimer</th>
                     </tr>
-                    {loop="$capteurs"}
+                    {loop="$sensors"}
                         <tr>
                             <td>{function="htmlspecialchars($value)"}</td>
                             <td>{function="htmlspecialchars($key)"}</td>
-                            <td><a href="?settings=edit_device&amp;key={function="htmlspecialchars($key)"}">Modifier</a></td>
-                            <td><a href="?settings=delete_device&amp;key={function="htmlspecialchars($key)"}" onclick="return confirm('Supprimer ce capteur supprimera toutes les mesures associées. Continuer ?');">Supprimer</a></td>
+                            <td><a href="?settings=edit_sensor&amp;key={function="htmlspecialchars($key)"}">Modifier</a></td>
+                            <td><a href="?settings=delete_sensor&amp;key={function="htmlspecialchars($key)"}" onclick="return confirm('Supprimer ce capteur supprimera toutes les mesures associées. Continuer ?');">Supprimer</a></td>
                         </tr>
                     {/loop}
                 </table>
@@ -57,9 +57,9 @@
                             <td>{function="htmlspecialchars($key)"}</td>
                             <td>{$value['name']}</td>
                             <td>{$value['unit']}</td>
-                            <td>{function="htmlspecialchars($value['seuil_1'])"}</td>
-                            <td>{function="htmlspecialchars($value['seuil_2'])"}</td>
-                            <td>{function="htmlspecialchars($value['seuil_3'])"}</td>
+                            <td>{function="htmlspecialchars($value['threshold_1'])"}</td>
+                            <td>{function="htmlspecialchars($value['threshold_2'])"}</td>
+                            <td>{function="htmlspecialchars($value['threshold_3'])"}</td>
                             <td>{function="htmlspecialchars($value['spatial_validity'])"}</td>
                             <td>{function="htmlspecialchars($value['start_decrease'])"}</td>
                             <td>{function="htmlspecialchars($value['fully_gone'])"}</td>
@@ -86,27 +86,27 @@
                         <th>Supprimer</th>
                     </tr>
                     {loop="$datafiles"}
-                        {$capteur=$key}
+                        {$sensor=$key}
                         {loop="$value"}
                             <tr>
                                 <td>{$types[$value2['type']]['name']}</td>
-                                <td>{function="htmlspecialchars($value2['measure'])"}</td>
+                                <td>{function="htmlspecialchars($value2['value'])"}</td>
                                 <td>{function="htmlspecialchars($value2['timestamp'])"}</td>
                                 <td>{function="htmlspecialchars($value2['longitude'])"}</td>
                                 <td>{function="htmlspecialchars($value2['latitude'])"}</td>
-                                <td>{function="htmlspecialchars($capteurs[$capteur])"}</td>
-                                <td><a href="?settings=delete_measure&amp;id={$key}&amp;device={$capteur}">Supprimer</a></td>
+                                <td>{function="htmlspecialchars($capteurs[$sensor])"}</td>
+                                <td><a href="?settings=delete_measurement&amp;id={$key}&amp;sensor={$sensor}">Supprimer</a></td>
                             </tr>
                         {/loop}
                     {/loop}
                 </table>
             {/if}
-        {elseif="$settings == 'add_device' || ($settings == 'edit_device' && !empty($device_key))"}
+        {elseif="$settings == 'add_sensor' || ($settings == 'edit_sensor' && !empty($sensor_key))"}
             <form method="post" action="?settings=">
-                <p><label for="device">Nom&nbsp;: </label><input type="text" name="device" id="device" {if="!empty($device_key)"}value="{function="htmlspecialchars($api_keys[$device_key])"}"{/if}/></p>
+                <p><label for="sensor">Nom&nbsp;: </label><input type="text" name="sensor" id="sensor" {if="!empty($sensor_key)"}value="{function="htmlspecialchars($api_keys[$sensor_key])"}"{/if}/></p>
                 <p>
                     <input type="submit" value="Sauver"/> ou <a href="?settings=">Retour</a>
-                    {if="!empty($device_key)"}<input type="hidden" name="key" value="{function="htmlspecialchars($device_key)"}"/>{/if}
+                    {if="!empty($sensor_key)"}<input type="hidden" name="key" value="{function="htmlspecialchars($sensor_key)"}"/>{/if}
                 </p>
             </form>
         {elseif="$settings == 'add_type' || ($settings == 'edit_type' && !empty($type_id))"}
@@ -114,9 +114,9 @@
                 <p><label for="id">ID&nbsp;: </label><input types="text" name="id" id="id" {if="!empty($type_id)"}value="{function="htmlspecialchars($type_id)"}"{/if}/></p>
                 <p><label for="name">Nom (HTML possible)&nbsp;: </label><input types="text" name="name" id="name" {if="!empty($type_id)"}value="{$types[$type_id]['name']}"{/if}/></p>
                 <p><label for="unit">Unité (HTML possible)&nbsp;: </label><input types="text" name="unit" id="unit" {if="!empty($type_id)"}value="{$types[$type_id]['unit']}"{/if}/></p>
-                <p><label for="seuil_1">Seuil 1&nbsp;: </label><input types="number" name="seuil_1" id="seuil_1" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['seuil_1'])"}"{/if}/></p>
-                <p><label for="seuil_2">Seuil 2&nbsp;: </label><input types="number" name="seuil_2" id="seuil_2" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['seuil_2'])"}"{/if}/></p>
-                <p><label for="seuil_3">Seuil 3&nbsp;: </label><input types="number" name="seuil_3" id="seuil_3" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['seuil_3'])"}"{/if}/></p>
+                <p><label for="threshold_1">threshold 1&nbsp;: </label><input types="number" name="threshold_1" id="threshold_1" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['threshold_1'])"}"{/if}/></p>
+                <p><label for="threshold_2">threshold 2&nbsp;: </label><input types="number" name="threshold_2" id="threshold_2" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['threshold_2'])"}"{/if}/></p>
+                <p><label for="threshold_3">threshold 3&nbsp;: </label><input types="number" name="threshold_3" id="threshold_3" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['threshold_3'])"}"{/if}/></p>
                 <p><label for="spatial_validity">Validité spatiale (diamètre, en mètres)&nbsp;: </label><input types="number" name="spatial_validity" id="spatial_validity" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['spatial_validity'])"}"{/if}/></p>
                 <p><label for="start_decrease">Durée avant baisse de l'opacité (en secondes)&nbsp;: </label><input types="number" name="start_decrease" id="start_decrease" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['start_decrease'])"}"{/if}/></p>
                 <p><label for="fully_gone">Durée avant opacité min. (en secondes)&nbsp;: </label><input types="number" name="fully_gone" id="fully_gone" {if="!empty($type_id)"}value="{function="htmlspecialchars($types[$type_id]['fully_gone'])"}"{/if}/></p>

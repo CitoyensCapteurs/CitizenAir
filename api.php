@@ -196,7 +196,7 @@ if($_GET['do'] == 'get') {
     // Filtering
     $data_filtered = array();
     foreach($data as $key => $array) {
-        $data_filtered[$key] = array_filter($array, array(new filterMeasures($query_types, $latitude_min, $latitude_max, $longitude_min, $longitude_max, $timestamp_min, $timestamp_max), 'filter'));
+        $data_filtered[$key] = array_filter($array, array(new filterMeasurements($query_types, $latitude_min, $latitude_max, $longitude_min, $longitude_max, $timestamp_min, $timestamp_max), 'filter'));
     }
 
     // Completion with extra info

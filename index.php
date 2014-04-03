@@ -252,7 +252,7 @@ if(isset($_GET['settings'])) {
 /* Live view */
 elseif(isset($_GET['live'])) {
     unset($menu['live']);
-    $menu = array('sensor' => '<a href="#legend" onclick="event.preventDefault(); toggleLegend(false);">Choix du capteur</a>') + $menu;
+    $menu = array('sensor' => '<a href="#legend" onclick="event.preventDefault(); toggleLegend(false);">Choix du capteur</a> | ') + $menu;
     $tpl->assign('menu', $menu);
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->assign('api_keys', $api_keys);
@@ -305,10 +305,6 @@ elseif(isset($_GET['participez'])) {
     $tpl->assign('menu', $menu);
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->assign('no_js', true);
-
-    if(!empty($_GET['about']) && array_key_exists($_GET['about'], $types)) {
-        $tpl->assign('description', $types[$_GET['about']]['description']);
-    }
 
     $tpl->draw('participez');
 }

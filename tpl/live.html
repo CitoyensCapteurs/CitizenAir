@@ -2,7 +2,7 @@
 <div id="legend" class="left black_links">
     <h2>Choix du capteur&nbsp;:</h2>
     <ul>
-        {loop="$capteurs"}
+        {loop="$api_keys"}
             <li><a href="?live={function="htmlspecialchars($value)"}">{function="htmlspecialchars($value)"}</a></li>
         {/loop}
     </ul>
@@ -15,7 +15,7 @@
         {if="!isset($live)"}
             <p>Choisissez le capteur à suivre&nbsp;:</p>
             <ul>
-                {loop="$capteurs"}
+                {loop="$api_keys"}
                     <li><a href="?live={function="htmlspecialchars($value)"}">{function="htmlspecialchars($value)"}</a></li>
                 {/loop}
             </ul>
