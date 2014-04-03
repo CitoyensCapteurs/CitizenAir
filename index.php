@@ -167,13 +167,13 @@ if(isset($_GET['settings'])) {
 
         // Add a sensor
         if(!empty($_POST['sensor'])) {
-            $new_key = get_key($api_keys, $_POST['sensor']);
             if(!empty($_POST['key'])) {
                 rename('data/'.$_POST['key'].'.data', 'data/'.$new_key.'.data');
                 unset($api_keys[$_POST['key']]);
             }
             $api_keys[$new_key] = $_POST['sensor'];
             file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
+            $new_key = get_key($api_keys, $_POST['sensor']);
             header('location: ?settings=');
             exit();
         }

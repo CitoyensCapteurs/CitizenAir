@@ -11,7 +11,7 @@
             <p><a href="?settings=logout">Déconnexion</a></p>
             <h2>Liste des capteurs actuellement autorisés</h2>
             <p><a href="?settings=add_sensor">Ajouter un capteur</a></p>
-            {if="empty($sensors)"}
+            {if="empty($api_keys)"}
                 <p>Aucun capteur disponible.</p>
             {else}
                 <table>
