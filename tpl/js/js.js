@@ -31,6 +31,13 @@ fillColors['high'] = '#f03';
 fillColors['medium'] = '#F88017';
 fillColors['low'] = '#3f3';
 
+// ===========
+// Global vars
+// ===========
+
+var markers = new Array();
+var max_radius = new Array();
+
 // =========
 // Functions
 // =========
@@ -38,6 +45,7 @@ if (!Date.now) {
     Date.now = function() { return new Date().getTime(); };
 }
 
+// Function to animate left panel
 function toggleLegend(immediate) {
     var tmp = '';
     var tmp2 = '';
@@ -77,7 +85,8 @@ function toggleLegend(immediate) {
     }
 }
 
-function geolocErrorFunction(error) { //Handle errors
+// Handle geolocation errors
+function geolocErrorFunction(error) {
     switch(error.code) {
         case error.TIMEOUT:
             //Restart with a greater timeout
@@ -99,6 +108,7 @@ function geolocErrorFunction(error) { //Handle errors
 }
 
 
+// Set map view on geolocation
 function geolocSuccessFunction(position) {
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
@@ -106,6 +116,7 @@ function geolocSuccessFunction(position) {
     window.map.setView([latitude, longitude], 18);
 }
 
+// Get a relative date from timestamp
 function relativeDate(time) {
     // Takes an ISO time and returns a string representing how
     // long ago the date represents.
@@ -136,6 +147,7 @@ function relativeDate(time) {
         "il y a " + Math.ceil(day_diff / 365) + "&nbsp;ans";
 }
 
+// Get point opacity
 function getOpacity(time, start_decrease, fully_gone) {
     now = Math.floor(Date.now() / 1000);
     if(now - time < start_decrease) {
@@ -149,13 +161,15 @@ function getOpacity(time, start_decrease, fully_gone) {
     }
 }
 
+// Fit the map to the markers
 function fitBounds() {
     window.map.invalidateSize();
     var group = new L.featureGroup(window.markers);
     window.map.fitBounds(group.getBounds().pad(0,5));
 }
 
-function params() { //Get all the parameters in the URL	
+// Get GET parameters in the URL
+function params() {
     var t = location.search.substring(1).split('&');
     var params = [];
 
@@ -167,16 +181,14 @@ function params() { //Get all the parameters in the URL
     return params;
 }
 
-// ==========
-// AJAX query
-// ==========
-
-var markers = new Array();
-var max_radius = new Array();
-
+// Return string with first character in upper case
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+// ==========
+// AJAX query
+// ==========
 
 function ajaxQuery() {
     var xhr;

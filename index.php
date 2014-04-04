@@ -262,7 +262,7 @@ elseif(isset($_GET['live'])) {
         $tpl->assign('live', $live);
     }
     else {
-        $tpl->assign('head_title', 'CitizenAir - Capteur en live');
+        $tpl->assign('head_title', ' - Capteur en live');
         $tpl->assign('page_title', ' - Capteur en live');
     }
 
@@ -298,7 +298,7 @@ elseif(isset($_GET['about'])) {
 /* Support page */
 elseif(isset($_GET['participez'])) {
     unset($menu['participez']);
-    $tpl->assign('head_title', 'CitizenAir - Participez&nbsp;!');
+    $tpl->assign('head_title', ' - Participez&nbsp;!');
     $tpl->assign('page_title', ' - Participez&nbsp;!');
     $tpl->assign('menu', $menu);
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
@@ -309,7 +309,7 @@ elseif(isset($_GET['participez'])) {
 /* Default map */
 else {
     $menu['carte'] = '<a href="#legend" onclick="event.preventDefault(); toggleLegend(false);">Légende</a>';
-    $tpl->assign('head_title', 'CitizenAir');
+    $tpl->assign('head_title', '');
     $tpl->assign('page_title', '');
     $tpl->assign('menu', $menu);
     $tpl->assign('legend_items', $types);
