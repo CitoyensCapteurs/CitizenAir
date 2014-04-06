@@ -31,13 +31,6 @@ fillColors['high'] = '#f03';
 fillColors['medium'] = '#F88017';
 fillColors['low'] = '#3f3';
 
-// ===========
-// Global vars
-// ===========
-
-var markers = new Array();
-var max_radius = new Array();
-
 // =========
 // Functions
 // =========
@@ -47,8 +40,7 @@ if (!Date.now) {
 
 // Function to animate left panel
 function toggleLegend(immediate) {
-    var tmp = '';
-    var tmp2 = '';
+    var tmp, tmp2;
     if(e.style.marginLeft == '0px') {
         if(immediate) {
             tmp = e.style.transition;
@@ -94,7 +86,7 @@ function geolocErrorFunction(error) {
             break;
 
         case error.PERMISSION_DENIED:
-            console.log("Erreur : L'application n'a pas l'autorisation d'utiliser les ressources de geolocalisation.");
+            console.log("L'application n'a pas l'autorisation d'utiliser les ressources de geolocalisation.");
             break;
 
         case error.POSITION_UNAVAILABLE:
@@ -110,10 +102,7 @@ function geolocErrorFunction(error) {
 
 // Set map view on geolocation
 function geolocSuccessFunction(position) {
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-
-    window.map.setView([latitude, longitude], 18);
+    window.map.setView([position.coords.latitude, position.coords.longitude], 18);
 }
 
 // Get a relative date from timestamp
@@ -164,8 +153,7 @@ function getOpacity(time, start_decrease, fully_gone) {
 // Fit the map to the markers
 function fitBounds() {
     window.map.invalidateSize();
-    var group = new L.featureGroup(window.markers);
-    window.map.fitBounds(group.getBounds().pad(0,5));
+    window.map.fitBounds((new L.featureGroup(window.markers)).getBounds().pad(0,5));
 }
 
 // Get GET parameters in the URL
@@ -173,8 +161,7 @@ function params() {
     var t = location.search.substring(1).split('&');
     var params = [];
 
-    for (var i=0; i<t.length; i++)
-    {
+    for (var i=0; i < t.length; i++) {
         var x = t[i].split('=');
         params[x[0]] = x[1];
     }
@@ -192,7 +179,6 @@ function capitalize(string) {
 
 function ajaxQuery() {
     var xhr;
-    var measures = false;
     try {  
         xhr = new XMLHttpRequest();
     }
@@ -214,61 +200,66 @@ function ajaxQuery() {
         alert("Une erreur a été rencontrée pendant la récupération des mesures. Veuillez réessayer.");
     }
     else {
-        xhr.onreadystatechange  = function() {
+        xhr.onreadystatechange = function() {
             if(xhr.readyState == 4) {
                 if(xhr.status == 200) {
-                    measures = JSON.parse(xhr.responseText); // Parse the response
-
-                    if(measures.length != 0) {
-                        SVG.clearGraph();
-                        if(live === false) {
-                            // Plot data
-                            for(var measure in measures) {
-                                var marker = L.circle([measures[measure].latitude, measures[measure].longitude], measures[measure].spatial_validity / 2, {
-                                    color: colors[measures[measure].level],
-                                    fillColor: fillColors[measures[measure].level],
-                                    fillOpacity: getOpacity(measures[measure].timestamp, measures[measure].start_decrease, measures[measure].fully_gone)
-                                });
-                                if(!window.map.hasLayer(marker)) {
-                                    marker.addTo(window.map);
-                                    marker.bindPopup("Mesure effectuée " + relativeDate(measures[measure].timestamp) + ".<br/>" + measures[measure].type_name + " : " + measures[measure].measure + measures[measure].unit + "<br/>Capteur : " + measures[measure].capteur);
-                                    window.markers.push(marker);
-                                    window.max_radius.push(measures[measure].spatial_validity/2);
-                                }
-                            }
-                            fitBounds(measures);
-                        }
-                        else if(live !== '') {
-                            document.getElementsByClassName('live')[0].innerHTML = '<p>' + measures[0].measure + " " + measures[0].unit + ',<br/>' + relativeDate(measures[0].timestamp) + '</p>';
-                        }
-
-                        var tmp = [];
-                        for(var measure in measures) {
-                            if(!SVG.hasGraph(measures[measure].capteur)) {
-                                SVG.addGraph(measures[measure].capteur, '#662C90');
-                                tmp[measures[measure].capteur] = [];
-                            }
-
-                            tmp[measures[measure].capteur].push({'x': measures[measure].timestamp, 'y': measures[measure].measure, 'label': capitalize(relativeDate(measures[measure].timestamp).replace('&nbsp;', ' '))+' : '+measures[measure].measure +' '+measures[measure].unit, 'click': (function(arg) { return function() { window.map.setView([arg.latitude, arg.longitude], 18); }; })(measures[measure])});
-                        }
-                        for(var measure in tmp) {
-                            SVG.addPoints(measure, tmp[measure]);
-                        }
-                        if(measures.length > 1) {
-                            SVG.draw();
-                        }
-                    }
+                    ajaxResponse(xhr.responseText);
                 }
             }
         };
+    }
 
-        if(live === false) {
-            xhr.open("GET", "api.php?do=get&visu=1",  true);
-            xhr.send();
+    if(live === false) {
+        xhr.open("GET", "api.php?do=get&visu=1",  true);
+        xhr.send();
+    }
+    else if(live !== '') {
+        xhr.open("GET", "api.php?do=get&visu=1&sensor="+live,  true);
+        xhr.send();
+    }
+}
+
+function ajaxResponse(response) {
+    var measures = JSON.parse(response);
+
+    if(measures.length != 0) {
+        SVG.clearGraph();
+        if(window.live === false) {
+            // Plot data
+            for(var index in measures) {
+                var marker = L.circle([measures[index].latitude, measures[index].longitude], measures[index].spatial_validity / 2, {
+                    color: colors[measures[index].level],
+                    fillColor: fillColors[measures[index].level],
+                    fillOpacity: getOpacity(measures[index].timestamp, measures[index].start_decrease, measures[index].fully_gone)
+                });
+                if(!window.map.hasLayer(marker)) {
+                    marker.addTo(window.map);
+                    marker.bindPopup("Mesure effectuée " + relativeDate(measures[index].timestamp) + ".<br/>" + measures[measure].type_name + " : " + measures[index].index + measures[index].unit + "<br/>Capteur : " + measures[index].sensor);
+                    window.markers.push(marker);
+                    window.max_radius.push(measures[index].spatial_validity/2);
+                }
+            }
+            fitBounds(measures);
         }
         else if(live !== '') {
-            xhr.open("GET", "api.php?do=get&visu=1&capteur="+live,  true);
-            xhr.send();
+            document.getElementsByClassName('live')[0].innerHTML = '<p>' + measures[0].value + " " + measures[0].unit + ',<br/>' + relativeDate(measures[0].timestamp) + '</p>';
+        }
+
+        // TODO : Delete après refactor côté timeline.js
+        var tmp = [];
+        for(var index in measures) {
+            if(!SVG.hasGraph(measures[index].capteur)) {
+                SVG.addGraph(measures[index].capteur, '#662C90');
+                tmp[measures[index].sensor] = [];
+            }
+
+            tmp[measures[index].sensor].push({'x': measures[index].timestamp, 'y': measures[index].value, 'label': capitalize(relativeDate(measures[index].timestamp).replace('&nbsp;', ' '))+' : '+measures[index].value+' '+measures[measure].unit, 'click': (function(arg) { return function() { window.map.setView([arg.latitude, arg.longitude], 18); }; })(measures[measure])});
+        }
+        for(var measure in tmp) {
+            SVG.addPoints(measure, tmp[measure]);
+        }
+        if(measures.length > 1) {
+            SVG.draw();
         }
     }
 }
@@ -278,23 +269,33 @@ function ajaxQuery() {
 // ==============
 
 var old = window.onresize || function() {};
+var isExport = false;
+var markers = new Array();
+var max_radius = new Array();
+var live = false;
+
+// Recompute elements height on window resizing
 window.onresize = function() {
     old();
 
+    // Onload not yet called, happens with responsive view in Firefox
     if(typeof(window.m) === 'undefined') {
         window.m = document.getElementById('map');
     }
     if(typeof(window.e) === 'undefined') {
         window.e = document.getElementById("legend");
     }
-    window.header_footer_size = Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) + Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0) + Math.max(document.getElementById('svg_holder').offsetHeight, document.getElementById('svg_holder').clientHeight || 0);
-    window.m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - window.header_footer_size +'px';
+
+    window.header_footer_size = Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) + Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0);
+    window.m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - window.header_footer_size - Math.max(document.getElementById('svg_holder').offsetHeight, document.getElementById('svg_holder').clientHeight || 0)+'px';
 
     if(window.isExport !== false) {
+        // No legend on export page
         return;
     }
 
-    var tmp = '';
+    // Resize legend
+    var tmp;
     if(e.style.marginLeft == '0px') {
         tmp = m.style.transition;
         window.m.style.transition = 'none';
@@ -302,55 +303,60 @@ window.onresize = function() {
         window.m.style.transition = tmp;
     }
 
-    e.style.height = m.style.height;
-} // Same thing on window resizing
+    window.e.style.height = window.m.style.height;
+}
 
-window.isExport = false;
+// Load the page
+old = window.onload || function() {};
 window.onload = function() {
+    old();
+
     var parameters = params();
-    window.live = false;
     for(GET in parameters) {
-        if(GET != '') {
-            switch(GET)
-            {
-                case 'live':
-                    window.live = parameters['live'];
-                    break;
-            }
+        switch(GET) {
+            case 'live':
+                window.live = parameters['live'];
+                break;
         }
     }
 
     if(window.live === "") {
+        // Select sensor page
         document.getElementById('svg_holder').style.height = '0%';
         document.getElementById('svg_holder').style.display = 'none';
     }
 
-    window.isExport = false;
+    // Init global vars to go in the DOM tree
     window.m = document.getElementById('map');
     window.e = document.getElementById("legend");
     window.header_footer_size = Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) + Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0);
 
+    // Delete "need JS" message
     document.getElementById('need-js').innerHTML = '';
 
 
+    // Init timeline
     SVG.init({'id': 'svg_holder', 'height': '25%', 'width': '100%', 'grid': 'both', 'x_axis': true, 'rounded': false, 'x_callback': false});
 
-    window.m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) - Math.max(document.getElementById('svg_holder').offsetHeight, document.getElementById('svg_holder').clientHeight || 0) - Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0) +  'px'; // Set dynamically the height of the map
+    // Init map height, mandatory for Leaflet
+    window.m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - window.header_footer_size - Math.max(document.getElementById('svg_holder').offsetHeight, document.getElementById('svg_holder').clientHeight || 0)+'px';
     
+    // If export view, nothing more to do
     if(document.getElementsByClassName('export').length > 0) {
         window.isExport = true;
         return;
     }
 
+    // Set legend height
     window.e.style.height = m.style.height;
 
+    // Toggle legend if neeeded
     if(window.location.hash == '#legend') {
         toggleLegend(true);
     }
 
-
-    if(live === false) {
-        // Set the map
+    // Set the map if needed
+    if(window.live === false) {
         window.map = L.map('map').setView([48.86222, 2.35083], 13);
 
         L.tileLayer(window.tiles_provider, {
@@ -358,9 +364,10 @@ window.onload = function() {
         }).addTo(window.map);
 
         map.on('zoomend', function() {
-            var currentZoom = map.getZoom();
-            for(marker in window.markers) {
-                window.markers[marker].setRadius((map.getMaxZoom() - map.getZoom()) * 5 + max_radius[marker]);
+            // Resize markers on zoom
+            var currentZoom = window.map.getZoom();
+            for(var marker in window.markers) {
+                window.markers[marker].setRadius((window.map.getMaxZoom() - window.map.getZoom()) * 5 + window.max_radius[marker]);
             }
         });
     }
@@ -368,4 +375,5 @@ window.onload = function() {
     ajaxQuery();
 };
 
+// Auto-refresh
 window.setInterval(function() { if(window.isExport === false) { ajaxQuery(); } }, 300000);
