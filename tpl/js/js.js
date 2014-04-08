@@ -245,18 +245,12 @@ function ajaxResponse(response) {
             document.getElementsByClassName('live')[0].innerHTML = '<p>' + measures[0].value + " " + measures[0].unit + ',<br/>' + relativeDate(measures[0].timestamp) + '</p>';
         }
 
-        // TODO : Delete après refactor côté timeline.js
-        var tmp = [];
-        for(var index in measures) {
+        for(var index = 0; index < measures.length; index++) {
             if(!SVG.hasGraph(measures[index].capteur)) {
                 SVG.addGraph(measures[index].capteur, '#662C90');
-                tmp[measures[index].sensor] = [];
             }
 
-            tmp[measures[index].sensor].push({'x': measures[index].timestamp, 'y': measures[index].value, 'label': capitalize(relativeDate(measures[index].timestamp).replace('&nbsp;', ' '))+' : '+measures[index].value+' '+measures[measure].unit, 'click': (function(arg) { return function() { window.map.setView([arg.latitude, arg.longitude], 18); }; })(measures[measure])});
-        }
-        for(var measure in tmp) {
-            SVG.addPoints(measure, tmp[measure]);
+            SVG.addPoints(measures[index].capteur, {'x': measures[index].timestamp, 'y': measures[index].value, 'label': capitalize(relativeDate(measures[index].timestamp).replace('&nbsp;', ' '))+' : '+measures[index].value+' '+measures[measure].unit, 'click': (function(arg) { return function() { window.map.setView([arg.latitude, arg.longitude], 18); }; })(measures[measure])});
         }
         if(measures.length > 1) {
             SVG.draw();
