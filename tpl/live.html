@@ -3,7 +3,7 @@
     <h2>Choix du capteur&nbsp;:</h2>
     <ul>
         {loop="$api_keys"}
-            <li><a href="?live={function="htmlspecialchars($value)"}">{function="htmlspecialchars($value)"}</a></li>
+            <li><a href="?live={function="htmlspecialchars($value['name'])"}">{function="htmlspecialchars($value['name'])"}</a></li>
         {/loop}
     </ul>
 </div>
@@ -16,7 +16,7 @@
             <p>Choisissez le capteur à suivre&nbsp;:</p>
             <ul>
                 {loop="$api_keys"}
-                    <li><a href="?live={function="htmlspecialchars($value)"}">{function="htmlspecialchars($value)"}</a></li>
+                    <li><a href="?live={function="htmlspecialchars($value['name'])"}">{function="htmlspecialchars($value['name'])"}</a></li>
                 {/loop}
             </ul>
         {/if}

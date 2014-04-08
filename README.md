@@ -154,7 +154,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ## TODO v2
 
 * timeline : 1 jour / 1 semaine / 1 mois + choix du capteur
-* Couleur du capteur dans la timeline
 * capteur fixe et superposition des marqueurs ?
 * Minifier
 * Permalink

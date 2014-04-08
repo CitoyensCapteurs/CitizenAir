@@ -32,9 +32,17 @@ function get_key($api_keys, $sensor) {
     }
 }
 
-function br2nl($string)
-{
+function br2nl($string) {
     return str_replace('<br />', "\n", $string);
+}
+
+function in_multiarray($array, $field, $find){
+    foreach($array as $item){
+        if($item[$field] == $find) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
@@ -166,13 +174,13 @@ if(isset($_GET['settings'])) {
         }
 
         // Add a sensor
-        if(!empty($_POST['sensor'])) {
+        if(!empty($_POST['sensor']) && !empty($_POST['color'])) {
             $new_key = get_key($api_keys, $_POST['sensor']);
             if(!empty($_POST['key'])) {
                 rename('data/'.$_POST['key'].'.data', 'data/'.$new_key.'.data');
                 unset($api_keys[$_POST['key']]);
             }
-            $api_keys[$new_key] = $_POST['sensor'];
+            $api_keys[$new_key] = array('name'=>$_POST['sensor'], 'color'=>$_POST['color']);
             file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
             header('location: ?settings=');
             exit();
@@ -255,7 +263,7 @@ elseif(isset($_GET['live'])) {
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->assign('api_keys', $api_keys);
 
-    if(in_array($_GET['live'], $api_keys)) {
+    if(in_multiarray($api_keys, 'name', $_GET['live'])) {
         $live = htmlspecialchars($_GET['live']);
         $tpl->assign('head_title', ' - Suivi du capteur '.$live);
         $tpl->assign('page_title', ' - Suivi du capteur '.$live);

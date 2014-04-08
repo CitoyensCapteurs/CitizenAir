@@ -79,6 +79,15 @@ function compute_distance($lat1, $long1, $lat2, $long2) {
     return $R*$c;
 }
 
+function multiarray_search($array, $field, $find){
+    foreach($array as $key=>$item){
+        if($item[$field] == $find) {
+            return $key;
+        }
+    }
+    return false;
+}
+
 if(empty($_GET['do']) || ($_GET['do'] != 'add' && $_GET['do'] != 'get')) {
     exit('ERROR : Invalid request.');
 }
@@ -139,7 +148,8 @@ if($_GET['do'] == 'get') {
     $keys = array();
     if(!empty($_GET['sensor'])) {
         foreach(explode(',', $_GET['sensor']) as $sensor) {
-            $keys[array_search($sensor, $api_keys)] = $sensor;
+            $key = multiarray_search($sensor, $api_keys);
+            $keys[$key] = $api_keys[$key];
         }
     }
     else {
@@ -187,9 +197,9 @@ if($_GET['do'] == 'get') {
 
     // Fetch data
     $data = array();
-    foreach($keys as $key=>$sensor) {
+    foreach($keys as $key=>$value) {
         if(file_exists('data/'.$key.'.data')) {
-            $data[$sensor] = json_decode(gzinflate(file_get_contents('data/'.$key.'.data')), true);
+            $data[$key] = json_decode(gzinflate(file_get_contents('data/'.$key.'.data')), true);
         }
     }
 
@@ -201,10 +211,10 @@ if($_GET['do'] == 'get') {
 
     // Completion with extra info
     $dataset = array();
-    foreach($data_filtered as $sensor=>$measurements) {
+    foreach($data_filtered as $sensor_key=>$measurements) {
         foreach($measurements as $measurement) {
             $dataset[] = array(
-                'sensor' => $sensor,
+                'sensor' => $keys[$sensor_key]['name'],
                 'latitude' => $measurement['latitude'],
                 'longitude' => $measurement['longitude'],
                 'timestamp' => $measurement['timestamp'],
@@ -220,6 +230,7 @@ if($_GET['do'] == 'get') {
                 $dataset[$index]['start_decrease'] = $types[$measurement['type']]['start_decrease'];
                 $dataset[$index]['fully_gone'] = $types[$measurement['type']]['fully_gone'];
                 $dataset[$index]['spatial_validity'] = $types[$measurement['type']]['spatial_validity'];
+                $dataset[$index]['color'] = $keys[$sensor_key]['color'];
             }
         }
     }
@@ -229,7 +240,7 @@ if($_GET['do'] == 'get') {
         sort_array($dataset, $_GET['sort']);
     }
 
-    // Sorting
+    // Output
     if(!empty($_GET['format']) && $_GET['format'] == 'csv') {
         $out = fopen('php://output', 'w');
         header("Content-Type:application/csv"); 

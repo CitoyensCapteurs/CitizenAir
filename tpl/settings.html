@@ -18,13 +18,15 @@
                     <tr>
                         <th>Nom</th>
                         <th>Clé</th>
+                        <th>Couleur</th>
                         <th>Modifier</th>
                         <th>Supprimer</th>
                     </tr>
                     {loop="$api_keys"}
                         <tr>
-                            <td>{function="htmlspecialchars($value)"}</td>
+                            <td>{function="htmlspecialchars($value['name'])"}</td>
                             <td>{function="htmlspecialchars($key)"}</td>
+                            <td>{function="htmlspecialchars($value['color'])"}</td>
                             <td><a href="?settings=edit_sensor&amp;key={function="htmlspecialchars($key)"}">Modifier</a></td>
                             <td><a href="?settings=delete_sensor&amp;key={function="htmlspecialchars($key)"}" onclick="return confirm('Supprimer ce capteur supprimera toutes les mesures associées. Continuer ?');">Supprimer</a></td>
                         </tr>
@@ -103,7 +105,8 @@
             {/if}
         {elseif="$settings == 'add_sensor' || ($settings == 'edit_sensor' && !empty($sensor_key))"}
             <form method="post" action="?settings=">
-                <p><label for="sensor">Nom&nbsp;: </label><input type="text" name="sensor" id="sensor" {if="!empty($sensor_key)"}value="{function="htmlspecialchars($api_keys[$sensor_key])"}"{/if}/></p>
+                <p><label for="sensor">Nom&nbsp;: </label><input type="text" name="sensor" id="sensor" {if="!empty($sensor_key)"}value="{function="htmlspecialchars($api_keys[$sensor_key]['name'])"}"{/if}/></p>
+                <p><label for="color">Couleur&nbsp;: </label><input type="text" name="color" id="color" {if="!empty($sensor_key)"}value="{function="htmlspecialchars($api_keys[$sensor_key]['color'])"}"{/if}/></p>
                 <p>
                     <input type="submit" value="Sauver"/> ou <a href="?settings=">Retour</a>
                     {if="!empty($sensor_key)"}<input type="hidden" name="key" value="{function="htmlspecialchars($sensor_key)"}"/>{/if}

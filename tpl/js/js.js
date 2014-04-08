@@ -245,9 +245,9 @@ function ajaxResponse(response) {
             document.getElementsByClassName('live')[0].innerHTML = '<p>' + measures[0].value + " " + measures[0].unit + ',<br/>' + relativeDate(measures[0].timestamp) + '</p>';
         }
 
-        for(var index = 0; index < measures.length; index++) {
+        for(var index = 0; index < Math.min(measures.length, 100); index++) { // Afficher les 100 dernières mesures au plus sur la timeline
             if(!SVG.hasGraph(measures[index].capteur)) {
-                SVG.addGraph(measures[index].capteur, '#662C90');
+                SVG.addGraph(measures[index].capteur, measures[index].color);
             }
 
             SVG.addPoints(measures[index].capteur, {'x': measures[index].timestamp, 'y': measures[index].value, 'label': capitalize(relativeDate(measures[index].timestamp).replace('&nbsp;', ' '))+' : '+measures[index].value+' '+measures[measure].unit, 'click': (function(arg) { return function() { window.map.setView([arg.latitude, arg.longitude], 18); }; })(measures[measure])});
