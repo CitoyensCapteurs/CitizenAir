@@ -154,10 +154,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ## TODO v2
 
 * timeline : 1 jour / 1 semaine / 1 mois + choix du capteur
-* capteur fixe et superposition des marqueurs ?
-* Minifier
-* Permalink
+* capteur fixe => cf TODO dans js.js
 * Date absolue quelque part
 * Nominatim reverse geolocation pour le choix de l'export
 * Dropper les timestamps sur l'UI, améliorer l'export
 * Plusieurs fichiers par capteur
+* Tri des mesures sur la page de settings
+* Design
+* Minifier

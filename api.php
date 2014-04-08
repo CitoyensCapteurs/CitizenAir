@@ -94,7 +94,6 @@ if(empty($_GET['do']) || ($_GET['do'] != 'add' && $_GET['do'] != 'get')) {
 
 // Sending API
 if($_GET['do'] == 'add' && !empty($_GET['type']) && isset($_GET['value']) && isset($_GET['timestamp']) && isset($_GET['long']) && isset($_GET['lat']) && !empty($_GET['api_key'])) {
-
     if(!array_key_exists($_GET['api_key'], $api_keys)) {
         // Send a 403 HTTP response (access forbidden) if api_key not valid
         header('HTTP/1.1 403 Forbidden');
@@ -226,10 +225,11 @@ if($_GET['do'] == 'get') {
             if(!empty($_GET['visu'])) {
                 $index = count($dataset) - 1;
                 $dataset[$index]['type_name'] = $types[$measurement['type']]['name'];
-                $dataset[$index]['level'] = get_level($measurement['value'], $types[$measure['type']]['threshold_1'], $types[$measure['type']]['threshold_2'], $types[$measure['type']]['threshold_3']);
+                $dataset[$index]['level'] = get_level($measurement['value'], $types[$measurement['type']]['threshold_1'], $types[$measurement['type']]['threshold_2'], $types[$measurement['type']]['threshold_3']);
                 $dataset[$index]['start_decrease'] = $types[$measurement['type']]['start_decrease'];
                 $dataset[$index]['fully_gone'] = $types[$measurement['type']]['fully_gone'];
                 $dataset[$index]['spatial_validity'] = $types[$measurement['type']]['spatial_validity'];
+                $dataset[$index]['fixed'] = $keys[$sensor_key]['fixed'];
                 $dataset[$index]['color'] = $keys[$sensor_key]['color'];
             }
         }

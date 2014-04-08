@@ -152,8 +152,11 @@ function getOpacity(time, start_decrease, fully_gone) {
 
 // Fit the map to the markers
 function fitBounds() {
-    window.map.invalidateSize();
-    window.map.fitBounds((new L.featureGroup(window.markers)).getBounds().pad(0,5));
+    if(!window.block_fitBounds) {
+        window.map.invalidateSize();
+        window.map.fitBounds((new L.featureGroup(window.markers)).getBounds().pad(0,5));
+    }
+    window.block_fitBounds = false;
 }
 
 // Get GET parameters in the URL
@@ -226,7 +229,8 @@ function ajaxResponse(response) {
         SVG.clearGraph();
         if(window.live === false) {
             // Plot data
-            for(var index in measures) {
+            // TODO : Only display latest measure on map for fixed sensor
+            for(var index = 0; index < measures.length; index++) {
                 var marker = L.circle([measures[index].latitude, measures[index].longitude], measures[index].spatial_validity / 2, {
                     color: colors[measures[index].level],
                     fillColor: fillColors[measures[index].level],
@@ -234,7 +238,7 @@ function ajaxResponse(response) {
                 });
                 if(!window.map.hasLayer(marker)) {
                     marker.addTo(window.map);
-                    marker.bindPopup("Mesure effectuée " + relativeDate(measures[index].timestamp) + ".<br/>" + measures[measure].type_name + " : " + measures[index].index + measures[index].unit + "<br/>Capteur : " + measures[index].sensor);
+                    marker.bindPopup("Mesure effectuée " + relativeDate(measures[index].timestamp) + ".<br/>" + measures[index].type_name + " : " + measures[index].value + measures[index].unit + "<br/>Capteur : " + measures[index].sensor + "<br/><a href='?lat="+measures[index].latitude+"&amp;long="+measures[index].longitude+"'>Permalink</a>");
                     window.markers.push(marker);
                     window.max_radius.push(measures[index].spatial_validity/2);
                 }
@@ -250,7 +254,7 @@ function ajaxResponse(response) {
                 SVG.addGraph(measures[index].capteur, measures[index].color);
             }
 
-            SVG.addPoints(measures[index].capteur, {'x': measures[index].timestamp, 'y': measures[index].value, 'label': capitalize(relativeDate(measures[index].timestamp).replace('&nbsp;', ' '))+' : '+measures[index].value+' '+measures[measure].unit, 'click': (function(arg) { return function() { window.map.setView([arg.latitude, arg.longitude], 18); }; })(measures[measure])});
+            SVG.addPoints(measures[index].capteur, {'x': measures[index].timestamp, 'y': measures[index].value, 'label': capitalize(relativeDate(measures[index].timestamp).replace('&nbsp;', ' '))+' : '+measures[index].value+' '+measures[index].unit, 'click': (function(arg) { return function() { window.map.setView([arg.latitude, arg.longitude], 18); }; })(measures[index])});
         }
         if(measures.length > 1) {
             SVG.draw();
@@ -267,6 +271,9 @@ var isExport = false;
 var markers = new Array();
 var max_radius = new Array();
 var live = false;
+var latitude = 48.86222;
+var longitude = 2.35083;
+var block_fitBounds = false;
 
 // Recompute elements height on window resizing
 window.onresize = function() {
@@ -311,7 +318,19 @@ window.onload = function() {
             case 'live':
                 window.live = parameters['live'];
                 break;
+
+            case 'lat':
+                window.latitude = parameters['lat'];
+                break;
+
+            case 'long':
+                window.longitude = parameters['long'];
+                break;
         }
+    }
+
+    if(typeof(parameters['lat']) !== 'undefined' && typeof(parameters['long']) !== 'undefined') {
+        window.block_fitBounds = true;
     }
 
     if(window.live === "") {
@@ -351,7 +370,12 @@ window.onload = function() {
 
     // Set the map if needed
     if(window.live === false) {
-        window.map = L.map('map').setView([48.86222, 2.35083], 13);
+        if(!window.block_fitBounds) {
+            window.map = L.map('map').setView([window.latitude, window.longitude], 13);
+        }
+        else {
+            window.map = L.map('map').setView([window.latitude, window.longitude], 19);
+        }
 
         L.tileLayer(window.tiles_provider, {
             maxZoom: 19
@@ -360,7 +384,7 @@ window.onload = function() {
         map.on('zoomend', function() {
             // Resize markers on zoom
             var currentZoom = window.map.getZoom();
-            for(var marker in window.markers) {
+            for(var marker = 0; marker < window.markers.length; marker++) {
                 window.markers[marker].setRadius((window.map.getMaxZoom() - window.map.getZoom()) * 5 + window.max_radius[marker]);
             }
         });

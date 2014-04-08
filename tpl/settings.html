@@ -18,6 +18,7 @@
                     <tr>
                         <th>Nom</th>
                         <th>Clé</th>
+                        <th>Fixe ?</th>
                         <th>Couleur</th>
                         <th>Modifier</th>
                         <th>Supprimer</th>
@@ -26,6 +27,7 @@
                         <tr>
                             <td>{function="htmlspecialchars($value['name'])"}</td>
                             <td>{function="htmlspecialchars($key)"}</td>
+                            <td>{if="$value['fixed']"}Fixe{else}Mobile{/if}</td>
                             <td>{function="htmlspecialchars($value['color'])"}</td>
                             <td><a href="?settings=edit_sensor&amp;key={function="htmlspecialchars($key)"}">Modifier</a></td>
                             <td><a href="?settings=delete_sensor&amp;key={function="htmlspecialchars($key)"}" onclick="return confirm('Supprimer ce capteur supprimera toutes les mesures associées. Continuer ?');">Supprimer</a></td>
@@ -96,7 +98,7 @@
                                 <td>{function="htmlspecialchars($value2['timestamp'])"}</td>
                                 <td>{function="htmlspecialchars($value2['longitude'])"}</td>
                                 <td>{function="htmlspecialchars($value2['latitude'])"}</td>
-                                <td>{function="htmlspecialchars($capteurs[$sensor])"}</td>
+                                <td>{function="htmlspecialchars($api_keys[$sensor]['name'])"}</td>
                                 <td><a href="?settings=delete_measurement&amp;id={$key}&amp;sensor={$sensor}">Supprimer</a></td>
                             </tr>
                         {/loop}
@@ -106,6 +108,13 @@
         {elseif="$settings == 'add_sensor' || ($settings == 'edit_sensor' && !empty($sensor_key))"}
             <form method="post" action="?settings=">
                 <p><label for="sensor">Nom&nbsp;: </label><input type="text" name="sensor" id="sensor" {if="!empty($sensor_key)"}value="{function="htmlspecialchars($api_keys[$sensor_key]['name'])"}"{/if}/></p>
+                <p>
+                    <label for="fixed">Fixe ?&nbsp;: </label>
+                    <select name="fixed" id="fixed">
+                        <option value="0" {if="!empty($sensor_key) && !$api_keys[$sensor_key]['fixed']"}selected="selected"{/if}>Mobile</option>
+                        <option value="1" {if="!empty($sensor_key) && $api_keys[$sensor_key]['fixed']"}selected="selected"{/if}>Fixe</option>
+                    </select>
+                </p>
                 <p><label for="color">Couleur&nbsp;: </label><input type="text" name="color" id="color" {if="!empty($sensor_key)"}value="{function="htmlspecialchars($api_keys[$sensor_key]['color'])"}"{/if}/></p>
                 <p>
                     <input type="submit" value="Sauver"/> ou <a href="?settings=">Retour</a>
