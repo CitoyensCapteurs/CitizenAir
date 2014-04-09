@@ -115,7 +115,13 @@
                         <option value="1" {if="!empty($sensor_key) && $api_keys[$sensor_key]['fixed']"}selected="selected"{/if}>Fixe</option>
                     </select>
                 </p>
-                <p><label for="color">Couleur&nbsp;: </label><input type="text" name="color" id="color" {if="!empty($sensor_key)"}value="{function="htmlspecialchars($api_keys[$sensor_key]['color'])"}"{/if}/></p>
+                <p>
+                    <label for="color">Couleur&nbsp;: </label>
+                    <input type="text" name="color" id="color" {if="!empty($sensor_key)"}value="{function="htmlspecialchars($api_keys[$sensor_key]['color'])"}"{/if}/>
+                </p>
+                <div id="colorpicker">
+                    <canvas id="picker" width="300" height="300"></canvas>
+                </div>
                 <p>
                     <input type="submit" value="Sauver"/> ou <a href="?settings=">Retour</a>
                     {if="!empty($sensor_key)"}<input type="hidden" name="key" value="{function="htmlspecialchars($sensor_key)"}"/>{/if}
@@ -140,3 +146,7 @@
         {/if}
     {/if}
 </div>
+</div>
+<script type="text/javascript" src="js/colorpicker.js"></script>
+</body>
+</html>

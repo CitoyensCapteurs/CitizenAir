@@ -41,6 +41,10 @@ a:link, a:visited, a:hover, a:active {
     color: #333;
 }
 
+canvas {
+    background-color: white;
+}
+
 li {
     list-style-type: none;
 }

@@ -158,7 +158,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * Date absolue quelque part
 * Nominatim reverse geolocation pour le choix de l'export
 * Dropper les timestamps sur l'UI, améliorer l'export
-* Plusieurs fichiers par capteur
 * Tri des mesures sur la page de settings
+* Plusieurs fichiers par capteur
 * Design
 * Minifier
