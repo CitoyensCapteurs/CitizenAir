@@ -45,6 +45,18 @@ function in_multiarray($array, $field, $find){
     return false;
 }
 
+function sort_array(&$array, $key, $order=SORT_DESC) {
+    $sort_keys = array();
+
+    foreach ($array as $key2 => $entry) {
+        $sort_keys[$key2] = $entry[$key];
+    }
+
+
+    return array_multisort($sort_keys, $order, $array);
+}
+
+
 
 /* Config test and define keys and types */
 if((!is_file('api.keys') || !is_file('data/types.data')) && !isset($_GET['settings'])) {
@@ -54,6 +66,7 @@ if((!is_file('api.keys') || !is_file('data/types.data')) && !isset($_GET['settin
 
 if(is_file('api.keys')) {
     $api_keys = json_decode(gzinflate(file_get_contents('api.keys')), true);
+    sort_array($api_keys, 'name');
 }
 else {
     $api_keys = array();
@@ -61,6 +74,7 @@ else {
 
 if(is_file('data/types.data')) {
     $types = json_decode(gzinflate(file_get_contents('data/types.data')), true);
+    ksort($types);
 }
 else {
     $types = array();
@@ -244,13 +258,24 @@ if(isset($_GET['settings'])) {
         $tpl->assign('api_keys', $api_keys);
         $tpl->assign('types', $types);
 
-        $datafiles = [];
+        $data = [];
         foreach($api_keys as $key=>$value) {
             if(is_file('data/'.$key.'.data')) {
-                $datafiles[$key] = json_decode(gzinflate(file_get_contents('data/'.$key.'.data')), true);
+                $tmp = json_decode(gzinflate(file_get_contents('data/'.$key.'.data')), true);
+                foreach($tmp as $tmp_key=>$tmp_value) {
+                    $tmp2 = $tmp_value;
+                    $tmp2['sensor'] = $api_keys[$key]['name'];
+                    $data[] = $tmp2;
+                }
             }
         }
-        $tpl->assign('datafiles', $datafiles);
+
+        // Sort
+        if(isset($_GET['sort']) && in_array($_GET['sort'], array('type', 'value', 'timestamp', 'longitude', 'latitude', 'sensor')) && isset($_GET['order']) && (strtolower($_GET['order']) == 'asc' || strtolower($_GET['order']) == 'desc')) {
+            sort_array($data, $_GET['sort'], (strtolower($_GET['order']) == 'asc') ? SORT_ASC : SORT_DESC);
+        }
+
+        $tpl->assign('data', $data);
 
         $tpl->draw('settings');
     }

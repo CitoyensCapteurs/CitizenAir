@@ -41,6 +41,10 @@ a:link, a:visited, a:hover, a:active {
     color: #333;
 }
 
+th a {
+    text-decoration: none;
+}
+
 canvas {
     background-color: white;
 }

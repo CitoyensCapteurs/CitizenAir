@@ -157,8 +157,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * capteur fixe => cf TODO dans js.js
 * Nominatim reverse geolocation pour le choix de l'export
 * Dropper les timestamps sur l'UI, améliorer l'export
-* Tri des mesures sur la page de settings
 * Plusieurs fichiers par capteur
 * Design
 * Minifier
-* timeline trop grosse sur Chrome

@@ -263,11 +263,11 @@ function ajaxResponse(response) {
         }
 
         for(var index = 0; index < Math.min(measures.length, 100); index++) { // Afficher les 100 dernières mesures au plus sur la timeline
-            if(!SVG.hasGraph(measures[index].capteur)) {
-                SVG.addGraph(measures[index].capteur, measures[index].color);
+            if(!SVG.hasGraph(measures[index].sensor)) {
+                SVG.addGraph(measures[index].sensor, measures[index].color);
             }
 
-            SVG.addPoints(measures[index].capteur, {'x': measures[index].timestamp, 'y': measures[index].value, 'label': capitalize(relativeDate(measures[index].timestamp).replace('&nbsp;', ' '))+' : '+measures[index].value+' '+measures[index].unit, 'click': (function(arg) { return function() { window.map.setView([arg.latitude, arg.longitude], 18); }; })(measures[index])});
+            SVG.addPoints(measures[index].sensor, {'x': measures[index].timestamp, 'y': measures[index].value, 'label': capitalize(relativeDate(measures[index].timestamp).replace('&nbsp;', ' '))+' : '+measures[index].value+' '+measures[index].unit, 'click': (function(arg) { return function() { window.map.setView([arg.latitude, arg.longitude], 18); }; })(measures[index])});
         }
         if(measures.length > 1) {
             SVG.draw();
@@ -362,7 +362,7 @@ window.onload = function() {
 
 
     // Init timeline
-    SVG.init({'id': 'svg_holder', 'height': '25%', 'width': '100%', 'grid': 'both', 'x_axis': true, 'rounded': false, 'x_callback': false});
+    SVG.init({'id': 'svg_holder', 'height': Math.max(document.documentElement.clientHeight, window.innerHeight || 0)/5+'px', 'width': '100%', 'grid': 'both', 'x_axis': true, 'rounded': false, 'x_callback': false});
 
     // Init map height, mandatory for Leaflet
     window.m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - window.header_footer_size - Math.max(document.getElementById('svg_holder').offsetHeight, document.getElementById('svg_holder').clientHeight || 0)+'px';
