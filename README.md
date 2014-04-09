@@ -155,7 +155,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * timeline : 1 jour / 1 semaine / 1 mois + choix du capteur
 * capteur fixe => cf TODO dans js.js
-* Date absolue quelque part
 * Nominatim reverse geolocation pour le choix de l'export
 * Dropper les timestamps sur l'UI, améliorer l'export
 * Tri des mesures sur la page de settings

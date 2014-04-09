@@ -118,6 +118,23 @@ function relativeDate(time) {
     // Translated in French
     var diff = (new Date().getTime() - time * 1000) / 1000;
     var day_diff = Math.floor(diff / 86400);
+    var date = new Date(time*1000);
+    var month = date.getMonth() + 1;
+    if(month < 10) {
+        month = '0' + month;
+    }
+    var day = date.getDay();
+    if(day < 10) {
+        day = '0' + day;
+    }
+    var hours = date.getHours();
+    if(hours < 10) {
+        hours = '0' + hours;
+    }
+    var mins = date.getMinutes();
+    if(mins < 10) {
+        mins = '0' + mins;
+    }
 
     if ( isNaN(day_diff) || day_diff < 0)
         return;
@@ -128,12 +145,7 @@ function relativeDate(time) {
             diff < 3600 && "il y a " + Math.floor( diff / 60 ) + "&nbsp;minutes" ||
             diff < 7200 && "il y a 1&nbsp;heure" ||
             diff < 86400 && "il y a " + Math.floor( diff / 3600 ) + "&nbsp;heures") ||
-        day_diff == 1 && "hier" ||
-        day_diff < 7 && "il y a " + day_diff + " jours" ||
-        day_diff < 31 && "il y a " + Math.ceil( day_diff / 7 ) + "&nbsp;semaines" ||
-        day_diff < 365 && "il y a " + Math.ceil( day_diff / 30 ) + "&nbsp;mois" ||
-        day_diff < 700 && "il y a 1&nbsp;an" ||
-        "il y a " + Math.ceil(day_diff / 365) + "&nbsp;ans";
+            'le '+ day +'/'+month+'/'+date.getFullYear()+' à '+ hours +':'+ mins;
 }
 
 // Get point opacity
