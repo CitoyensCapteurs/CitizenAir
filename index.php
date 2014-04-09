@@ -284,7 +284,7 @@ elseif(isset($_GET['export'])) {
     $tpl->assign('menu', $menu);
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->assign('no_js', true);
-    $tpl->assign('capteurs', $api_keys);
+    $tpl->assign('api_keys', $api_keys);
     $tpl->assign('types', $types);
     $tpl->draw('export');
 }

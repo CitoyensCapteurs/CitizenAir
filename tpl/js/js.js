@@ -242,18 +242,19 @@ function ajaxResponse(response) {
         if(window.live === false) {
             // Plot data
             // TODO : Only display latest measure on map for fixed sensor
+            for(var index = 0; index < window.markers.length; index++) {
+                window.map.removeLayer(window.markers[marker]);
+            }
             for(var index = 0; index < measures.length; index++) {
                 var marker = L.circle([measures[index].latitude, measures[index].longitude], measures[index].spatial_validity / 2, {
                     color: colors[measures[index].level],
                     fillColor: fillColors[measures[index].level],
                     fillOpacity: getOpacity(measures[index].timestamp, measures[index].start_decrease, measures[index].fully_gone)
                 });
-                if(!window.map.hasLayer(marker)) {
-                    marker.addTo(window.map);
-                    marker.bindPopup("Mesure effectuée " + relativeDate(measures[index].timestamp) + ".<br/>" + measures[index].type_name + " : " + measures[index].value + measures[index].unit + "<br/>Capteur : " + measures[index].sensor + "<br/><a href='?lat="+measures[index].latitude+"&amp;long="+measures[index].longitude+"'>Permalink</a>");
-                    window.markers.push(marker);
-                    window.max_radius.push(measures[index].spatial_validity/2);
-                }
+                marker.addTo(window.map);
+                marker.bindPopup("Mesure effectuée " + relativeDate(measures[index].timestamp) + ".<br/>" + measures[index].type_name + " : " + measures[index].value + measures[index].unit + "<br/>Capteur : " + measures[index].sensor + "<br/><a href='?lat="+measures[index].latitude+"&amp;long="+measures[index].longitude+"'>Permalink</a>");
+                window.markers.push(marker);
+                window.max_radius.push(measures[index].spatial_validity/2);
             }
             fitBounds(measures);
         }

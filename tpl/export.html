@@ -5,8 +5,8 @@
             <label for="sensor">Capteur&nbsp;: </label>
             <select name="sensor" id="sensor">
                 <option value="" selected>Tous</option>
-                {loop="$sensors"}
-                    <option value="{function="htmlspecialchars($value)"}">{function="htmlspecialchars($value)"}</option>
+                {loop="$api_keys"}
+                    <option value="{function="htmlspecialchars($value)"}">{function="htmlspecialchars($value['name'])"}</option>
                 {/loop}
             </select>
         </p>
