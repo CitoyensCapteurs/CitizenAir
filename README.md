@@ -161,3 +161,4 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * Plusieurs fichiers par capteur
 * Design
 * Minifier
+* Bug de petits ronds sur Chrome ?
