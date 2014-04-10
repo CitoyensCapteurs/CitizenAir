@@ -64,9 +64,9 @@
                             <td>{function="htmlspecialchars($value['threshold_1'])"}</td>
                             <td>{function="htmlspecialchars($value['threshold_2'])"}</td>
                             <td>{function="htmlspecialchars($value['threshold_3'])"}</td>
-                            <td>{function="htmlspecialchars($value['spatial_validity'])"}</td>
-                            <td>{function="htmlspecialchars($value['start_decrease'])"}</td>
-                            <td>{function="htmlspecialchars($value['fully_gone'])"}</td>
+                            <td>{function="htmlspecialchars($value['spatial_validity'])"}m</td>
+                            <td>{function="htmlspecialchars($value['start_decrease'])"}s</td>
+                            <td>{function="htmlspecialchars($value['fully_gone'])"}s</td>
                             <td>{$value['description']}</td>
                             <td><a href="?settings=edit_type&amp;id={function="htmlspecialchars($key)"}">Modifier</a></td>
                             <td><a href="?settings=delete_type&amp;id={function="htmlspecialchars($key)"}" onclick="return confirm('Supprimer ce type supprimera toutes les mesures associées. Continuer ?');">Supprimer</a></td>
@@ -92,8 +92,8 @@
                     {loop="$data"}
                         <tr>
                             <td>{$types[$value['type']]['name']}</td>
-                            <td>{function="htmlspecialchars($value['value'])"}</td>
-                            <td>{function="htmlspecialchars($value['timestamp'])"}</td>
+                            <td>{function="htmlspecialchars($value['value']).$types[$value['type']]['unit']"}</td>
+                            <td>{function="date('d/m/Y à H:i', $value['timestamp'])"}</td>
                             <td>{function="htmlspecialchars($value['longitude'])"}</td>
                             <td>{function="htmlspecialchars($value['latitude'])"}</td>
                             <td>{function="htmlspecialchars($value['sensor'])"}</td>

@@ -16,6 +16,7 @@
  */
 
 /* Functions */
+date_default_timezone_set('Europe/Paris'); 
 require_once('rain.tpl.class.php');
 raintpl::$tpl_dir = 'tpl/';
 raintpl::$cache_dir = 'tmp/';
@@ -55,7 +56,6 @@ function sort_array(&$array, $key, $order=SORT_DESC) {
 
     return array_multisort($sort_keys, $order, $array);
 }
-
 
 
 /* Config test and define keys and types */
