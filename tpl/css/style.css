@@ -218,6 +218,7 @@ main ul li:before {
 
 aside {
     transition: margin-left: 0.5s ease 0s;
+    -webkit-transition: margin-left: 0.5s ease 0s;
     border-right: 3px solid #0E6BB3;
     float: left;
     padding-left: 1em;
@@ -228,12 +229,22 @@ aside {
 aside #toggleLegend {
     transform-origin: -100% 0px 0px;
     transform: translateX(100%) translateY(-5em) rotate(90deg);
+    -webkit-transform-origin: -100% 0px 0px;
+    -webkit-transform: translateX(100%) translateY(-5em) rotate(90deg);
     position: absolute;
     left: calc(100% + 2.7em);
+    left: -webkit-calc(100% + 2.7em);
     top: 0;
     border: 1px solid #0E6BB3;
     border-bottom: none;
     padding: 0.5em;
+    padding-bottom: calc(0.5em - 3px);
+    padding-bottom: -webkit-calc(0.5em - 3px);
+    background-color: white;
+}
+
+aside #toggleLegend a:link, aside #toggleLegend a:visited, aside #toggleLegend a:hover, aside #toggleLegend a:active {
+    text-decoration: none;
 }
 
 aside #toggleLegend > h3 {
