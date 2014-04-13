@@ -1,73 +1,57 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>CitizenAir</title>
-        <link rel="stylesheet" href="css/style.css">
-    </head>
+{*<!--CitizenAir is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-    <body>
-        <div id="page">
-            <header>
-                <h1><a href="index.html"><img src="img/logo.svg" alt="CitizenAir"/></a></h1>    
+CitizenAir is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-                <nav>
-                    <ul>
-                        <li><a href="index.html">Carte</a></li>
-                        <li><a href="">Capteurs</a></li>
-                        <li><a href="">Export</a></li>
-                        <li><a href="">À propos</a></li>
-                        <li><a href="">Participez !</a></li>
-                    </ul>
-                </nav>
-            </header>
-            
-            <main>
-                <aside id="legend">
-                    <div id="toggleLegend">
-                        <h3>Légende</h3>
-                    </div>
-                    <div class="table">
-                        <div class="table-caption">
-                            <h2>Légende&nbsp;:</h2>
-                            <p>Les points de couleur pleine représentent les capteurs en activité. L'opacité des points se réduit en fonction du temps écoulé depuis la mesure.</p>
-                        </div>
-
-                        <div class="legend-item">
-                            <h2>NO<sub>2</sub></h2>
-                            <table>
-                                <tr>
-                                    <td>Vert</td>
-                                    <td>&lt;110 µg/m<sup>3</sup><br/>Pollution faible</td>
-                                </tr>
-                                <tr>
-                                    <td>Orange</td>
-                                    <td>Entre 110 et 200 µg/m<sup>3</sup><br/>Pollution moyenne</td>
-                                </tr>
-                                <tr>
-                                    <td>Rouge</td>
-                                    <td>Entre 200 et 400 µg/m<sup>3</sup><br/>Pollution élevée</td>
-                                </tr>
-                                <tr>
-                                    <td>Noir</td>
-                                    <td>&gt;400 µg/m<sup>3</sup><br/>Pollution très élevée</td>
-                                </tr>
-                            </table>
-                            <p><a href="?about=NO2">En savoir plus sur le NO<sub>2</sub></a></p>
-                        </div>
-                        <p class="legend-item center"><a href="index.php" onclick="event.preventDefault(); navigator.geolocation.getCurrentPosition(geolocSuccessFunction, geolocErrorFunction, {enableHighAccuracy:true,  maximumAge:60000, timeout:500});">Voir les capteurs à proximité</a></p>
-                    </div>
-                </aside>
-                <div id="map">
-                    <p id="need-js">Vous devez activer JavaScript pour utiliser ce site web.</p>
-                </div>
-                <div id="svg_holder">
-                </div>
-            </main>
-
-            <footer>
-                <p>Licence SODAWARE | <a href="http://citoyenscapteurs.net/">Citoyens Capteurs</a></p>
-            </footer>
+You should have received a copy of the GNU General Public License
+along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.-->
+*}
+{include="header"}
+<main class="full_width">
+    <aside id="legend">
+        <div id="toggleLegend">
+            <h3>Légende</h3>
         </div>
-    </body>
-</html> 
+        <div class="table">
+            <div class="table-caption">
+                <h2>Légende&nbsp;:</h2>
+                <p>Les points de couleur pleine représentent les capteurs en activité. L'opacité des points se réduit en fonction du temps écoulé depuis la mesure.</p>
+            </div>
+
+            <div class="legend-item">
+                <h3>NO<sub>2</sub></h3>
+                <table>
+                    <tr>
+                        <td>Vert</td>
+                        <td>&lt;110 µg/m<sup>3</sup><br/>Pollution faible</td>
+                    </tr>
+                    <tr>
+                        <td>Orange</td>
+                        <td>Entre 110 et 200 µg/m<sup>3</sup><br/>Pollution moyenne</td>
+                    </tr>
+                    <tr>
+                        <td>Rouge</td>
+                        <td>Entre 200 et 400 µg/m<sup>3</sup><br/>Pollution élevée</td>
+                    </tr>
+                    <tr>
+                        <td>Noir</td>
+                        <td>&gt;400 µg/m<sup>3</sup><br/>Pollution très élevée</td>
+                    </tr>
+                </table>
+                <p><a href="?about=NO2">En savoir plus sur le NO<sub>2</sub></a></p>
+            </div>
+            <p class="legend-item center"><a href="index.php" onclick="event.preventDefault(); navigator.geolocation.getCurrentPosition(geolocSuccessFunction, geolocErrorFunction, {enableHighAccuracy:true,  maximumAge:60000, timeout:500});">Voir les capteurs à proximité</a></p>
+        </div>
+    </aside>
+    <div id="map">
+        <p id="need-js">Vous devez activer JavaScript pour utiliser ce site web.</p>
+    </div>
+    <div id="svg_holder">
+    </div>
+</main>
+{include="footer"}
