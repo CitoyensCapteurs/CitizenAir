@@ -362,7 +362,7 @@ window.onload = function() {
 
 
     // Init timeline
-    SVG.init({'id': 'svg_holder', 'height': Math.max(document.documentElement.clientHeight, window.innerHeight || 0)/5+'px', 'width': '100%', 'grid': 'both', 'x_axis': true, 'rounded': false, 'x_callback': false});
+    SVG.init({'id': 'svg_holder', 'height': '20%', 'width': '100%', 'grid': 'both', 'x_axis': true, 'rounded': false, 'x_callback': false});
 
     // Init map height, mandatory for Leaflet
     window.m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - window.header_footer_size - Math.max(document.getElementById('svg_holder').offsetHeight, document.getElementById('svg_holder').clientHeight || 0)+'px';

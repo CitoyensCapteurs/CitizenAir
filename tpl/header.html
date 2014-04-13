@@ -4,14 +4,22 @@
         <meta charset="utf-8">
         <title>CitizenAir{$head_title}</title>
         {if="!isset($no_js)"}
-            <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/leaflet.css">
         {/if}
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="test/css/design.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <header id="title">
-            <p class="left">{loop="$menu"}{$value}{/loop}</p>
-            <h1 class="white-links"><a href="index.php">CitizenAir</a>{$page_title}</h1>
+        <header>
+            <h1><a href="index.html"><img src="img/logo.svg" alt="CitizenAir"/></a></h1>    
+
+            <div id="menu">
+                <ul>
+                    <li><a href="index.html">Carte</a></li>
+                    <li><a href="">Capteurs</a></li>
+                    <li><a href="">Export</a></li>
+                    <li><a href="">À propos</a></li>
+                    <li><a href="">Participez !</a></li>
+                </ul>
+            </div>
         </header>
-        <div id="main">

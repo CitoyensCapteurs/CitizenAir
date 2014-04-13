@@ -3,7 +3,7 @@
     <fieldset>
         <p>
             <label for="sensor">Capteur&nbsp;: </label>
-            <select name="sensor" id="sensor">
+            <select name="sensor" id="sensor" multiple="multiple">
                 <option value="" selected>Tous</option>
                 {loop="$api_keys"}
                     <option value="{function="htmlspecialchars($value)"}">{function="htmlspecialchars($value['name'])"}</option>
@@ -12,7 +12,7 @@
         </p>
         <p>
             <label for="type">Type&nbsp;: </label>
-            <select name="type" id="type">
+            <select name="type" id="type" multiple="multiple">
                 <option value="" selected>Tous</option>
                 {loop="$types"}
                     <option value="{function="htmlspecialchars($key)"}">{function="htmlspecialchars($key)"}</option>

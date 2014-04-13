@@ -1,26 +1,53 @@
-/* 
- * This file is part of CitizenAir.
- * CitizenAir is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * CitizenAir is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-html {
-    text-align: center;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    color: #333;
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    line-height: 160%
 }
 
-html, body {
+body {
+    background-color: white;
+    font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+blockquote {
+    quotes: "\201C""\201D""\2018""\2019";
+    color: black;
+}
+
+blockquote:before {
+    content: open-quote;
+    font-size: 3em;
+    line-height: 0.1em;
+    vertical-align: bottom;
+    color: #0e6bb3;
+}
+
+blockquote:after {
+    content: close-quote;
+    font-size: 3em;
+    vertical-align: bottom;
+    line-height: 0.1em;
+    color: #0e6bb3;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid #0E6BB3;
+    padding: 0.25em;
+}
+
+.info {
+    background-color: #cfe8fb;
+    color: #0e6bb3;
+    padding: 1em;
+    line-height: 1.3em;
+}
+
+.no-margin {
     margin: 0;
 }
 
@@ -28,240 +55,174 @@ html, body {
     text-align: center;
 }
 
+.table {
+    display: table;
+}
+
 .table-caption {
     display: table-caption;
-    margin: 0.5em;
 }
 
-a:link, a:visited, a:hover, a:active {
-    color: #EEE;
-}
-
-.black_links a:link, .black_links a:visited, .black_links a:hover, .black_links a:active {
-    color: #333;
-}
-
-th a {
-    text-decoration: none;
-}
-
-canvas {
-    background-color: white;
-}
-
-li {
-    list-style-type: none;
-}
-
-textarea {
-    width: 50%;
-    min-height: 12em;
+#page {
+    position: relative;
+    min-height: 100%;
 }
 
 header {
-    color: #EEE;
+    background-color: #56acf1;
+    color: white;
+    border-bottom: 3px solid #0e6bb3;
 }
 
-h1 {
-    background-color: #662c90;
-    margin: 0;
-    padding: 0.5em;
-    font-size: 1.5em;
-}
-
-h1 a {
+header a:link, header a:visited, header a:hover, header a:active {
+    color: white;
     text-decoration: none;
 }
 
-.left {
-    text-align: left;
+header h1 {
+    margin: 0;
+    font-variant: small-caps;
+    display: inline-block;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+}
+
+header h1 img {
+    height: 1.2em;
+    vertical-align: middle;
+}
+
+nav {
+    float: right;
+    color: #d6d6d6; 
+    font-size: 1.2em;
+}
+
+nav a:link, nav a:visited, nav a:hover, nav a:active {
+    text-decoration: none;
+}
+
+nav ul {
+    list-style-type: none;
+    float: right;
+    margin: 0;
+    line-height: 2em;
+    margin-right: 0.5em;
+    padding: 0;
+    height: 100%;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+nav li {
+    display: inline-block;
     float: left;
+    height: 100%;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 0.1em rgba(33, 33, 33, 0.5);
+    padding-top: 8px;
+    padding-bottom: 8px;
+    list-style: none;
 }
 
-header .left {
-    margin-left: 1em;
+main {
+    padding-bottom: 4em;
+    color: #333; 
 }
 
-#main {
-    padding-bottom: 1em;
+main.about {
+    width: 75%;
+    margin: auto;
+}
+
+main a:link, main a:visited, main a:hover, main a:active {
+    color: #0e6bb3;
+}
+
+main ul {
+    list-style: none;
+    margin-left: 0;
+    padding: 0;
+    list-style-position:inside;
+}
+
+main ul li:before {
+    display: inline-block;
+    content: "- ";
+    width: 1em;
+}
+
+aside {
+    transition: margin-left: 0.5s ease 0s;
+    border-right: 3px solid #0E6BB3;
+    float: left;
+    padding-left: 1em;
+    padding-right: 1em;
+    position: relative;
+}
+
+aside #toggleLegend {
+    transform-origin: -100% 0px 0px;
+    transform: translateX(100%) translateY(-5em) rotate(90deg);
+    position: absolute;
+    left: calc(100% + 2.7em);
+    top: 0;
+    border: 1px solid #0E6BB3;
+    border-bottom: none;
+    padding: 0.5em;
+}
+
+aside #toggleLegend > * {
+    margin: 0;
 }
 
 #map {
-    height: 450px;
-    transition: margin-left 0.5s ease 0s;
+    text-align: center;
+    padding-top: 1em;
 }
 
-#map a:link, #map a:visited, #map a:hover, #map a:active {
-    color: #575757;
-}
-
-.leaflet-popup-content {
-    font-size: 1.5em;
+#map p:first-child {
+    margin: 0;
 }
 
 #svg_holder {
-    height: 25%;
+    clear: both;
+    height: 160px;
     width: 100%;
     background-color: #333;
 }
 
-@media screen and (max-width: 800px) {
-    #svg_holder {
-        height: 0%;
-        display: none;
-    }
-}
-
-@media screen and (max-height: 600px) {
-    #svg_holder {
-        height: 0%;
-        display: none;
-    }
-}
-
-
-#legend {
-    transition: margin-left 0.5s ease 0s;
-    height: 100%;
-    overflow-y: auto;
-    margin-left: -100%;
-    border-right: 1px solid black;
-    color: #333;
-}
-
-#legend .table {
-    display: table;
-}
-
-#legend h2 {
-    margin-bottom: 0.1em;
-    text-align: left;
-    margin-left: 0.5em;
-    margin-right: 0.6em;
-}
-
-#legend > h2:first-child {
-    text-align: center;
-    text-decoration: underline;
-}
-
-#legend table {
-    border-collapse: collapse;
-}
-
-#legend td {
-    padding: 0.25em;
-    border: 1px solid grey;
-}
-
-#legend li {
-    font-size: 1.5em;
-    list-style-type: square;
-}
-
-.legend-item {
-    display: table-row;
-}
-
-.legend-item > * {
-    margin-left: 0.5em;
-    margin-right: 0.6em;
-    margin-bottom: 0.5em;
-}
-
-p.legend-item {
-    margin-top: 2em;
-}
-
-.leaflet-control-attribution {
-    display: none;
-}
-
 footer {
-    background-color: black;
-    color: #EEE;
+    background-color: #cfe8fb;
+    color: #0e6bb3;
     width: 100%;
-    position: fixed;
+    text-align: right;
+    position: absolute;
+    left: 0;
     bottom: 0;
+    text-align: center;
+}
+
+footer a:link, footer a:visited, footer a:hover, footer a:active {
+    color: #0e6bb3;
 }
 
 footer p {
-    margin: 0;
-    padding: 0.4em;
-    font-size: 0.7em;
-    text-align: right;
+    margin-right: 1em;
 }
 
-.settings * {
-    margin-left: auto;
-    margin-right: auto;
+.about h2 {
+    font-weight: lighter;
+    border-bottom: 1px solid #56acf1;
+    box-shadow: 0 1px 0 #0e6bb3;
 }
 
-.settings h2 {
-    background-color: #662c90;
-    color: #EEE;
-    padding: 0.5em;
-    width: 50%;
-    margin-top: 1em;
-}
-
-.settings table {
-    border-collapse: collapse;
-}
-
-.settings table td {
-    border-top: 1px solid black;
-}
-
-.settings table td:not(:last-child), .settings table th:not(:last-child)  {
-    border-right: 1px solid black;
-}
-
-.settings table td, .settings table th {
-    padding: 0.5em;
-}
-
-.settings label {
-    display: block;
-}
-
-.settings table tr:not(:first-child):hover {
-    background-color: rgba(102, 44, 144, 0.6);
-}
-
-.live {
-    display: table;
-    margin: auto;
-    font-size: 3em;
-    font-size: 10vh;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 2em;
-}
-
-.table {
-    margin: 0;
-    display: table-cell;
-}
-
-#export_form, #about {
-    width: 66%;
-    margin: auto;
-    margin-top: 1em;
-    text-align: left;
-}
-
-#about li {
-    list-style-type: square;
-}
-
-.contact_e-mail:after {
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    content: "tcatnoc";
-}
-.contact_e-mail:before {
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    content: "ten.sruetpacsneyotic";
+.about h3 {
+    color: #0e6bb3;
+    font-style: italic;
+    font-weight: normal;
 }

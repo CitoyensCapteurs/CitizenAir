@@ -66,7 +66,6 @@ if((!is_file('api.keys') || !is_file('data/types.data')) && !isset($_GET['settin
 
 if(is_file('api.keys')) {
     $api_keys = json_decode(gzinflate(file_get_contents('api.keys')), true);
-    sort_array($api_keys, 'name');
 }
 else {
     $api_keys = array();
@@ -74,7 +73,6 @@ else {
 
 if(is_file('data/types.data')) {
     $types = json_decode(gzinflate(file_get_contents('data/types.data')), true);
-    ksort($types);
 }
 else {
     $types = array();
@@ -195,6 +193,7 @@ if(isset($_GET['settings'])) {
                 unset($api_keys[$_POST['key']]);
             }
             $api_keys[$new_key] = array('name'=>$_POST['sensor'], 'fixed'=>($_POST['fixed'] == 1), 'color'=>$_POST['color']);
+            sort_array($api_keys, 'name');
             file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
             header('location: ?settings=');
             exit();
@@ -234,6 +233,7 @@ if(isset($_GET['settings'])) {
             }
 
             $types[$_POST['id']] = array('name' => $_POST['name'], 'unit' => $_POST['unit'], 'threshold_1' => floatval($_POST['threshold_1']), 'threshold_2' => floatval($_POST['threshold_2']), 'threshold_3' => floatval($_POST['threshold_3']), 'spatial_validity' => intval($_POST['spatial_validity']), 'start_decrease' => intval($_POST['start_decrease']), 'fully_gone' => intval($_POST['fully_gone']), 'description' => preg_replace("/(\r\n|\n|\r)/", "<br />", $_POST['description']));
+            ksort($types);
             file_put_contents('data/types.data', gzdeflate(json_encode($types)));
             header('location: ?settings=');
             exit();
@@ -271,8 +271,20 @@ if(isset($_GET['settings'])) {
         }
 
         // Sort
-        if(isset($_GET['sort']) && in_array($_GET['sort'], array('type', 'value', 'timestamp', 'longitude', 'latitude', 'sensor')) && isset($_GET['order']) && (strtolower($_GET['order']) == 'asc' || strtolower($_GET['order']) == 'desc')) {
+        if(isset($_GET['sort']) && in_array($_GET['sort'], array('type', 'timestamp', 'longitude', 'latitude', 'sensor')) && isset($_GET['order']) && (strtolower($_GET['order']) == 'asc' || strtolower($_GET['order']) == 'desc')) {
             sort_array($data, $_GET['sort'], (strtolower($_GET['order']) == 'asc') ? SORT_ASC : SORT_DESC);
+        }
+        if(isset($_GET['sort']) && $_GET['sort'] == 'value' && isset($_GET['order']) && (strtolower($_GET['order']) == 'asc' || strtolower($_GET['order']) == 'desc')) {
+            $sort_types = array();
+            $sort_values = array();
+
+            foreach ($data as $key2 => $entry) {
+                $sort_types[$key2] = $entry['type'];
+                $sort_values[$key2] = $entry['value'];
+            }
+
+            // Sort by types and then by values 
+            array_multisort($sort_types, SORT_ASC, $sort_values, (strtolower($_GET['order']) == 'asc') ? SORT_ASC : SORT_DESC, $data);
         }
 
         $tpl->assign('data', $data);
