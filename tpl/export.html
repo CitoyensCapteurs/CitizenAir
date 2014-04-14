@@ -16,22 +16,24 @@ along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.-->
     <form method="get" action="api.php">
         <fieldset id="exportFormMeasurements">
             <legend>Mesures</legend>
-            <p>
-                <label for="sensor">Capteur&nbsp;: </label>
-                <select name="sensor" id="sensor" multiple>
+            <div>
+                <p>
+                    Capteur&nbsp;:
+                </p>
+                <p class="scroll">
                     {loop="$api_keys"}
-                        <option value="{function="htmlspecialchars($value)"}" selected>{function="htmlspecialchars($value['name'])"}</option>
+                        <input type="checkbox" id="sensor_{function="htmlspecialchars($value['name'])"}" name="sensor[]" value="{function="htmlspecialchars($value['name'])"}" checked="checked"/><label for="sensor_{function="htmlspecialchars($value['name'])"}">{function="htmlspecialchars($value['name'])"}</label><br/>
                     {/loop}
-                </select>
-            </p>
-            <p>
-                <label for="type">Type&nbsp;: </label>
-                <select name="type" id="type" multiple>
+                </p>
+            </div>
+            <div>
+                <p>Type&nbsp;: </p>
+                <p class="scroll">
                     {loop="$types"}
-                        <option value="{function="htmlspecialchars($key)"}" selected>{function="htmlspecialchars($key)"}</option>
+                        <input type="checkbox" id="type_{function="htmlspecialchars($key)"}" name="type[]" value="{function="htmlspecialchars($key)"}" checked="checked"/><label for="type_{function="htmlspecialchars($key)"}">{function="htmlspecialchars($key)"}</label><br/>
                     {/loop}
-                </select>
-            </p>
+                </p>
+            </div>
         </fieldset>
         <fieldset>
             <legend>Localisation</legend>
@@ -50,4 +52,12 @@ along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.-->
     <p><em>Note&nbsp;:</em> Tous les champs sont optionnels et ne servent qu'à restreindre les résultats.</p>
     <p class="black_links">Les données des capteurs téléchargeables au format <a href="https://fr.wikipedia.org/wiki/JSON">JSON</a> et <a href="https://fr.wikipedia.org/wiki/Comma-separated_values">CSV</a> sont sous licence <a href="http://opendatacommons.org/licenses/by/">Open Data Commons By</a>.</p>
 </main>
+<script type="text/javascript">
+[].forEach.call(document.querySelectorAll('select[multiple=multiple] option'), function (el) {
+        el.addEventListener('click', function (e) {
+            e.preventDefault();
+            return false;
+            });
+});
+</script>
 {include="footer"}

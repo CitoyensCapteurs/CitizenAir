@@ -146,7 +146,10 @@ if($_GET['do'] == 'get') {
     // Sensors parameter
     $keys = array();
     if(!empty($_GET['sensor'])) {
-        foreach(explode(',', $_GET['sensor']) as $sensor) {
+        if(!is_array($_GET['sensor'])) {
+            $_GET['sensor'] = explode(',', $_GET['sensor']);
+        }
+        foreach($_GET['sensor'] as $sensor) {
             $key = multiarray_search($sensor, $api_keys);
             $keys[$key] = $api_keys[$key];
         }
@@ -158,7 +161,12 @@ if($_GET['do'] == 'get') {
     // Types
     $query_types = $types;
     if(!empty($_GET['type'])) {
-        $filter_types = explode(',', $_GET['type']);
+        if(!is_array($_GET['sensor'])) {
+            $filter_types = explode(',', $_GET['type']);
+        }
+        else {
+            $filter_type = $_GET['type'];
+        }
         foreach(array_diff(array_keys($query_types), array_keys($filter_types)) as $key) {
             unset($query_types[$key]);
         }
@@ -167,31 +175,31 @@ if($_GET['do'] == 'get') {
     // Timestamp
     $timestamp_min = false;
     if(!empty($_GET['time_min'])) {
-        $timestamp_min = floatval($_GET['time_min']);
+        $timestamp_min = intval($_GET['time_min']);
     }
     $timestamp_max = false;
     if(!empty($_GET['time_max'])) {
-        $timestamp_max = floatval($_GET['time_max']);
+        $timestamp_max = intval($_GET['time_max']);
     }
 
     // Longitude
     $longitude_min = false;
     if(!empty($_GET['long_min'])) {
-        $longitude_min = floatval($_GET['long_min']);
+        $longitude_min = floatval(str_replace(',', '.', $_GET['long_min']));
     }
     $longitude_max = false;
     if(!empty($_GET['long_max'])) {
-        $longitude_max = floatval($_GET['long_max']);
+        $longitude_max = floatval(str_replace(',', '.', $_GET['long_max']));
     }
 
     // Latitude
     $latitude_min = false;
     if(!empty($_GET['lat_min'])) {
-        $latitude_min = floatval($_GET['lat_min']);
+        $latitude_min = floatval(str_replace(',', '.', $_GET['lat_min']));
     }
     $latitude_max = false;
     if(!empty($_GET['lat_max'])) {
-        $latitude_max = floatval($_GET['lat_max']);
+        $latitude_max = floatval(str_replace(',', '.', $_GET['lat_max']));
     }
 
     // Fetch data

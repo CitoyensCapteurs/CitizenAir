@@ -58,6 +58,8 @@ La même page, `api.php`, permet également de récupérer les données stockée
 * `visu=1` qui, si spécifié, retourne en plus les données de visualisation liée à chaque mesure (niveau, type de mesures, …)
 * `sort=sensor|latitude|longitude|timestamp|type|value|unit` pour trier les valeurs (optionnel, tri par timestamp par défaut)
 
+_Note :_ Plutôt que des listes séparées par des virgules, vous pouvez également utiliser la syntaxe `params[]` pour les _arrays_ passés par paramètre _GET_.
+
 
 ## Visualisation web
 
@@ -159,4 +161,5 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * Améliorer l'export: date picker + multiple
 * Plusieurs fichiers par capteur
 * Design
+* Adresses e-mail en JavaScript, cf Github
 * Minifier

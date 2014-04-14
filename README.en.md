@@ -56,6 +56,7 @@ The same script `api.php` allows you to get back stored data. You should then ca
 * `visu=1` which, if specified, will return visualization data such as levels, type name associated to each measurement, …
 * `sort=sensor|latitude|longitude|timestamp|type|value|unit` to sort data (optional, sorting by timestamp by default)
 
+_Note :_ Instead of passing comma-separated lists, you can also use the synta `params[]` used to pass array parameters _via_ _GET_ parameters.
 
 ## Web visualization
 

@@ -273,12 +273,24 @@ aside #toggleLegend > h3 {
     text-align: center;
 }
 
-#exportFormMeasurements p:first-of-type {
-    margin-right: 20%;
+#exportFormMeasurements div {
+    display: inline-block;
+    vertical-align: middle;
+    margin: auto;
+    width: 45%;
 }
 
 #exportFormMeasurements p {
+    text-align: left;
     display: inline-block;
+    vertical-align: middle;
+}
+
+#exportFormMeasurements p.scroll {
+    overflow-y: auto;
+    overflow-x: initial;
+    max-height: 6.5em;
+    width: 10em;
 }
 
 #exportFormMeasurements select {
