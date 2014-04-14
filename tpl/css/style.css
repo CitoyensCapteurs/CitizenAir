@@ -61,6 +61,8 @@ table {
 td, th {
     border: 1px solid #0E6BB3;
     padding: 0.25em;
+    background-color: white;
+    text-align: center;
 }
 
 h2 {
@@ -111,6 +113,14 @@ fieldset {
     unicode-bidi: bidi-override;
     direction: rtl;
     content: "ten.sruetpacsneyotic";
+}
+
+.aujourdhui {
+    color: red;
+}
+
+.cal_selected {
+    color: yellow !important;
 }
 
 
@@ -295,6 +305,11 @@ aside #toggleLegend > h3 {
 
 #exportFormMeasurements select {
     vertical-align: middle;
+}
+
+#time_min_picker, #time_max_picker {
+    display: none;
+    position: absolute;
 }
 
 footer {

@@ -78,13 +78,6 @@ else {
     $types = array();
 }
 
-$menu = array(
-    'carte'=>'<a href="index.php">Carte</a>',
-    'live'=>' | <a href="?live=">Capteur en live</a>',
-    'export'=>' | <a href="?export=">Export</a>',
-    'about'=>' | <a href="?about=">À propos</a>',
-    'support'=>' | <a href="?participez=">Participez&nbsp;!</a>');
-
 /* Settings page */
 if(isset($_GET['settings'])) {
     session_start();
@@ -109,8 +102,6 @@ if(isset($_GET['settings'])) {
     }
 
     $tpl->assign('head_title', ' - Préférences');
-    $tpl->assign('page_title', ' - <a href="?settings=">Préférences</a>');
-    $tpl->assign('menu', $menu);
     $tpl->assign('no_js', true);
 
     if(empty($_SESSION['login'])) {
@@ -294,43 +285,33 @@ if(isset($_GET['settings'])) {
 }
 /* Live view */
 elseif(isset($_GET['live'])) {
-    unset($menu['live']);
-    $menu = array('sensor' => '<a href="#legend" onclick="event.preventDefault(); toggleLegend(false);">Choix du capteur</a> | ') + $menu;
-    $tpl->assign('menu', $menu);
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->assign('api_keys', $api_keys);
 
     if(in_multiarray($api_keys, 'name', $_GET['live'])) {
         $live = htmlspecialchars($_GET['live']);
         $tpl->assign('head_title', ' - Suivi du capteur '.$live);
-        $tpl->assign('page_title', ' - Suivi du capteur '.$live);
         $tpl->assign('live', $live);
     }
     else {
         $tpl->assign('head_title', ' - Capteur en live');
-        $tpl->assign('page_title', ' - Capteur en live');
     }
 
     $tpl->draw('live');
 }
 /* Export view */
 elseif(isset($_GET['export'])) {
-    unset($menu['export']);
     $tpl->assign('head_title', ' - Export');
-    $tpl->assign('page_title', ' - Export des données');
-    $tpl->assign('menu', $menu);
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->assign('no_js', true);
     $tpl->assign('api_keys', $api_keys);
     $tpl->assign('types', $types);
+    $tpl->assign('export', true);
     $tpl->draw('export');
 }
 /* About page */
 elseif(isset($_GET['about'])) {
-    unset($menu['about']);
     $tpl->assign('head_title', ' - À propos');
-    $tpl->assign('page_title', ' - À propos');
-    $tpl->assign('menu', $menu);
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->assign('no_js', true);
 
@@ -342,10 +323,7 @@ elseif(isset($_GET['about'])) {
 }
 /* Support page */
 elseif(isset($_GET['participez'])) {
-    unset($menu['participez']);
     $tpl->assign('head_title', ' - Participez&nbsp;!');
-    $tpl->assign('page_title', ' - Participez&nbsp;!');
-    $tpl->assign('menu', $menu);
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->assign('no_js', true);
 
@@ -353,10 +331,7 @@ elseif(isset($_GET['participez'])) {
 }
 /* Default map */
 else {
-    $menu['carte'] = '<a href="#legend" onclick="event.preventDefault(); toggleLegend(false);">Légende</a>';
     $tpl->assign('head_title', '');
-    $tpl->assign('page_title', '');
-    $tpl->assign('menu', $menu);
     $tpl->assign('legend_items', $types);
     $tpl->assign('credits', '<a title="A JS library for interactive maps" href="http://leafletjs.com">Leaflet</a> | Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC&nbsp;BY&nbsp;SA</a> | <a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteur</a>');
     $tpl->draw('index');
