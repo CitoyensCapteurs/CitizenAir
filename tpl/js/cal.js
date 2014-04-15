@@ -1,6 +1,14 @@
 function buildCal(id, m, y, cM, cH, cDW, cD){
     var mn = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
     var dim = [31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var current_value = document.getElementById(id.replace('_picker', '')).value;
+
+    if(window.just_load === true && current_value !== '') {
+        var current_date = new Date(parseInt(current_value) * 1000);
+        m = current_date.getMonth() + 1;
+        y = current_date.getFullYear();
+    }
+    window.just_load = false;
 
     var oD = new Date(y, m-1, 1);
     oD.od = oD.getDay() % 7;
@@ -31,17 +39,24 @@ function buildCal(id, m, y, cM, cH, cDW, cD){
     
     t += '</tr><tr>';
 
-    var current_value = document.getElementById(id.replace('_picker', '')).value;
 
     for (i = 1; i < 36; i++) {
         var x = ((i-oD.od >= 0) && (i-oD.od < dim[m-1])) ? (i-oD.od+1) : '&nbsp;';
         if (Math.floor((new Date(y, m-1, x, 2, 0, 0)).getTime()/1000) == current_value) {
             x = '<span class="cal_selected">'+x+'</span>';
         }
+
         if (x == scanfortoday) {
             x = '<span class="aujourdhui">'+x+'</span>';
         }
-        t += '<td class="'+cD+'"><a href="javascript:void(0)" onclick="selectDay(\''+id+'\', '+(i-oD.od + 1)+', '+m+', '+y+', this);">'+x+'</a></td>';
+
+        if (x !== '&nbsp;') {
+            t += '<td class="'+cD+'"><a href="javascript:void(0)" onclick="selectDay(\''+id+'\', '+(i-oD.od + 1)+', '+m+', '+y+', this);">'+x+'</a></td>';
+        }
+        else {
+            t += '<td class="'+cD+'">&nbsp;</td>';
+        }
+
         if (i % 7 == 0) {
             t+='</tr><tr>';
         }
@@ -58,9 +73,9 @@ function selectDay(id, d, m, y, el) {
     el.className = el.className + " cal_selected";
 }
 
-var todaydate = new Date()
-var curmonth = todaydate.getMonth() + 1 
-var curyear = todaydate.getFullYear()
+var just_load = true;
+var curmonth = (new Date()).getMonth() + 1 
+var curyear = (new Date()).getFullYear()
 
 buildCal('time_min_picker', curmonth, curyear, "cal", "mois", "jours_semaine", "jours");
 buildCal('time_max_picker', curmonth, curyear, "cal", "mois", "jours_semaine", "jours");
