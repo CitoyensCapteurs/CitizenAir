@@ -23,7 +23,7 @@ function buildCal(id, m, y, cM, cH, cDW, cD){
         prev_m = 12;
         prev_y = y - 1;
     }
-    t += '<td><a href="javascript:void(0)" onclick="buildCal(\''+id+'\', '+prev_m+', '+prev_y+', \''+cM+'\', \''+cH+'\', \''+cDW+'\', \''+cD+'\', '+todaydate+');">«</a></td><td colspan="5" class="'+cH+'">'+mn[m-1]+' - '+y+'</td><td><a href="javascript:void(0)" onclick="buildCal(\''+id+'\', '+next_m+', '+next_y+', \''+cM+'\', \''+cH+'\', \''+cDW+'\', \''+cD+'\', '+todaydate+');">»</a></td></tr></thead><tr>';
+    t += '<td><a href="javascript:void(0)" onclick="buildCal(\''+id+'\', '+prev_m+', '+prev_y+', \''+cM+'\', \''+cH+'\', \''+cDW+'\', \''+cD+'\');">«</a></td><td colspan="5" class="'+cH+'">'+mn[m-1]+' - '+y+'</td><td><a href="javascript:void(0)" onclick="buildCal(\''+id+'\', '+next_m+', '+next_y+', \''+cM+'\', \''+cH+'\', \''+cDW+'\', \''+cD+'\');">»</a></td></tr></thead><tr>';
 
     for (s=0; s<7; s++) {
         t += '<th class="'+cDW+'">'+"LMMJVSD".substr(s,1)+'</th>';
