@@ -41,8 +41,18 @@ along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.-->
             (format <a href="https://fr.wikipedia.org/wiki/Heure_Unix">timestamp Unix</a>)</p>
             <div id="time_min_picker" class="cal"></div>
             <div id="time_max_picker" class="cal"></div>
-            <p><label for="lat_min">Latitude entre </label> <input type="text" name="lat_min" id="lat_min"/><label for="lat_max"> et </label><input type="text" name="lat_max" id="lat_max"/></p>
-            <p><label for="long_min">Longitude entre </label> <input type="text" name="long_min" id="long_min"/><label for="long_max"> et </label><input type="text" name="long_max" id="long_max"/></p>
+            <fieldset>
+                <p><label for="lat_min">Latitude entre </label> <input type="text" name="lat_min" id="lat_min"/><label for="lat_max"> et </label><input type="text" name="lat_max" id="lat_max"/></p>
+                <p><label for="long_min">Longitude entre </label> <input type="text" name="long_min" id="long_min"/><label for="long_max"> et </label><input type="text" name="long_max" id="long_max"/></p>
+            </fieldset>
+            <p>ou</p>
+            <fieldset>
+                <p>
+                    <label for="address">Addresse : </label><br/>
+                    <input type="text" name="address" id="address"/>
+                </p>
+                <p><label for="radius">Rayon : </label><input type="text" name="radius" id="radius"/></p>
+            </fieldset>
         </fieldset>
         <fieldset>
             <legend>Options</legend>
@@ -54,12 +64,4 @@ along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.-->
     <p><em>Note&nbsp;:</em> Tous les champs sont optionnels et ne servent qu'à restreindre les résultats.</p>
     <p class="black_links">Les données des capteurs téléchargeables au format <a href="https://fr.wikipedia.org/wiki/JSON">JSON</a> et <a href="https://fr.wikipedia.org/wiki/Comma-separated_values">CSV</a> sont sous licence <a href="http://opendatacommons.org/licenses/by/">Open Data Commons By</a>.</p>
 </main>
-<script type="text/javascript">
-[].forEach.call(document.querySelectorAll('select[multiple=multiple] option'), function (el) {
-        el.addEventListener('click', function (e) {
-            e.preventDefault();
-            return false;
-            });
-});
-</script>
 {include="footer"}

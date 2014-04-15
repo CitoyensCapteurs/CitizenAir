@@ -312,6 +312,10 @@ aside #toggleLegend > h3 {
     position: absolute;
 }
 
+#address {
+    width: 90%;
+}
+
 footer {
     background-color: #cfe8fb;
     color: #0e6bb3;

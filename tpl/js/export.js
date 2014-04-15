@@ -103,3 +103,11 @@ document.getElementById('time_max').addEventListener('click', function () {
 document.getElementById('time_max').addEventListener('blur', function () {
     document.getElementById('time_max_picker').style.display = 'none';
 });
+
+[].forEach.call(document.querySelectorAll('select[multiple=multiple] option'), function (el) {
+        el.addEventListener('click', function (e) {
+            e.preventDefault();
+            return false;
+            });
+});
+
