@@ -42,16 +42,17 @@ along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.-->
             <div id="time_min_picker" class="cal"></div>
             <div id="time_max_picker" class="cal"></div>
             <fieldset>
-                <p><label for="lat_min">Latitude entre </label> <input type="text" name="lat_min" id="lat_min"/><label for="lat_max"> et </label><input type="text" name="lat_max" id="lat_max"/></p>
-                <p><label for="long_min">Longitude entre </label> <input type="text" name="long_min" id="long_min"/><label for="long_max"> et </label><input type="text" name="long_max" id="long_max"/></p>
+                <p><label for="lat_min">Latitude entre </label> <input type="text" name="lat_min" id="lat_min" onkeypress="window.last_edit = 'reverse';"/><label for="lat_max"> et </label><input type="text" name="lat_max" id="lat_max" onkeypress="window.last_edit = 'reverse';"/></p>
+                <p><label for="long_min">Longitude entre </label> <input type="text" name="long_min" id="long_min" onkeypress="window.last_edit = 'reverse';"/><label for="long_max"> et </label><input type="text" name="long_max" id="long_max" onkeypress="window.last_edit = 'reverse';"/></p>
             </fieldset>
             <p><em>ou</em></p>
             <fieldset>
                 <p>
                     <label for="address">Addresse : </label><br/>
-                    <input type="text" name="address" id="address"/>
+                    <input type="text" name="address" id="address" onkeypress="window.last_edit = 'direct';"/>
                 </p>
-                <p><label for="radius">Rayon : </label><input type="text" name="radius" id="radius"/></p>
+                <p id="found_address"></p>
+                <p><label for="radius">Rayon (en m) : </label><input type="text" name="radius" id="radius" onkeypress="window.last_edit = 'direct'; radius_change();" onkeyup="window.last_edit = 'direct'; radius_change();"/></p>
             </fieldset>
         </fieldset>
         <fieldset>

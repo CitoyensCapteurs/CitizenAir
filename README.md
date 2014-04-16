@@ -157,7 +157,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * timeline : 1 jour / 1 semaine / 1 mois + choix du capteur / resize not working
 * capteur fixe => cf TODO dans js.js
-* Nominatim reverse geolocation pour le choix de l'export
+* Trouver un bon nom pour le "rayon" sur la page export => rayon en norme L1
 * Plusieurs fichiers par capteur
 * Design
 * Adresses e-mail en JavaScript, cf Github
