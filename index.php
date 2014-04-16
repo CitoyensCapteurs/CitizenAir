@@ -302,7 +302,7 @@ elseif(isset($_GET['live'])) {
 /* Export view */
 elseif(isset($_GET['export'])) {
     $tpl->assign('head_title', ' - Export');
-    $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
+    $tpl->assign('credits', 'Nominatim Search Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> <img src="tpl/img/mq.png"> | <a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->assign('no_js', true);
     $tpl->assign('api_keys', $api_keys);
     $tpl->assign('types', $types);
