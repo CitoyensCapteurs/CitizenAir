@@ -102,7 +102,7 @@ if(isset($_GET['settings'])) {
     }
 
     $tpl->assign('head_title', ' - Préférences');
-    $tpl->assign('no_js', true);
+    $tpl->assign('no_map', true);
 
     if(empty($_SESSION['login'])) {
         if(is_file('password')) {
@@ -303,7 +303,7 @@ elseif(isset($_GET['live'])) {
 elseif(isset($_GET['export'])) {
     $tpl->assign('head_title', ' - Export');
     $tpl->assign('credits', 'Nominatim Search Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> <img src="tpl/img/mq.png"> | <a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
-    $tpl->assign('no_js', true);
+    $tpl->assign('no_map', true);
     $tpl->assign('api_keys', $api_keys);
     $tpl->assign('types', $types);
     $tpl->assign('export', true);
@@ -313,7 +313,8 @@ elseif(isset($_GET['export'])) {
 elseif(isset($_GET['about'])) {
     $tpl->assign('head_title', ' - À propos');
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
-    $tpl->assign('no_js', true);
+    $tpl->assign('no_map', true);
+    $tpl->assign('emails_js', true);
 
     if(!empty($_GET['about']) && array_key_exists($_GET['about'], $types)) {
         $tpl->assign('description', $types[$_GET['about']]['description']);
@@ -325,7 +326,8 @@ elseif(isset($_GET['about'])) {
 elseif(isset($_GET['participez'])) {
     $tpl->assign('head_title', ' - Participez&nbsp;!');
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
-    $tpl->assign('no_js', true);
+    $tpl->assign('no_map', true);
+    $tpl->assign('emails_js', true);
 
     $tpl->draw('participez');
 }

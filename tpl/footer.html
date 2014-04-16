@@ -18,4 +18,14 @@ along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.-->
         {if="isset($export)"}
             <script type="text/javascript" src="js/export.js"></script> </body>
         {/if}
+        {if="isset($emails_js)"}
+            <script type="text/javascript">
+                [].forEach.call(document.querySelectorAll('.contact_e-mail'), function(el) {
+                    var id = 'contact';
+                    var domain = 'citoyenscapteurs.net';
+                    var mail = id+'@'+domain;
+                    el.outerHTML = '<a href="mailto:'+mail+'">'+id+'@'+domain+'</a>';
+                });
+            </script>
+        {/if}
 </html> 

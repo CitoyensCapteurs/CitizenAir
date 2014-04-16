@@ -160,5 +160,4 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * Trouver un bon nom pour le "rayon" sur la page export => rayon en norme L1
 * Plusieurs fichiers par capteur
 * Design
-* Adresses e-mail en JavaScript, cf Github
 * Minifier
