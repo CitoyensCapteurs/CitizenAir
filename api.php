@@ -237,7 +237,6 @@ if($_GET['do'] == 'get') {
                 $dataset[$index]['start_decrease'] = $types[$measurement['type']]['start_decrease'];
                 $dataset[$index]['fully_gone'] = $types[$measurement['type']]['fully_gone'];
                 $dataset[$index]['spatial_validity'] = $types[$measurement['type']]['spatial_validity'];
-                $dataset[$index]['fixed'] = $keys[$sensor_key]['fixed'];
                 $dataset[$index]['color'] = $keys[$sensor_key]['color'];
             }
         }

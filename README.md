@@ -156,7 +156,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ## TODO v2
 
 * timeline : 1 jour / 1 semaine / 1 mois + choix du capteur / resize not working
-* capteur fixe => cf TODO dans js.js
 * Trouver un bon nom pour le "rayon" sur la page export => rayon en norme L1
 * Plusieurs fichiers par capteur
 * Design

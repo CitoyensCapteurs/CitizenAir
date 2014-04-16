@@ -103,6 +103,8 @@ if(isset($_GET['settings'])) {
 
     $tpl->assign('head_title', ' - Préférences');
     $tpl->assign('no_map', true);
+    $tpl->assign('settings', true);
+    $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
 
     if(empty($_SESSION['login'])) {
         if(is_file('password')) {
@@ -177,13 +179,13 @@ if(isset($_GET['settings'])) {
         }
 
         // Add a sensor
-        if(!empty($_POST['sensor']) && !empty($_POST['color']) && isset($_POST['fixed'])) {
+        if(!empty($_POST['sensor']) && !empty($_POST['color'])) {
             $new_key = get_key($api_keys, $_POST['sensor']);
             if(!empty($_POST['key'])) {
                 rename('data/'.$_POST['key'].'.data', 'data/'.$new_key.'.data');
                 unset($api_keys[$_POST['key']]);
             }
-            $api_keys[$new_key] = array('name'=>$_POST['sensor'], 'fixed'=>($_POST['fixed'] == 1), 'color'=>$_POST['color']);
+            $api_keys[$new_key] = array('name'=>$_POST['sensor'], 'color'=>$_POST['color']);
             sort_array($api_keys, 'name');
             file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
             header('location: ?settings=');
