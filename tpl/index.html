@@ -17,41 +17,44 @@ along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.-->
         <div id="toggleLegend">
             <h3><a href="#legend" onclick="event.preventDefault(); toggleLegend(false);">Légende</a></h3>
         </div>
-        <div class="table">
-            <div class="table-caption">
-                <h2>Légende&nbsp;:</h2>
-                <p>Les points de couleur pleine représentent les capteurs en activité. L'opacité des points se réduit en fonction du temps écoulé depuis la mesure.</p>
-            </div>
+        <div class="overflow_container">
+            <div class="table">
+                <div class="table-caption">
+                    <h2>Légende&nbsp;:</h2>
+                    <p>Les points de couleur pleine représentent les capteurs en activité. L'opacité des points se réduit en fonction du temps écoulé depuis la mesure.</p>
+                </div>
 
-            <div class="legend-item">
-                <h3>NO<sub>2</sub></h3>
-                <table>
-                    <tr>
-                        <td>Vert</td>
-                        <td>&lt;110 µg/m<sup>3</sup><br/>Pollution faible</td>
-                    </tr>
-                    <tr>
-                        <td>Orange</td>
-                        <td>Entre 110 et 200 µg/m<sup>3</sup><br/>Pollution moyenne</td>
-                    </tr>
-                    <tr>
-                        <td>Rouge</td>
-                        <td>Entre 200 et 400 µg/m<sup>3</sup><br/>Pollution élevée</td>
-                    </tr>
-                    <tr>
-                        <td>Noir</td>
-                        <td>&gt;400 µg/m<sup>3</sup><br/>Pollution très élevée</td>
-                    </tr>
-                </table>
-                <p><a href="?about=NO2">En savoir plus sur le NO<sub>2</sub></a></p>
+                <div class="legend-item">
+                    <h3>NO<sub>2</sub></h3>
+                    <table>
+                        <tr>
+                            <td>Vert</td>
+                            <td>&lt;110 µg/m<sup>3</sup><br/>Pollution faible</td>
+                        </tr>
+                        <tr>
+                            <td>Orange</td>
+                            <td>Entre 110 et 200 µg/m<sup>3</sup><br/>Pollution moyenne</td>
+                        </tr>
+                        <tr>
+                            <td>Rouge</td>
+                            <td>Entre 200 et 400 µg/m<sup>3</sup><br/>Pollution élevée</td>
+                        </tr>
+                        <tr>
+                            <td>Noir</td>
+                            <td>&gt;400 µg/m<sup>3</sup><br/>Pollution très élevée</td>
+                        </tr>
+                    </table>
+                    <p><a href="?about=NO2">En savoir plus sur le NO<sub>2</sub></a></p>
+                </div>
+                <p class="legend-item center"><a href="index.php" onclick="event.preventDefault(); navigator.geolocation.getCurrentPosition(geolocSuccessFunction, geolocErrorFunction, {enableHighAccuracy:true,  maximumAge:60000, timeout:500});">Voir les capteurs à proximité</a></p>
             </div>
-            <p class="legend-item center"><a href="index.php" onclick="event.preventDefault(); navigator.geolocation.getCurrentPosition(geolocSuccessFunction, geolocErrorFunction, {enableHighAccuracy:true,  maximumAge:60000, timeout:500});">Voir les capteurs à proximité</a></p>
         </div>
     </aside>
     <div id="map">
         <p id="need-js">Vous devez activer JavaScript pour utiliser ce site web.</p>
     </div>
-    <div id="svg_holder">
+    <div id="timeline">
+        <div id="svg_holder"></div>
     </div>
 </main>
 {include="footer"}

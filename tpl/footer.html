@@ -31,4 +31,9 @@ along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.-->
         {if="isset($settings)"}
             <script type="text/javascript" src="js/colorpicker.js"></script>
         {/if}
+        {if="!isset($no_map)"}
+            <script type="text/javascript" src="js/leaflet.js"></script>
+            <script type="text/javascript" src="js/timeline.min.js"></script>
+            <script type="text/javascript" src="js/js.js"></script>
+        {/if}
 </html> 
