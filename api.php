@@ -107,7 +107,7 @@ if($_GET['do'] == 'add' && !empty($_GET['type']) && isset($_GET['value']) && iss
     }
 
     $data = array();
-    if(file_exists('data/'.$_GET['api_key'].'.data')) {
+    if(is_file('data/'.$_GET['api_key'].'.data')) {
         $data = json_decode(gzinflate(file_get_contents('data/'.$_GET['api_key'].'.data')), true);
     }
 
@@ -205,7 +205,7 @@ if($_GET['do'] == 'get') {
     // Fetch data
     $data = array();
     foreach($keys as $key=>$value) {
-        if(file_exists('data/'.$key.'.data')) {
+        if(is_file('data/'.$key.'.data')) {
             $data[$key] = json_decode(gzinflate(file_get_contents('data/'.$key.'.data')), true);
         }
     }
