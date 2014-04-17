@@ -119,7 +119,7 @@ if(isset($_GET['settings'])) {
     else {
         // Delete a measurement
         if($_GET['settings'] == 'delete_measurement' && !empty($_GET['sensor']) && isset($_GET['id'])) {
-            if(is_file('data/'.$_GET['sensor'].'.data')) {
+            if(in_multiarray($api_keys, 'name', $_GET['sensor']) && is_file('data/'.$_GET['sensor'].'.data')) {
                 $measures = json_decode(gzinflate(file_get_contents('data/'.$_GET['sensor'].'.data')), true);
                 if(array_key_exists($_GET['id'], $measures)) {
                     unset($measures[$_GET['id']]);
@@ -181,7 +181,7 @@ if(isset($_GET['settings'])) {
         // Add a sensor
         if(!empty($_POST['sensor']) && !empty($_POST['color'])) {
             $new_key = get_key($api_keys, $_POST['sensor']);
-            if(!empty($_POST['key'])) {
+            if(!empty($_POST['key']) && array_key_exists($_GET['key'], $api_keys)) {
                 rename('data/'.$_POST['key'].'.data', 'data/'.$new_key.'.data');
                 unset($api_keys[$_POST['key']]);
             }
