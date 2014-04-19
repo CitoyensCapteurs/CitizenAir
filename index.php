@@ -337,6 +337,6 @@ elseif(isset($_GET['participez'])) {
 else {
     $tpl->assign('head_title', '');
     $tpl->assign('legend_items', $types);
-    $tpl->assign('credits', '<a title="A JS library for interactive maps" href="http://leafletjs.com">Leaflet</a> | Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC&nbsp;BY&nbsp;SA</a> | <a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteur</a>');
+    $tpl->assign('credits', '<a title="A JS library for interactive maps" href="http://leafletjs.com">Leaflet</a> | Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC&nbsp;BY&nbsp;SA</a> | <a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->draw('index');
 }
