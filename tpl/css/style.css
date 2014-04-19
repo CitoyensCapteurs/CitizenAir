@@ -242,11 +242,13 @@ main.settings {
 }
 
 aside {
-    transition: margin-left: 0.5s ease 0s;
-    -webkit-transition: margin-left: 0.5s ease 0s;
+    transition: margin-left 0.5s ease 0s;
+    -webkit-transition: margin-left 0.5s ease 0s;
+    -o-transition: margin-left 0.5s ease 0s;
     border-right: 3px solid #0E6BB3;
     float: left;
     position: relative;
+    margin-left: -100%;
 }
 
 aside #toggleLegend {
@@ -287,6 +289,9 @@ aside .overflow_container {
 #map {
     text-align: center;
     padding-top: 1em;
+    transition: margin-left 0.5s ease 0s;
+    -webkit-transition: margin-left 0.5s ease 0s;
+    -o-transition: margin-left 0.5s ease 0s;
 }
 
 #map p {

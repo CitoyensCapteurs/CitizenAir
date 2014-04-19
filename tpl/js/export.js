@@ -90,8 +90,8 @@ function selectDay(id, d, m, y, el) {
 }
 
 var just_load = true;
-var curmonth = (new Date()).getMonth() + 1 
-var curyear = (new Date()).getFullYear()
+var curmonth = (new Date()).getMonth() + 1;
+var curyear = (new Date()).getFullYear();
 
 buildCal('time_min_picker', curmonth, curyear, "cal", "mois", "jours_semaine", "jours");
 buildCal('time_max_picker', curmonth, curyear, "cal", "mois", "jours_semaine", "jours");

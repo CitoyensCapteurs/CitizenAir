@@ -39,41 +39,40 @@ if (!Date.now) {
 }
 
 // Function to animate left panel
-// TODO
 function toggleLegend(immediate) {
     var tmp, tmp2;
-    if(e.style.marginLeft == '0px') {
+    if(window.l.style.marginLeft != '0px') {
         if(immediate) {
-            tmp = e.style.transition;
-            window.e.style.transition = 'none';
-            tmp2 = m.style.transition;
-            window.m.style.transition = 'none';
+            tmp = window.l.style.transition;
+            window.l.style.transition = 'none';
+            tmp2 = window.map_element.style.transition;
+            window.map.style.transition = 'none';
         }
-        window.e.style.marginLeft = -e.offsetWidth + 'px';
+        window.l.style.marginLeft = '0px';
         if(live === false) {
-            window.m.style.marginLeft = '0';
+            window.map_element.style.marginLeft = '0';
         }
-        window.location = '#';
+        window.location = '#legend';
         if(immediate) {
-            window.e.style.transition = tmp;
-            window.m.style.transition = tmp2;
+            window.l.style.transition = tmp;
+            window.map_element.style.transition = tmp2;
         }
     }
     else {
         if(immediate) {
-            tmp = e.style.transition;
-            window.e.style.transition = 'none';
-            tmp2 = m.style.transition;
-            window.m.style.transition = 'none';
+            tmp = window.l.style.transition;
+            window.l.style.transition = 'none';
+            tmp2 = window.map_element.style.transition;
+            window.map_element.style.transition = 'none';
         }
-        window.e.style.marginLeft = '0';
+        window.l.style.marginLeft = -Math.max(window.l.querySelector('div.overflow_container').offsetWidth, window.l.querySelector('div.overflow_container').clientWidth || 0)+'px';
         if(live === false) {
-            window.m.style.marginLeft = e.offsetWidth + 'px';
+            window.map_element.style.marginLeft = 0;
         }
-        window.location = '#legend';
+        window.location = '#';
         if(immediate) {
-            window.e.style.transition = tmp;
-            window.m.style.transition = tmp2;
+            window.l.style.transition = tmp;
+            window.map_element.style.transition = tmp2;
         }
     }
 }
@@ -240,7 +239,7 @@ function ajaxResponse(response) {
     var measures = JSON.parse(response);
 
     if(measures.length != 0) {
-        SVG.clearGraph();
+        window.timeline.clearGraph();
         if(window.live === false) {
             // Plot data
             for(var index = 0; index < window.markers.length; index++) {
@@ -264,14 +263,14 @@ function ajaxResponse(response) {
         }
 
         for(var index = 0; index < Math.min(measures.length, 100); index++) { // Afficher les 100 dernières mesures au plus sur la timeline
-            if(!SVG.hasGraph(measures[index].sensor)) {
-                SVG.addGraph(measures[index].sensor, measures[index].color);
+            if(!window.timeline.hasGraph(measures[index].sensor)) {
+                window.timeline.addGraph(measures[index].sensor, measures[index].color);
             }
 
-            SVG.addPoints(measures[index].sensor, {'x': measures[index].timestamp, 'y': measures[index].value, 'label': capitalize(relativeDate(measures[index].timestamp).replace('&nbsp;', ' '))+' : '+measures[index].value+' '+measures[index].unit, 'click': (function(arg) { return function() { window.map.setView([arg.latitude, arg.longitude], 18); }; })(measures[index])});
+            window.timeline.addPoints(measures[index].sensor, {'x': measures[index].timestamp, 'y': measures[index].value, 'label': capitalize(relativeDate(measures[index].timestamp).replace('&nbsp;', ' '))+' : '+measures[index].value+' '+measures[index].unit, 'click': (function(arg) { return function() { window.map.setView([arg.latitude, arg.longitude], 18); }; })(measures[index])});
         }
         if(measures.length > 1) {
-            SVG.draw();
+            window.timeline.draw();
         }
     }
 }
@@ -280,7 +279,6 @@ function ajaxResponse(response) {
 // Initialisation
 // ==============
 
-var isExport = false;
 var markers = new Array();
 var max_radius = new Array();
 var live = false;
@@ -289,8 +287,8 @@ var longitude = 2.35083;
 var block_fitBounds = false;
 
 // Recompute elements height on window resizing
-// TODO
-/*var old = window.onresize || function() {};
+// TODO : Resize du SVG
+var old = window.onresize || function() {};
 window.onresize = function() {
     old();
 
@@ -301,26 +299,16 @@ window.onresize = function() {
     if(typeof(window.e) === 'undefined') {
         window.e = document.getElementById("legend");
     }
-
-    window.header_footer_size = Math.max(document.getElementById('title').offsetHeight, document.getElementById('title').clientHeight || 0) + Math.max(document.getElementById('footer').offsetHeight, document.getElementById('footer').clientHeight || 0);
-    window.m.style.height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - window.header_footer_size - Math.max(document.getElementById('svg_holder').offsetHeight, document.getElementById('svg_holder').clientHeight || 0)+'px';
-
-    if(window.isExport !== false) {
-        // No legend on export page
-        return;
+    if(typeof(window.map_element) === 'undefined') {
+        window.map_element = document.getElementById("map");
     }
 
-    // Resize legend
-    var tmp;
-    if(e.style.marginLeft == '0px') {
-        tmp = m.style.transition;
-        window.m.style.transition = 'none';
-        window.m.style.marginLeft = e.offsetWidth + 'px';
-        window.m.style.transition = tmp;
-    }
+    window.header_footer_size = Math.max(document.getElementsByTagName('header')[0].offsetHeight, document.getElementsByTagName('header')[0].clientHeight || 0) + Math.max(document.getElementsByTagName('footer')[0].offsetHeight, document.getElementsByTagName('footer')[0].clientHeight || 0);
 
-    window.e.style.height = window.m.style.height;
-}*/
+    window.header_footer_size = Math.max(document.getElementsByTagName('header')[0].offsetHeight, document.getElementsByTagName('header')[0].clientHeight || 0) + Math.max(document.getElementsByTagName('footer')[0].offsetHeight, document.getElementsByTagName('footer')[0].clientHeight || 0);
+    window.m.style.height = (Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - window.header_footer_size) + 'px';
+    window.map_element.style.height = Math.max(document.getElementById('legend').offsetHeight, document.getElementById('legend').clientHeight || 0) + 'px';
+}
 
 // Load the page
 old = window.onload || function() {};
@@ -355,34 +343,28 @@ window.onload = function() {
 
     // Init global vars to go in the DOM tree
     window.m = document.getElementsByTagName('main')[0];
-    window.map = document.getElementById('map');
+    window.map_element = document.getElementById('map');
     window.l = document.getElementById("legend");
-
-    window.header_footer_size = Math.max(document.getElementsByTagName('header')[0].offsetHeight, document.getElementsByTagName('header')[0].clientHeight || 0) + Math.max(document.getElementsByTagName('footer')[0].offsetHeight, document.getElementsByTagName('footer')[0].clientHeight || 0);
 
     // Delete "need JS" message
     document.getElementById('need-js').innerHTML = '';
 
-    // Init main height
-    window.m.style.height = (Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - window.header_footer_size) + 'px';
-
     window.m.style.paddingBottom = '0';
     window.l.style.height = '75%';
-    window.map.style.paddingTop = 0;
-    window.map.style.height = Math.max(document.getElementById('legend').offsetHeight, document.getElementById('legend').clientHeight || 0) + 'px';
+    window.l.style.marginLeft = -Math.max(window.l.querySelector('div.overflow_container').offsetWidth, window.l.querySelector('div.overflow_container').clientWidth || 0)+'px';
+    window.map_element.style.paddingTop = 0;
+
+    // Init elements height
+    window.header_footer_size = Math.max(document.getElementsByTagName('header')[0].offsetHeight, document.getElementsByTagName('header')[0].clientHeight || 0) + Math.max(document.getElementsByTagName('footer')[0].offsetHeight, document.getElementsByTagName('footer')[0].clientHeight || 0);
+    window.m.style.height = (Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - window.header_footer_size) + 'px';
+    window.map_element.style.height = Math.max(document.getElementById('legend').offsetHeight, document.getElementById('legend').clientHeight || 0) + 'px';
 
     // Set timeline controls
     document.getElementById('timeline').innerHTML += '<p>Coucou</p>';
 
     // Init timeline
-    SVG.init({'id': 'svg_holder', 'height': (Math.max(window.m.offsetHeight, window.m.clientHeight || 0) - Math.max(window.map.offsetHeight, window.map.clientHeight || 0) - (Math.max(document.getElementById('timeline').offsetHeight, window.document.getElementById('timeline').clientHeight || 0)))+'px', 'width': '100%', 'grid': 'both', 'x_axis': true, 'rounded': false, 'x_callback': false});
+    window.timeline = new Timeline({'id': 'svg_holder', 'height': (Math.max(window.m.offsetHeight, window.m.clientHeight || 0) - Math.max(window.map_element.offsetHeight, window.map_element.clientHeight || 0) - (Math.max(document.getElementById('timeline').offsetHeight, window.document.getElementById('timeline').clientHeight || 0)))+'px', 'width': '100%', 'grid': 'both', 'x_axis': true, 'rounded': false, 'x_callback': false});
     
-    // If export view, nothing more to do
-    if(document.getElementById('exportFormMeasurements')) {
-        window.isExport = true;
-        return;
-    }
-
     // Toggle legend if neeeded
     if(window.location.hash == '#legend') {
         toggleLegend(true);
@@ -416,4 +398,4 @@ window.onload = function() {
 };
 
 // Auto-refresh
-window.setInterval(function() { if(window.isExport === false) { ajaxQuery(); } }, 300000);
+window.setInterval(function() { ajaxQuery(); }, 300000);
