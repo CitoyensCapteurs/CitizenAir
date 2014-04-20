@@ -191,50 +191,48 @@ function capitalize(string) {
 // ==========
 // AJAX query
 // ==========
+var xhr;
+try {  
+    xhr = new XMLHttpRequest();
+}
+catch (e) {
+    try {   
+        xhr = new ActiveXObject('Msxml2.XMLHTTP');
+    }
+    catch (e2) {
+        try {  
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        catch (e3) {  
+            xhr = false;
+        }
+    }
+}
 
 function ajaxQuery() {
-    var xhr;
-    try {  
-        xhr = new XMLHttpRequest();
-    }
-    catch (e) {
-        try {   
-            xhr = new ActiveXObject('Msxml2.XMLHTTP');
-        }
-        catch (e2) {
-            try {  
-                xhr = new ActiveXObject('Microsoft.XMLHTTP');
-            }
-            catch (e3) {  
-                xhr = false;
-            }
-        }
-    }
-
-    if(xhr == false) {
+    if(window.xhr == false) {
         alert("Une erreur a été rencontrée pendant la récupération des mesures. Veuillez réessayer.");
     }
     else {
-        xhr.onreadystatechange = function() {
-            if(xhr.readyState == 4) {
-                if(xhr.status == 200) {
-                    ajaxResponse(xhr.responseText);
+        window.xhr.onreadystatechange = function() {
+            if(window.xhr.readyState == 4) {
+                if(window.xhr.status == 200) {
+                    ajaxResponse(window.xhr.responseText);
                 }
             }
         };
     }
 
     if(live === false) {
-        xhr.open("GET", "api.php?do=get&visu=1",  true);
-        xhr.send();
+        window.xhr.open("GET", "api.php?do=get&visu=1",  true);
+        window.xhr.send();
     }
     else if(live !== '') {
-        xhr.open("GET", "api.php?do=get&visu=1&sensor="+live,  true);
-        xhr.send();
+        window.xhr.open("GET", "api.php?do=get&visu=1&sensor="+live,  true);
+        window.xhr.send();
     }
 }
 
-// TODO
 function ajaxResponse(response) {
     var measures = JSON.parse(response);
 
@@ -393,7 +391,6 @@ window.onload = function() {
         });
     }
 
-    return;
     ajaxQuery();
 };
 
