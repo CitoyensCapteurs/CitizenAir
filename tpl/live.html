@@ -1,0 +1,46 @@
+{*<!--CitizenAir is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+CitizenAir is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.-->
+*}
+{include="header"}
+<main class="full_width">
+    <aside id="legend">
+        <div id="toggleLegend">
+            <h3><a href="#legend" onclick="event.preventDefault(); toggleLegend(false);">Légende</a></h3>
+        </div>
+        <div class="overflow_container">
+            <h2>Choix du capteur&nbsp;:</h2>
+            <ul>
+                {loop="$api_keys"}
+                    <li><a href="?live={function="htmlspecialchars($value['name'])"}">{function="htmlspecialchars($value['name'])"}</a></li>
+                {/loop}
+            </ul>
+        </div>
+    </aside>
+    <div id="map" class="live">
+            <p id="need-js">
+            Vous devez activer JavaScript pour utiliser ce site web.
+            </p>
+            {if="!isset($live)"}
+                <p>Choisissez le capteur à suivre&nbsp;:</p>
+                <ul>
+                    {loop="$api_keys"}
+                        <li><a href="?live={function="htmlspecialchars($value['name'])"}">{function="htmlspecialchars($value['name'])"}</a></li>
+                    {/loop}
+                </ul>
+            {/if}
+    </div>
+    <div id="timeline">
+        <div id="svg_holder"></div>
+    </div>
+</main>
+{include="footer"}

@@ -24,28 +24,30 @@ along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.-->
                     <p>Les points de couleur pleine représentent les capteurs en activité. L'opacité des points se réduit en fonction du temps écoulé depuis la mesure.</p>
                 </div>
 
-                <div class="legend-item">
-                    <h3>NO<sub>2</sub></h3>
-                    <table>
-                        <tr>
-                            <td>Vert</td>
-                            <td>&lt;110 µg/m<sup>3</sup><br/>Pollution faible</td>
-                        </tr>
-                        <tr>
-                            <td>Orange</td>
-                            <td>Entre 110 et 200 µg/m<sup>3</sup><br/>Pollution moyenne</td>
-                        </tr>
-                        <tr>
-                            <td>Rouge</td>
-                            <td>Entre 200 et 400 µg/m<sup>3</sup><br/>Pollution élevée</td>
-                        </tr>
-                        <tr>
-                            <td>Noir</td>
-                            <td>&gt;400 µg/m<sup>3</sup><br/>Pollution très élevée</td>
-                        </tr>
-                    </table>
-                    <p><a href="?about=NO2">En savoir plus sur le NO<sub>2</sub></a></p>
-                </div>
+                {loop="$legend_items"}
+                    <div class="legend-item">
+                        <h2>{$value['name']}</h2>
+                        <table>
+                            <tr>
+                                <td>Vert</td>
+                                <td>&lt;{function="htmlspecialchars($value['threshold_1'])"} {$value['unit']}<br/>Pollution faible</td>
+                            </tr>
+                            <tr>
+                                <td>Orange</td>
+                                <td>Entre {function="htmlspecialchars($value['threshold_1'])"} et {function="htmlspecialchars($value['threshold_2'])"} {$value['unit']}<br/>Pollution moyenne</td>
+                            </tr>
+                            <tr>
+                                <td>Rouge</td>
+                                <td>Entre {function="htmlspecialchars($value['threshold_2'])"} et {function="htmlspecialchars($value['threshold_3'])"} {$value['unit']}<br/>Pollution élevée</td>
+                            </tr>
+                            <tr>
+                                <td>Noir</td>
+                                <td>&gt;{function="htmlspecialchars($value['threshold_3'])"} {$value['unit']}<br/>Pollution très élevée</td>
+                            </tr>
+                        </table>
+                        <p><a href="?about={$key}">En savoir plus sur le {$value['name']}</a></p>
+                    </div>
+                {/loop}
                 <p class="legend-item center"><a href="index.php" onclick="event.preventDefault(); navigator.geolocation.getCurrentPosition(geolocSuccessFunction, geolocErrorFunction, {enableHighAccuracy:true,  maximumAge:60000, timeout:500});">Voir les capteurs à proximité</a></p>
             </div>
         </div>
