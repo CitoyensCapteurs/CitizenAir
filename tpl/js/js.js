@@ -288,7 +288,6 @@ function sleep(milliseconds) {
 function responsiveMenu() {
     if(document.getElementById('menu-list').style.marginTop != '0px') {
         document.getElementById('menu-list').style.transition = 'margin-top 1s linear';
-        document.getElementById('menu-list').style.-webkitTransition = 'margin-top 1s linear';
         document.getElementById('menu-list').style.marginTop = '0';
     }
     else {
