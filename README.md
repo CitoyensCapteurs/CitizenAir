@@ -154,9 +154,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ### Pour plus d'infos sur le dev, voir le fichier `humans.txt`
 
 ## TODO v2
+* resize timeline
+* menu responsive => par-dessus :/ + display none
+* capteurs
 
-* timeline : 1 jour / 1 semaine / 1 mois + choix du capteur / resize not working
-* Trouver un bon nom pour le "rayon" sur la page export => rayon en norme L1
+* timeline : 1 jour / 1 semaine / 1 mois
+* timeline : choix du capteur
 * Plusieurs fichiers par capteur
-* Design
-* Minifier

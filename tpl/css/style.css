@@ -144,6 +144,7 @@ header {
     background-color: #56acf1;
     color: white;
     border-bottom: 3px solid #0e6bb3;
+    overflow: hidden;
 }
 
 header a:link, header a:visited, header a:hover, header a:active {
@@ -199,6 +200,10 @@ nav li {
     padding-top: 8px;
     padding-bottom: 8px;
     list-style: none;
+}
+
+nav .responsive {
+    display: none;
 }
 
 main {
@@ -366,4 +371,56 @@ footer a:link, footer a:visited, footer a:hover, footer a:active {
 
 footer p {
     margin-right: 1em;
+}
+
+
+@media(max-width: 700px) {
+    nav ul {
+        border: none;
+        background-color: #333;
+        float: none;
+        margin: auto;
+        height: auto;
+        position: absolute;
+        z-index: 10000;
+        width: 7em;
+        right: 0;
+        border-left: 3px solid #0e6bb3;
+        border-bottom: 3px solid #0e6bb3;
+        margin-top: -100vh;
+    }
+
+    nav img {
+        max-height: 2em;
+        max-width: 2em;
+        vertical-align: middle;
+    }
+
+    nav li {
+        display: block;
+        float: none;
+        height: auto;
+        border: none;
+    }
+
+    nav li:hover {
+        background-color: #0E6BB3;
+    }
+
+    nav .responsive {
+        display: block;
+        margin: 8px;
+        line-height: 2em;
+        margin-right: 0.5em;
+        padding: 0;
+        height: 100%;
+        margin-right: 2.5em;
+    }
+}
+
+@media(min-width: 700px) {
+    nav ul {
+        transition: none;
+        margin-top: 0;
+    }
 }

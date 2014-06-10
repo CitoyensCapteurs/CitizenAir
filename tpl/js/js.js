@@ -273,6 +273,30 @@ function ajaxResponse(response) {
     }
 }
 
+// ===============
+// Responsive menu
+// ===============
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
+function responsiveMenu() {
+    if(document.getElementById('menu-list').style.marginTop != '0px') {
+        document.getElementById('menu-list').style.transition = 'margin-top 1s linear';
+        document.getElementById('menu-list').style.-webkitTransition = 'margin-top 1s linear';
+        document.getElementById('menu-list').style.marginTop = '0';
+    }
+    else {
+        document.getElementById('menu-list').style.marginTop = '-100vh';
+    }
+    return false;
+}
+
 // ==============
 // Initialisation
 // ==============
