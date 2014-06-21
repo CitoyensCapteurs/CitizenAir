@@ -248,7 +248,7 @@ if(isset($_GET['settings'])) {
             $tpl->assign('type_id', $_GET['id']);
         }
 
-        $tpl->assign('secret/api_keys', $api_keys);
+        $tpl->assign('api_keys', $api_keys);
         $tpl->assign('types', $types);
 
         $data = [];
@@ -288,7 +288,7 @@ if(isset($_GET['settings'])) {
 /* Live view */
 elseif(isset($_GET['live'])) {
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
-    $tpl->assign('secret/api_keys', $api_keys);
+    $tpl->assign('api_keys', $api_keys);
 
     if(in_multiarray($api_keys, 'name', $_GET['live'])) {
         $live = htmlspecialchars($_GET['live']);
@@ -306,7 +306,7 @@ elseif(isset($_GET['export'])) {
     $tpl->assign('head_title', ' - Export');
     $tpl->assign('credits', 'Nominatim Search Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> <img src="tpl/img/mq.png"> | <a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->assign('no_map', true);
-    $tpl->assign('secret/api_keys', $api_keys);
+    $tpl->assign('api_keys', $api_keys);
     $tpl->assign('types', $types);
     $tpl->assign('export', true);
     $tpl->draw('export');
