@@ -31,7 +31,7 @@ function br2nl($string)
     return str_replace('<br />', "\n", $string);
 }
 
-if((!is_file('api.keys') || !is_file('data/types.data')) && !isset($_GET['settings'])) {
+if((!is_file('secret/api.keys') || !is_file('data/types.data')) && !isset($_GET['settings'])) {
     header('location: ?settings=');
     exit();
 }
@@ -41,8 +41,8 @@ raintpl::$tpl_dir = 'tpl/';
 raintpl::$cache_dir = 'tmp/';
 $tpl = new raintpl();
 
-if(is_file('api.keys')) {
-    $api_keys = json_decode(gzinflate(file_get_contents('api.keys')), true);
+if(is_file('secret/api.keys')) {
+    $api_keys = json_decode(gzinflate(file_get_contents('secret/api.keys')), true);
 }
 else {
     $api_keys = array();
@@ -64,12 +64,12 @@ if(isset($_GET['settings'])) {
     }
 
     if(!empty($_POST['password'])) {
-        if(is_file('password') && file_get_contents('password') == sha1($_POST['password'])) {
+        if(is_file('secret/password') && file_get_contents('secret/password') == sha1($_POST['password'])) {
             $_SESSION['login'] = true;
             header('location: ?settings=');
         }
-        elseif(!is_file('password')) {
-            file_put_contents('password', sha1($_POST['password']));
+        elseif(!is_file('secret/password')) {
+            file_put_contents('secret/password', sha1($_POST['password']));
             $_SESSION['login'] = true;
             header('location: ?settings=');
         }
@@ -80,7 +80,7 @@ if(isset($_GET['settings'])) {
     $tpl->assign('menu', '<a href="index.php">Carte</a> | <a href="?live=">Capteur en live</a> | <a href="?export=">Export</a> | <a href="?about=">À propos</a> | <a href="?participez=">Participez&nbsp;!</a>');
 
     if(empty($_SESSION['login'])) {
-        if(is_file('password')) {
+        if(is_file('secret/password')) {
             $tpl->assign('configured', 1);
         }
         else {
@@ -110,7 +110,7 @@ if(isset($_GET['settings'])) {
         if($_GET['settings'] == 'delete_device' && !empty($_GET['key'])) {
             if(array_key_exists($_GET['key'], $api_keys)) {
                 unset($api_keys[$_GET['key']]);
-                file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
+                file_put_contents('secret/api.keys', gzdeflate(json_encode($api_keys)));
 
                 if(is_file('data/'.$_GET['key'].'.data')) {
                     unlink('data/'.$_GET['key'].'.data');
@@ -155,7 +155,7 @@ if(isset($_GET['settings'])) {
                 unset($api_keys[$_POST['key']]);
             }
             $api_keys[$new_key] = $_POST['device'];
-            file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
+            file_put_contents('secret/api.keys', gzdeflate(json_encode($api_keys)));
             header('location: ?settings=');
             exit();
         }
