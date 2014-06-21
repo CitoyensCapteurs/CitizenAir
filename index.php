@@ -59,13 +59,13 @@ function sort_array(&$array, $key, $order=SORT_DESC) {
 
 
 /* Config test and define keys and types */
-if((!is_file('api.keys') || !is_file('data/types.data')) && !isset($_GET['settings'])) {
+if((!is_file('secret/api.keys') || !is_file('data/types.data')) && !isset($_GET['settings'])) {
     header('location: ?settings=');
     exit();
 }
 
-if(is_file('api.keys')) {
-    $api_keys = json_decode(gzinflate(file_get_contents('api.keys')), true);
+if(is_file('secret/api.keys')) {
+    $api_keys = json_decode(gzinflate(file_get_contents('secret/api.keys')), true);
 }
 else {
     $api_keys = array();
@@ -90,12 +90,12 @@ if(isset($_GET['settings'])) {
 
     // Connection / Password initialization
     if(!empty($_POST['password'])) {
-        if(is_file('password') && file_get_contents('password') == sha1($_POST['password'])) {
+        if(is_file('secret/password') && file_get_contents('secret/password') == sha1($_POST['password'])) {
             $_SESSION['login'] = true;
             header('location: ?settings=');
         }
-        elseif(!is_file('password')) {
-            file_put_contents('password', sha1($_POST['password']));
+        elseif(!is_file('secret/password')) {
+            file_put_contents('secret/password', sha1($_POST['password']));
             $_SESSION['login'] = true;
             header('location: ?settings=');
         }
@@ -139,7 +139,7 @@ if(isset($_GET['settings'])) {
         if($_GET['settings'] == 'delete_sensor' && !empty($_GET['key'])) {
             if(array_key_exists($_GET['key'], $api_keys)) {
                 unset($api_keys[$_GET['key']]);
-                file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
+                file_put_contents('secret/api.keys', gzdeflate(json_encode($api_keys)));
 
                 if(is_file('data/'.$_GET['key'].'.data')) {
                     unlink('data/'.$_GET['key'].'.data');
@@ -187,7 +187,7 @@ if(isset($_GET['settings'])) {
             }
             $api_keys[$new_key] = array('name'=>$_POST['sensor'], 'color'=>$_POST['color']);
             sort_array($api_keys, 'name');
-            file_put_contents('api.keys', gzdeflate(json_encode($api_keys)));
+            file_put_contents('secret/api.keys', gzdeflate(json_encode($api_keys)));
             header('location: ?settings=');
             exit();
         }
@@ -248,7 +248,7 @@ if(isset($_GET['settings'])) {
             $tpl->assign('type_id', $_GET['id']);
         }
 
-        $tpl->assign('api_keys', $api_keys);
+        $tpl->assign('secret/api_keys', $api_keys);
         $tpl->assign('types', $types);
 
         $data = [];
@@ -288,7 +288,7 @@ if(isset($_GET['settings'])) {
 /* Live view */
 elseif(isset($_GET['live'])) {
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
-    $tpl->assign('api_keys', $api_keys);
+    $tpl->assign('secret/api_keys', $api_keys);
 
     if(in_multiarray($api_keys, 'name', $_GET['live'])) {
         $live = htmlspecialchars($_GET['live']);
@@ -306,7 +306,7 @@ elseif(isset($_GET['export'])) {
     $tpl->assign('head_title', ' - Export');
     $tpl->assign('credits', 'Nominatim Search Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> <img src="tpl/img/mq.png"> | <a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
     $tpl->assign('no_map', true);
-    $tpl->assign('api_keys', $api_keys);
+    $tpl->assign('secret/api_keys', $api_keys);
     $tpl->assign('types', $types);
     $tpl->assign('export', true);
     $tpl->draw('export');

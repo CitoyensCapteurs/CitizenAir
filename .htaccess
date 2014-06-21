@@ -1,13 +1,1 @@
 Options -Indexes
-
-<Files "api.keys">  
-    Order Deny,Allow
-    Deny from All
-</Files>
-
-#<Files "settings.php">  
-#    AuthUserFile .htpasswd
-#    AuthType Basic
-#    AuthName "Configuration de l'instance"
-#    Require valid-user
-#</Files>

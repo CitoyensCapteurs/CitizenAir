@@ -157,6 +157,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * resize timeline
 * menu responsive => par-dessus :/ + display none
 * capteurs
+* salt
 
 * timeline : 1 jour / 1 semaine / 1 mois
 * timeline : choix du capteur

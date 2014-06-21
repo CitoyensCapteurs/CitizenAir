@@ -15,12 +15,12 @@
  * along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if(!is_file('data/types.data') || !is_file('api.keys')) {
+if(!is_file('data/types.data') || !is_file('secret/api.keys')) {
     header('HTTP/1.1 400 Bad Request');
     exit();
 }
 $types = json_decode(gzinflate(file_get_contents('data/types.data')), true);
-$api_keys = json_decode(gzinflate(file_get_contents('api.keys')), true);
+$api_keys = json_decode(gzinflate(file_get_contents('secret/api.keys')), true);
 
 class filterMeasurements {
     private $types, $visu;
