@@ -15,10 +15,12 @@
  * along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+$used_tpl = "design_v2";
+
 /* Functions */
 date_default_timezone_set('Europe/Paris');
 require_once('rain.tpl.class.php');
-raintpl::$tpl_dir = 'tpl/';
+raintpl::$tpl_dir = 'tpl/'.$used_tpl.'/';
 raintpl::$cache_dir = 'tmp/';
 $tpl = new raintpl();
 
