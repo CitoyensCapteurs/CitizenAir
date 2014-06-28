@@ -1,22 +1,22 @@
 <?php
-/* 
+/*
  * This file is part of CitizenAir.
  * CitizenAir is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * CitizenAir is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* Functions */
-date_default_timezone_set('Europe/Paris'); 
+date_default_timezone_set('Europe/Paris');
 require_once('rain.tpl.class.php');
 raintpl::$tpl_dir = 'tpl/';
 raintpl::$cache_dir = 'tmp/';
@@ -107,7 +107,7 @@ if(isset($_GET['settings'])) {
     $tpl->assign('credits', '<a href="http://www.citoyenscapteurs.net/">Citoyens&nbsp;Capteurs</a>');
 
     if(empty($_SESSION['login'])) {
-        if(is_file('password')) {
+        if(is_file('secret/password')) {
             $tpl->assign('configured', 1);
         }
         else {
@@ -276,7 +276,7 @@ if(isset($_GET['settings'])) {
                 $sort_values[$key2] = $entry['value'];
             }
 
-            // Sort by types and then by values 
+            // Sort by types and then by values
             array_multisort($sort_types, SORT_ASC, $sort_values, (strtolower($_GET['order']) == 'asc') ? SORT_ASC : SORT_DESC, $data);
         }
 
