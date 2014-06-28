@@ -1,0 +1,259 @@
+/* 
+ * This file is part of CitizenAir.
+ * CitizenAir is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * CitizenAir is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with CitizenAir.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+html {
+    text-align: center;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    color: #333;
+}
+
+html, body {
+    margin: 0;
+}
+
+.center {
+    text-align: center;
+}
+
+.table-caption {
+    display: table-caption;
+    margin: 0.5em;
+}
+
+a:link, a:visited, a:hover, a:active {
+    color: #EEE;
+}
+
+.black_links a:link, .black_links a:visited, .black_links a:hover, .black_links a:active {
+    color: #333;
+}
+
+li {
+    list-style-type: none;
+}
+
+textarea {
+    width: 50%;
+    min-height: 12em;
+}
+
+header {
+    color: #EEE;
+}
+
+h1 {
+    background-color: #662c90;
+    margin: 0;
+    padding: 0.5em;
+    font-size: 1.5em;
+}
+
+h1 a {
+    text-decoration: none;
+}
+
+.left {
+    text-align: left;
+    float: left;
+}
+
+header .left {
+    margin-left: 1em;
+}
+
+#main {
+    padding-bottom: 1em;
+}
+
+#map {
+    height: 450px;
+    transition: margin-left 0.5s ease 0s;
+}
+
+#map a:link, #map a:visited, #map a:hover, #map a:active {
+    color: #575757;
+}
+
+.leaflet-popup-content {
+    font-size: 1.5em;
+}
+
+#svg_holder {
+    height: 25%;
+    width: 100%;
+    background-color: #333;
+}
+
+@media screen and (max-width: 800px) {
+    #svg_holder {
+        height: 0%;
+        display: none;
+    }
+}
+
+@media screen and (max-height: 600px) {
+    #svg_holder {
+        height: 0%;
+        display: none;
+    }
+}
+
+
+#legend {
+    transition: margin-left 0.5s ease 0s;
+    height: 100%;
+    overflow-y: auto;
+    margin-left: -100%;
+    border-right: 1px solid black;
+    color: #333;
+}
+
+#legend .table {
+    display: table;
+}
+
+#legend h2 {
+    margin-bottom: 0.1em;
+    text-align: left;
+    margin-left: 0.5em;
+    margin-right: 0.6em;
+}
+
+#legend > h2:first-child {
+    text-align: center;
+    text-decoration: underline;
+}
+
+#legend table {
+    border-collapse: collapse;
+}
+
+#legend td {
+    padding: 0.25em;
+    border: 1px solid grey;
+}
+
+#legend li {
+    font-size: 1.5em;
+    list-style-type: square;
+}
+
+.legend-item {
+    display: table-row;
+}
+
+.legend-item > * {
+    margin-left: 0.5em;
+    margin-right: 0.6em;
+    margin-bottom: 0.5em;
+}
+
+p.legend-item {
+    margin-top: 2em;
+}
+
+.leaflet-control-attribution {
+    display: none;
+}
+
+footer {
+    background-color: black;
+    color: #EEE;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+footer p {
+    margin: 0;
+    padding: 0.4em;
+    font-size: 0.7em;
+    text-align: right;
+}
+
+.settings * {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.settings h2 {
+    background-color: #662c90;
+    color: #EEE;
+    padding: 0.5em;
+    width: 50%;
+    margin-top: 1em;
+}
+
+.settings table {
+    border-collapse: collapse;
+}
+
+.settings table td {
+    border-top: 1px solid black;
+}
+
+.settings table td:not(:last-child), .settings table th:not(:last-child)  {
+    border-right: 1px solid black;
+}
+
+.settings table td, .settings table th {
+    padding: 0.5em;
+}
+
+.settings label {
+    display: block;
+}
+
+.settings table tr:not(:first-child):hover {
+    background-color: rgba(102, 44, 144, 0.6);
+}
+
+.live {
+    display: table;
+    margin: auto;
+    font-size: 3em;
+    font-size: 10vh;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 2em;
+}
+
+.table {
+    margin: 0;
+    display: table-cell;
+}
+
+#export_form, #about {
+    width: 66%;
+    margin: auto;
+    margin-top: 1em;
+    text-align: left;
+}
+
+#about li {
+    list-style-type: square;
+}
+
+.contact_e-mail:after {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    content: "tcatnoc";
+}
+.contact_e-mail:before {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    content: "ten.sruetpacsneyotic";
+}
